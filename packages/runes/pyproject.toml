@@ -1,0 +1,17 @@
+[project]
+name = "runes"
+version = "0.1.0"
+description = "Fundamental data structures from scratch"
+readme = "README.md"
+authors = [
+    { name = "Ada", email = "adanoelleyoung@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+runes = "runes:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

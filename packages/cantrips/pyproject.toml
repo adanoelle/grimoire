@@ -1,0 +1,14 @@
+[project]
+name = "cantrips"
+version = "0.1.0"
+description = "Leetcode problem solutions"
+readme = "README.md"
+authors = [
+    { name = "Ada", email = "adanoelleyoung@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
