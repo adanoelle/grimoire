@@ -1,0 +1,15 @@
+<svg width="400" height="60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;display=swap');
+      .title-text {
+        font-family: 'UnifrakturMaguntia', 'Canterbury', 'Old English Text MT', serif;
+        font-size: 48px;
+        font-weight: normal;
+        fill: #2d1b3d;
+        letter-spacing: 2px;
+      }
+    </style>
+  </defs>
+  <text x="50%" y="70%" text-anchor="middle" class="title-text">GRIMOIRE</text>
+</svg>
