@@ -129,3 +129,157 @@ test-stack problem: (test "stacks_queues" problem)
 test-tree problem: (test "trees_graphs" problem)
 test-heap problem: (test "heaps" problem)
 test-greedy problem: (test "greedy" problem)
+
+# ============================================================================
+# Systems Design (Incantations)
+# ============================================================================
+# Commands for systems design practice and implementation
+
+# Create a new fundamental systems concept
+# Example: just fundamental lru-cache
+fundamental name:
+    @./scripts/new-fundamental.sh {{name}}
+
+# Create a new system design
+# Example: just design url-shortener
+design name:
+    @./scripts/new-design.sh {{name}}
+
+# List all fundamentals
+fundamentals:
+    @echo "Fundamental concepts:"
+    @ls -1 packages/incantations/src/incantations/fundamentals 2>/dev/null | grep -v "^__" | sed 's/\.py$//' | sed 's/^/  - /' || echo "  (none yet)"
+
+# List all system designs
+designs:
+    @echo "System designs:"
+    @ls -1 packages/incantations/src/incantations/designs 2>/dev/null | grep -v "^__" | sed 's/\.py$//' | sed 's/^/  - /' || echo "  (none yet)"
+
+# Run a fundamental concept (if it has __main__ block)
+# Example: just run-fundamental lru_cache
+run-fundamental name:
+    @uv run python packages/incantations/src/incantations/fundamentals/{{name}}.py
+
+# Run a system design (if it has __main__ block)
+# Example: just run-design url_shortener
+run-design name:
+    @uv run python packages/incantations/src/incantations/designs/{{name}}.py
+
+# ============================================================================
+# Progress Tracking
+# ============================================================================
+# Git-based progress tracking and accountability
+
+# Show today's commits and progress
+today:
+    @echo "📊 Today's Progress:"
+    @echo ""
+    @git log --oneline --since="1 day ago" --no-merges || echo "No commits today yet"
+    @echo ""
+    @echo "DSA commits: $(git log --oneline --since='1 day ago' --grep='cantrips' --no-merges | wc -l | tr -d ' ')"
+    @echo "Systems commits: $(git log --oneline --since='1 day ago' --grep='incantations' --no-merges | wc -l | tr -d ' ')"
+
+# Show this week's progress
+week:
+    @./scripts/weekly-report.sh
+
+# Show overall sprint progress (requires sprint start date)
+# Example: just sprint 2024-12-20
+sprint start-date:
+    @./scripts/sprint-report.sh {{start-date}}
+
+# Quick status check
+status:
+    @echo "Current status:"
+    @git status --short
+    @echo ""
+    @echo "Recent work:"
+    @git log --oneline -5
+
+# ============================================================================
+# Git Workflow Helpers
+# ============================================================================
+# Streamlined git operations for study workflow
+
+# Interactive commit helper with smart message generation
+commit:
+    @./scripts/commit-helper.sh
+
+# Quick commit for DSA work (auto-detect files and generate message)
+commit-dsa:
+    @echo "Committing DSA work..."
+    @git add packages/cantrips/
+    @./scripts/commit-helper.sh
+
+# Quick commit for systems work (auto-detect files and generate message)
+commit-systems:
+    @echo "Committing systems design work..."
+    @git add packages/incantations/
+    @./scripts/commit-helper.sh
+
+# Show git log with nice formatting
+log:
+    @git log --oneline --graph --decorate -20
+
+# Show what changed today
+diff-today:
+    @git diff --stat @{1.day.ago}..HEAD
+
+# ============================================================================
+# Session Management
+# ============================================================================
+# Daily study session helpers
+
+# Start a study session (morning kickoff)
+start:
+    @echo "🔮 Starting study session..."
+    @echo ""
+    @just today
+    @echo ""
+    @echo "Ready to work! Use 'just check-in' anytime to see progress."
+
+# Quick check-in during study session
+check-in:
+    @just today
+
+# End of day review
+review:
+    @echo "📝 Daily Review:"
+    @echo ""
+    @just today
+    @echo ""
+    @just status
+    @echo ""
+    @echo "Don't forget to commit your work if you haven't already!"
+
+# Sunday weekly review
+weekly:
+    @just week
+
+# ============================================================================
+# Quick Workflows
+# ============================================================================
+# Common multi-step workflows combined
+
+# Create and test a cantrip in one go (opens editor, then prompts for test)
+# Example: just work-array reverse_string
+work-array problem:
+    @just cantrip-array {{problem}}
+    @echo ""
+    @echo "When ready to test, run: just test-array {{problem}}"
+
+work-hash problem:
+    @just cantrip-hash {{problem}}
+    @echo ""
+    @echo "When ready to test, run: just test-hash {{problem}}"
+
+work-linked problem:
+    @just cantrip-linked {{problem}}
+    @echo ""
+    @echo "When ready to test, run: just test-linked {{problem}}"
+
+# Clean up Python cache files
+clean:
+    @find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    @find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
+    @echo "✅ Cleaned up Python cache files"
