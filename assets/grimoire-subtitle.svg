@@ -11,9 +11,9 @@
       }
     </style>
   </defs>
-  <text x="50" y="25" text-anchor="start" class="manuscript-text" pointer-events="none">
-    <tspan x="50" dy="0">A structured workspace for interview preparation</tspan>
-    <tspan x="50" dy="24">through hands-on implementation of data structures,</tspan>
-    <tspan x="50" dy="24">algorithms, and LeetCode problems.</tspan>
+  <text x="85" y="25" text-anchor="start" class="manuscript-text" pointer-events="none">
+    <tspan x="85" dy="0">A structured workspace for interview preparation</tspan>
+    <tspan x="85" dy="24">through hands-on implementation of data structures,</tspan>
+    <tspan x="85" dy="24">algorithms, and LeetCode problems.</tspan>
   </text>
 </svg>
