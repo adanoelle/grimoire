@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/grimoire-subtitle.svg" alt="A structured workspace for interview preparation" width="600">
+  <img src="assets/grimoire-subtitle.svg" alt="A structured workspace for interview preparation" width="650">
 </p>
 
 <hr>
