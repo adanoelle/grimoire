@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/grimoire.gif" alt="Grimoire" width="300">
+  <img src="assets/grimoire.gif" alt="Grimoire" width="100">
 </p>
 
 # Grimoire
