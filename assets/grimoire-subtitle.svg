@@ -2,7 +2,7 @@
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&amp;display=swap');
-      .opening-text {
+      .manuscript-text {
         font-family: 'Playfair Display', Georgia, serif;
         font-size: 17px;
         font-weight: 400;
@@ -11,9 +11,9 @@
       }
     </style>
   </defs>
-  <text x="325" y="25" text-anchor="middle" class="opening-text" pointer-events="none">
-    <tspan x="325" dy="0">A structured workspace for interview preparation</tspan>
-    <tspan x="325" dy="24">through hands-on implementation of data structures,</tspan>
-    <tspan x="325" dy="24">algorithms, and LeetCode problems.</tspan>
+  <text x="50" y="25" text-anchor="start" class="manuscript-text" pointer-events="none">
+    <tspan x="50" dy="0">A structured workspace for interview preparation</tspan>
+    <tspan x="50" dy="24">through hands-on implementation of data structures,</tspan>
+    <tspan x="50" dy="24">algorithms, and LeetCode problems.</tspan>
   </text>
 </svg>
