@@ -75,10 +75,12 @@
               bash ./scripts/setup-git-workflow.sh 2>/dev/null || true
             fi
 
-            # Install Claude Code if not already installed
-            if ! command -v claude &> /dev/null; then
+            # Install Claude Code if not already installed (skip in CI)
+            if ! command -v claude &> /dev/null && [ -z "$CI" ]; then
               echo -e "''${GREEN}→''${NC} Installing Claude Code CLI..."
               npm install -g @anthropic-ai/claude-code@latest
+            elif [ -n "$CI" ]; then
+              echo -e "''${GREEN}→''${NC} Claude Code CLI (skipped in CI)"
             else
               echo -e "''${GREEN}→''${NC} Claude Code CLI ready"
             fi

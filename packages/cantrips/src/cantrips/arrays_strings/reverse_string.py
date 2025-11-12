@@ -58,12 +58,12 @@ TEST_CASES = [
     (
         ["h", "e", "l", "l", "o"],
         ["o", "l", "l", "e", "h"],
-        "example 1: basic odd-length string"
+        "example 1: basic odd-length string",
     ),
     (
         ["H", "a", "n", "n", "a", "h"],
         ["h", "a", "n", "n", "a", "H"],
-        "example 2: even-length palindrome name"
+        "example 2: even-length palindrome name",
     ),
     (["a"], ["a"], "edge: single character"),
     (["a", "b"], ["b", "a"], "edge: two characters"),
