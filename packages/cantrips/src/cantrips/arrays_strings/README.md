@@ -137,7 +137,8 @@ repeating characters
 
 ### What I learned
 
-- Two pointers technique moving from opposite ends is perfect for reversing/palindrome problems
+- Two pointers technique moving from opposite ends is perfect for
+  reversing/palindrome problems
 - In-place array modifications can achieve O(1) space complexity
 - Python's tuple unpacking allows swapping without temporary variables
 

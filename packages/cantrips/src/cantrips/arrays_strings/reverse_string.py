@@ -31,27 +31,26 @@ import pytest
 from typing import List
 
 
-class Solution:
-    def reverseString(self, s: List[str]) -> None:
-        """Reverse a string in-place using the two-pointer technique.
+def reverse_string(s: List[str]) -> None:
+    """Reverse a string in-place using the two-pointer technique.
 
-        Args:
-            s: List of characters to reverse (modified in-place)
+    Args:
+        s: List of characters to reverse (modified in-place)
 
-        Returns:
-            The reversed list (same object as input)
-        """
-        start = 0
-        end = len(s) - 1
+    Returns:
+        The reversed list (same object as input)
+    """
+    start = 0
+    end = len(s) - 1
 
-        while start < end:
-            tmp = s[start]
-            s[start] = s[end]
-            s[end] = tmp
-            start += 1
-            end -= 1
+    while start < end:
+        tmp = s[start]
+        s[start] = s[end]
+        s[end] = tmp
+        start += 1
+        end -= 1
 
-        return s
+    return s
 
 
 TEST_CASES = [
@@ -74,8 +73,7 @@ TEST_CASES = [
 @pytest.mark.parametrize("input_data,expected,description", TEST_CASES)
 def test_reverse_string(input_data, expected, description):
     """Test reverse string with all cases from TEST_CASES."""
-    sol = Solution()
-    assert sol.reverseString(input_data) == expected, description
+    assert reverse_string(input_data) == expected, description
 
 
 if __name__ == "__main__":

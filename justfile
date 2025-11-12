@@ -11,15 +11,17 @@
 # Common Workflows:
 # ------------------
 # Create and test a problem:
-#   just cantrip-array reverse_string
-#   # ... implement solution ...
-#   just test-array reverse_string
+# 
+# just cantrip-array reverse_string
+# # ... implement solution ...
+# just test-array reverse_string
 #
 # Test all problems in a topic:
-#   just test-topic arrays_strings
+# 
+# just test-topic arrays_strings
 #
 # Run all tests:
-#   just test-all
+# just test-all
 
 # ============================================================================
 # Main Commands
@@ -34,6 +36,7 @@ help:
     @echo "Grimoire - Interview Prep Workflow"
     @echo ""
     @echo "Quick Start:"
+    @echo ""
     @echo "  1. View all commands:        just"
     @echo "  2. Create a new problem:     just cantrip-array <problem_name>"
     @echo "  3. Implement your solution in the opened file"
@@ -41,14 +44,19 @@ help:
     @echo "  5. View available topics:    just topics"
     @echo ""
     @echo "Common Workflows:"
-    @echo "  Create and test:    just cantrip-array reverse_string"
-    @echo "                      # ... implement solution ..."
-    @echo "                      just test-array reverse_string"
     @echo ""
-    @echo "  Test a topic:       just test-topic arrays_strings"
+    @echo "Create and test:"
+    @echo "  just cantrip-array reverse_string"                   
+    @echo "  # ... implement solution ..."
+    @echo "  just test-array reverse_string"
+    @echo ""
+    @echo "Test a topic:"
+    @echo ""
+    @echo "  just test-topic arrays_strings"
     @echo "  Test everything:    just test-all"
     @echo ""
     @echo "Available topic shortcuts:"
+    @echo ""
     @echo "  cantrip-array, cantrip-hash, cantrip-linked, cantrip-stack,"
     @echo "  cantrip-tree, cantrip-heap, cantrip-greedy"
     @echo ""
