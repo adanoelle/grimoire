@@ -1,0 +1,85 @@
+name: Weekly Progress Report
+
+on:
+  schedule:
+    # Every Sunday at 8:00 PM UTC (adjust for your timezone)
+    - cron: '0 20 * * 0'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  generate-report:
+    name: Generate Weekly Progress Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need full history for git log analysis
+
+      - name: Generate week number
+        id: week
+        run: |
+          YEAR=$(date +%Y)
+          WEEK=$(date +%U)
+          echo "year=$YEAR" >> $GITHUB_OUTPUT
+          echo "week=$WEEK" >> $GITHUB_OUTPUT
+          echo "filename=${YEAR}-W${WEEK}.md" >> $GITHUB_OUTPUT
+          echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      - name: Run weekly report script
+        id: report
+        run: |
+          chmod +x ./scripts/weekly-report.sh
+          REPORT_OUTPUT=$(./scripts/weekly-report.sh)
+
+          # Save report to file
+          mkdir -p progress/weekly
+          echo "# Week ${{ steps.week.outputs.week }} - ${{ steps.week.outputs.date }}" > progress/weekly/${{ steps.week.outputs.filename }}
+          echo "" >> progress/weekly/${{ steps.week.outputs.filename }}
+          echo "$REPORT_OUTPUT" >> progress/weekly/${{ steps.week.outputs.filename }}
+
+          # Also save for GitHub issue (with emoji and formatting)
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          echo "$REPORT_OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Commit progress report
+        run: |
+          git config user.name "grimoire-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add progress/weekly/${{ steps.week.outputs.filename }}
+          git commit -m "docs(progress): add weekly report for week ${{ steps.week.outputs.week }}" || echo "No changes to commit"
+          git push
+
+      - name: Create GitHub issue with report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const report = `${{ steps.report.outputs.report }}`;
+            const week = '${{ steps.week.outputs.week }}';
+            const date = '${{ steps.week.outputs.date }}';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Week ${week} Progress Report (${date})`,
+              body: `## 🔮 Weekly Progress Report\n\n${report}\n\n---\n\n*Automatically generated every Sunday. View all reports in [\`progress/weekly/\`](../tree/main/progress/weekly)*`,
+              labels: ['progress-tracker', 'weekly-report']
+            });
+
+      - name: Generate summary
+        run: |
+          echo "### 📊 Weekly Report Generated! 🔮" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Week:** ${{ steps.week.outputs.week }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** ${{ steps.week.outputs.date }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Report saved to: \`progress/weekly/${{ steps.week.outputs.filename }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "✅ GitHub issue created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Keep up the great work! 📖✨" >> $GITHUB_STEP_SUMMARY
