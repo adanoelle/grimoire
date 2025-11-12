@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/grimoire.gif" alt="Grimoire" width="600">
+</p>
+
 # Grimoire
 
 A structured workspace for interview preparation through hands-on implementation of
