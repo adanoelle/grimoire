@@ -65,6 +65,10 @@
             echo -e "''${BLUE}           Interview Preparation Workspace''${NC}"
             echo ""
 
+            # Add npm global bin to PATH for Claude Code
+            NPM_PREFIX=$(npm config get prefix 2>/dev/null || echo "$HOME/.npm-global")
+            export PATH="$NPM_PREFIX/bin:$PATH"
+
             # Set up git aliases for workflow
             if [ -f ./scripts/setup-git-workflow.sh ]; then
               echo -e "''${GREEN}→''${NC} Configuring git workflow aliases..."
@@ -75,6 +79,8 @@
             if ! command -v claude &> /dev/null; then
               echo -e "''${GREEN}→''${NC} Installing Claude Code CLI..."
               npm install -g @anthropic-ai/claude-code@latest
+            else
+              echo -e "''${GREEN}→''${NC} Claude Code CLI ready"
             fi
 
             # Use project-specific Helix config
