@@ -2,7 +2,7 @@
   <img src="assets/grimoire.gif" alt="Grimoire" width="200">
 </p>
 
-<h1 align="center">· GRIMOIRE ·</h1>
+<h1 align="center"> GRIMOIRE </h1>
 
 <p align="center">
   <em>A structured workspace for interview preparation through hands-on implementation<br>
