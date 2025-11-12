@@ -15,17 +15,7 @@ cursorline = true
 [editor.file-picker]
 # Show hidden files (.claude/, .venv/, etc.) in file picker
 hidden = false
-
-# Ignore certain directories in file picker
-ignore = [
-    ".git",
-    ".venv",
-    "__pycache__",
-    "*.pyc",
-    ".pytest_cache",
-    ".direnv",
-    "result",
-]
+# Note: Helix automatically respects .gitignore for filtering files
 
 [editor.lsp]
 # Show inline diagnostics (type errors, linting issues)
