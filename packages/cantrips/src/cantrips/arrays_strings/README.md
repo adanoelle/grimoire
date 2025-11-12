@@ -56,7 +56,7 @@ repeating characters
   - Key insight: Learn the basic technique
   - Related to: Arrays
 
-- [ ] **[Reverse String](link)** - LC #344
+- [x] **[Reverse String](link)** - LC #344
 
   - Pattern: Two pointers (opposite ends)
   - Key insight: Swap elements from both ends
@@ -125,9 +125,9 @@ repeating characters
 
 ## Progress Tracker
 
-**Completed**: 0 / 12
+**Completed**: 1 / 12
 
-- Easy: 0 / 5
+- Easy: 1 / 5
 - Medium: 0 / 5
 - Hard: 0 / 2
 
@@ -137,11 +137,14 @@ repeating characters
 
 ### What I learned
 
--
+- Two pointers technique moving from opposite ends is perfect for reversing/palindrome problems
+- In-place array modifications can achieve O(1) space complexity
+- Python's tuple unpacking allows swapping without temporary variables
 
 ### Common mistakes I made
 
--
+- Forgetting proper spacing around operators (PEP 8)
+- File naming inconsistencies (plural vs singular)
 
 ### Interview tips for this topic
 
