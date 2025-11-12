@@ -1,92 +1,45 @@
-"""
-LeetCode Reverse Strings: 344
-Difficulty: Easy
-Link: https://leetcode.com/problems/reverse-string/description/
-Topic: Arrays
+"""Reverse String - LeetCode #344
 
-================================================================================
-PROBLEM DESCRIPTION
-================================================================================
+Difficulty: Easy | Topic: Arrays & Strings | https://leetcode.com/problems/reverse-string/
 
-Write a function that reverses a string. The input string is given as an array of characters s.
-You must do this by modifying the input array in-place with O(1) extra memory.
+# Problem
 
-## Example 1:
- 
-Input: s = ["h","e","l","l","o"]
-Output: ["o","l","l","e","h"]
-Explanation:
-
-## Example 2:
- 
-Input: s = ["H","a","n","n","a","h"]
-Output: ["h","a","n","n","a","H"]
-Explanation:
+Write a function that reverses a string. The input string is given as an array
+of characters that must be modified in-place with O(1) extra memory.
 
 Constraints:
+- 1 <= s.length <= 10^5
+- s[i] is a printable ASCII character
 
-- 1 <= s.length <= 105
-- s[i] is a printable ascii character.
+# Approach
 
-================================================================================
-APPROACH
-================================================================================
+Use two pointers starting at opposite ends of the array. While the pointers
+haven't met, swap the characters at each pointer position and move the pointers
+toward the center. This achieves a complete reversal in a single pass.
 
-## High-level strategy:
+Complexity:
+- Time: O(n) - single pass through half the array
+- Space: O(1) - only pointer variables needed
 
-We know that we will always be swapping two positions in the array with one another.
-The trick is that while iterating across the array, we can always track these two
-positions simultaneously using two pointers, one starting at the beginning of the
-array and one starting at the end of the array.
-
-Start with a pointer at index 0 or the array, and another at index len(array) - 1,
-then iterate over the array, swapping the value at the left index with the value at
-the right. When the indices meet, we know that we have swapped everything and can break.
-
-## Detailed steps:
- 
-1. Initialize left and right indexes at the start and end of the array
-2. Iterate over the array
-3. Swap left with right, making use of a temporary variable
-4. When the two pointers meet, break and return 
-
-## Key insights:
- 
-- Two pointers allow us to do this in O(N) time.
-- Keeping a temporary variable and swapping the values in place gives us O(1) space
-
-## Why this works:
-
-Tracking multiple indices in the array makes efficient use of time.
-
-================================================================================
-COMPLEXITY ANALYSIS
-================================================================================
-
-Time Complexity: O(N)
-
-Space Complexity: O(1)
-- Data structure 1: Array modified in place: O(1)
-- Total: O(1)
-
-================================================================================
-IMPLEMENTATION
-================================================================================
+Key Insights:
+- Two pointers from opposite ends is perfect for symmetric operations like reversing
+- In-place swapping eliminates the need for additional data structures
+- Loop terminates when pointers meet in the middle
 """
 
-from typing import List, Optional
+import pytest
+from typing import List
 
 
 class Solution:
     def reverseString(self, s: List[str]) -> None:
-        """
-        Reverses a string in-place using the two-pointer technique.
+        """Reverse a string in-place using the two-pointer technique.
 
         Args:
             s: List of characters to reverse (modified in-place)
 
         Returns:
-            The reversed list (modifies the input list)
+            The reversed list (same object as input)
         """
         start = 0
         end = len(s) - 1
@@ -101,66 +54,57 @@ class Solution:
         return s
 
 
-"""
-================================================================================
-TEST CASES
-================================================================================
-"""
+TEST_CASES = [
+    # (input, expected_output, description)
+    (
+        ["h", "e", "l", "l", "o"],
+        ["o", "l", "l", "e", "h"],
+        "example 1: basic odd-length string"
+    ),
+    (
+        ["H", "a", "n", "n", "a", "h"],
+        ["h", "a", "n", "n", "a", "H"],
+        "example 2: even-length palindrome name"
+    ),
+    (["a"], ["a"], "edge: single character"),
+    (["a", "b"], ["b", "a"], "edge: two characters"),
+]
 
 
-def test_solution():
-    """Test cases for the solution"""
+@pytest.mark.parametrize("input_data,expected,description", TEST_CASES)
+def test_reverse_string(input_data, expected, description):
+    """Test reverse string with all cases from TEST_CASES."""
     sol = Solution()
-
-    # Test case 1: Basic odd-length string
-    solution = sol.reverseString(["h","e","l","l","o"])
-    assert solution == ["o","l","l","e","h"]
-
-    # Test case 2: Even-length string with palindrome name
-    assert sol.reverseString(["H","a","n","n","a","h"]) == ["h","a","n","n","a","H"]
-
-    print("All tests passed!")
+    assert sol.reverseString(input_data) == expected, description
 
 
 if __name__ == "__main__":
-    test_solution()
+    pytest.main([__file__, "-v"])
 
 
 """
-================================================================================
-ALTERNATIVE APPROACHES
-================================================================================
-
-Approach 2: Python Built-in Reverse
-- Description: Use s.reverse() method
-- Time: O(n)
-- Space: O(1)
-- When to use: When code clarity matters more than showing algorithmic knowledge
-- Code: s.reverse()
-
-Approach 3: Pythonic Swap (No Temp Variable)
-- Description: Use Python's tuple unpacking to swap without a temporary variable
-- Time: O(n)
-- Space: O(1)
-- When to use: Cleaner Python code, same performance
-- Code: s[start], s[end] = s[end], s[start]
-
-================================================================================
-LESSONS LEARNED
-================================================================================
-
-What I learned:
+# Reflections
+# ---
+ 
+## What I Learned
+ 
 - Two pointers technique is fundamental for array problems requiring O(1) space
 - Moving pointers toward each other from opposite ends is perfect for symmetric operations
 - In-place modifications require careful tracking of indices
 
-Mistakes I made:
+## Patterns Used
+ 
+- Two pointers (opposite ends)
 
-Similar problems:
+## Similar Problems
+ 
 - LeetCode #125: Valid Palindrome (also uses two pointers from opposite ends)
-- LeetCode #344: Reverse String (this problem)
 - LeetCode #977: Squares of a Sorted Array (two pointers on sorted array)
 
-Patterns used:
-- Two pointers (opposite ends)
+## Alternative Approaches
+ 
+1. **Python built-in**: `s.reverse()` - O(n) time, O(1) space. Same complexity,
+   but less educational for understanding the algorithm.
+2. **Pythonic swap**: Use `s[start], s[end] = s[end], s[start]` to swap without
+   a temporary variable - O(n) time, O(1) space. Cleaner Python idiom.
 """
