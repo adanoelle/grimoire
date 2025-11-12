@@ -38,7 +38,34 @@ or just ask naturally - the **study-partner** agent will:
 - Encourage you when stuck
 - Remind you to document your learnings
 
-See `docs/AGENT_GUIDE.md` for detailed agent usage.
+**Want to add property-based tests?**
+
+```
+"Invoke testing-sage"
+```
+
+The **testing-sage** agent will:
+
+- Suggest Hypothesis strategies for your problem constraints
+- Recommend properties (invariants) to test
+- Help you discover edge cases automatically
+- Guide you through test generation without writing code for you
+
+**Working on systems design?**
+
+```
+"Invoke systems-sage"
+```
+
+The **systems-sage** agent will:
+
+- Guide you through RADIO framework (Requirements, Architecture, Data, Interface, Optimization)
+- Ask Socratic questions about your design choices
+- Point out missing considerations and bottlenecks
+- Provide honest feedback on your architecture
+- Help you think through trade-offs without designing for you
+
+See `docs/HYPOTHESIS_GUIDE.md` for testing examples and `docs/SYSTEMS_DESIGN_GUIDE.md` for systems design reference.
 
 ---
 
@@ -141,6 +168,14 @@ git status                    # Check what you worked on last
    - [ ] Check LeetCode if needed
    - [ ] Fix bugs, understand why they happened
 
+   e. **Harden with Properties (Optional, 10-15 min)**
+
+   - [ ] Invoke testing-sage or reference `docs/HYPOTHESIS_GUIDE.md`
+   - [ ] Uncomment Hypothesis section in your solution
+   - [ ] Add property-based tests to discover edge cases
+   - [ ] Run tests and fix any failures found
+   - [ ] Add discovered edge cases to explicit test suite
+
 3. **Reflect & Document (15-20 min)**
    - [ ] Fill in "Lessons Learned" section
    - [ ] Update topic README checkboxes
@@ -169,6 +204,33 @@ git status                    # Check what you worked on last
    - [ ] Pick a problem from a previous topic
    - [ ] Solve without looking at your notes
    - [ ] This tests retention and pattern transfer
+
+### Option D: Testing & Hardening Day (Optional)
+
+**When**: Want to deepen understanding of previous solutions or practice testing
+
+1. **Select Solutions to Harden (10 min)**
+
+   - [ ] Pick 2-3 previous cantrip solutions
+   - [ ] Choose problems with clear constraints (sorted arrays, bounded values, etc.)
+   - [ ] Prefer problems you found tricky
+
+2. **Add Property-Based Tests (45-60 min)**
+
+   **For each solution:**
+
+   - [ ] Invoke testing-sage for the problem
+   - [ ] Identify properties/invariants to test
+   - [ ] Uncomment Hypothesis section in solution file
+   - [ ] Implement suggested strategies and properties
+   - [ ] Run tests and observe what edge cases emerge
+   - [ ] Fix any bugs discovered
+   - [ ] Add discovered cases to explicit tests
+
+3. **Reflect on Testing (15 min)**
+   - [ ] What edge cases did Hypothesis find that you missed?
+   - [ ] What properties were most effective to test?
+   - [ ] Update your understanding of the problem constraints
 
 ## Evening Ritual (5-10 min)
 
@@ -242,6 +304,14 @@ git commit -m "Topic: Problem(s) solved / Structure implemented"
 4. ✅ **Look at a hint** (not full solution)
 5. ❌ **Don't copy solutions** - Understand, then implement yourself
 6. ✅ **Mark it for retry** - Come back in a few days
+
+### "My solution works but I'm not confident about edge cases"
+
+1. ✅ **Invoke testing-sage** - Get help adding property-based tests
+2. ✅ **Reference `docs/HYPOTHESIS_GUIDE.md`** - Find strategy examples
+3. ✅ **Think about invariants** - What's always true about the output?
+4. ✅ **Let Hypothesis discover cases** - Run property tests and see what breaks
+5. ✅ **Add discovered cases** to your explicit test suite
 
 ### "I can't remember the implementation"
 
