@@ -135,9 +135,9 @@ Built with:
 
 ## Philosophy
 
-This workspace prioritizes understanding over completion. Each implementation is
-written from scratch to build intuition. Solutions are documented thoroughly to
-capture learnings and patterns that emerge across problems.
+This workspace prioritizes understanding over completion. Each implementation is written
+from scratch to build intuition. Solutions are documented thoroughly to capture
+learnings and patterns that emerge across problems.
 
 ## Additional Resources
 

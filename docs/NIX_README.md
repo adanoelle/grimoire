@@ -1,10 +1,12 @@
 # Nix Flake Setup for Grimoire
 
-This document explains the Nix flake configuration for the grimoire workspace, providing a reproducible development environment across macOS and NixOS.
+This document explains the Nix flake configuration for the grimoire workspace, providing
+a reproducible development environment across macOS and NixOS.
 
 ## Overview
 
 The flake provides:
+
 - Python 3.12 with uv for fast package management
 - Helix editor with LSP configuration for Python
 - Claude Code CLI automatically installed
@@ -53,28 +55,28 @@ cd ~/grimoire  # Loads again
 
 ### Core Tools
 
-| Tool | Version | Purpose |
-|------|---------|---------|
-| **Python** | 3.12 | Programming language |
-| **uv** | Latest | Fast Python package manager |
-| **just** | Latest | Task runner for workflows |
-| **git** | Latest | Version control |
+| Tool       | Version | Purpose                     |
+| ---------- | ------- | --------------------------- |
+| **Python** | 3.12    | Programming language        |
+| **uv**     | Latest  | Fast Python package manager |
+| **just**   | Latest  | Task runner for workflows   |
+| **git**    | Latest  | Version control             |
 
 ### Editor & LSP
 
-| Tool | Purpose |
-|------|---------|
-| **Helix** | Your editor |
-| **basedpyright** | Python type checking LSP |
-| **ruff** | Python linting and formatting |
+| Tool             | Purpose                       |
+| ---------------- | ----------------------------- |
+| **Helix**        | Your editor                   |
+| **basedpyright** | Python type checking LSP      |
+| **ruff**         | Python linting and formatting |
 
 ### Documentation Tools
 
-| Tool | Purpose |
-|------|---------|
-| **marksman** | Markdown LSP |
-| **prettier** | Markdown formatter |
-| **taplo** | TOML LSP and formatter |
+| Tool         | Purpose                |
+| ------------ | ---------------------- |
+| **marksman** | Markdown LSP           |
+| **prettier** | Markdown formatter     |
+| **taplo**    | TOML LSP and formatter |
 
 ### Claude Code
 
@@ -98,12 +100,14 @@ claude
 The `.helix/` directory contains Python-optimized settings:
 
 ### `.helix/config.toml`
+
 - Auto-save enabled
 - Line numbers (relative)
 - File picker shows hidden files
 - Ignores build artifacts
 
 ### `.helix/languages.toml`
+
 - **basedpyright**: Type checking with grimoire package paths
 - **ruff**: Linting and formatting (auto-format on save)
 - Configured for Python, Markdown, TOML, JSON, and Bash
@@ -253,11 +257,13 @@ direnv allow
 ## Cross-Platform Notes
 
 ### macOS (Nix)
+
 - Uses Apple Silicon (aarch64-darwin) or Intel (x86_64-darwin)
 - Some packages may be built from source
 - Claude Code installs via npm
 
 ### NixOS (Desktop)
+
 - Native Nix integration
 - Faster package installation (binary cache)
 - Can add flake to system configuration
@@ -312,30 +318,36 @@ steps:
 
 ## File Reference
 
-| File | Purpose |
-|------|---------|
-| `flake.nix` | Main flake definition with dev shell |
-| `flake.lock` | Locked dependency versions (auto-generated) |
-| `.helix/config.toml` | Helix editor settings |
-| `.helix/languages.toml` | LSP configuration for languages |
-| `.envrc` | direnv integration |
-| `.gitignore` | Ignores Nix build artifacts |
+| File                    | Purpose                                     |
+| ----------------------- | ------------------------------------------- |
+| `flake.nix`             | Main flake definition with dev shell        |
+| `flake.lock`            | Locked dependency versions (auto-generated) |
+| `.helix/config.toml`    | Helix editor settings                       |
+| `.helix/languages.toml` | LSP configuration for languages             |
+| `.envrc`                | direnv integration                          |
+| `.gitignore`            | Ignores Nix build artifacts                 |
 
 ## Why Nix for Grimoire?
 
 ### Reproducibility
+
 Same environment on MacBook and desktop. No "works on my machine" problems.
 
 ### Isolation
+
 Won't conflict with other Python projects or system packages.
 
 ### Documentation
-`flake.nix` documents all dependencies. New contributor can `nix develop` and start immediately.
+
+`flake.nix` documents all dependencies. New contributor can `nix develop` and start
+immediately.
 
 ### Version Locking
+
 `flake.lock` pins exact versions. Can recreate environment months later.
 
 ### Composability
+
 Can layer multiple flakes. Add Rust support later without conflicts.
 
 ## Next Steps
