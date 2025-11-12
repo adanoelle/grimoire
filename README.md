@@ -2,14 +2,11 @@
   <img src="assets/grimoire.gif" alt="Grimoire" width="200">
 </p>
 
-<h1 align="center">✨ GRIMOIRE ✨</h1>
+<h1 align="center">✦ GRIMOIRE ✦</h1>
 
 <p align="center">
-  ━━━━━━━━━━━━━━━━━━━━━━<br>
-  <em><strong>A structured workspace for interview preparation</strong><br>
-  through hands-on implementation of data structures,<br>
-  algorithms, and LeetCode problems.</em><br>
-  ━━━━━━━━━━━━━━━━━━━━━━
+  <em>A structured workspace for interview preparation through hands-on implementation<br>
+  of data structures, algorithms, and LeetCode problems.</em>
 </p>
 
 <hr>
