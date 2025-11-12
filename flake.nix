@@ -48,6 +48,7 @@
             ripgrep
             fd
             tree
+            figlet
           ];
 
           shellHook = ''
@@ -55,11 +56,13 @@
             GREEN='\033[0;32m'
             BLUE='\033[0;34m'
             YELLOW='\033[1;33m'
+            MAGENTA='\033[0;35m'
             NC='\033[0m'
 
-            echo -e "''${BLUE}╭───────────────────────────────────────╮''${NC}"
-            echo -e "''${BLUE}│  🔮 Grimoire Development Environment  │''${NC}"
-            echo -e "''${BLUE}╰───────────────────────────────────────╯''${NC}"
+            # Display banner
+            echo ""
+            echo -e "''${MAGENTA}$(figlet -f gothic "Grimoire")''${NC}"
+            echo -e "''${BLUE}           Interview Preparation Workspace''${NC}"
             echo ""
 
             # Set up git aliases for workflow
