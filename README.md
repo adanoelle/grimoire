@@ -6,10 +6,11 @@
   <img src="assets/grimoire-title.svg" alt="GRIMOIRE" height="50">
 </p>
 
-<p align="center">
-  <em>A structured workspace for interview preparation through hands-on implementation<br>
-  of data structures, algorithms, and LeetCode problems.</em>
-</p>
+<div align="center">
+  <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.1em; text-align: left; max-width: 600px; margin: 0 auto;">
+    <em>A structured workspace for interview preparation through hands-on implementation of data structures, algorithms, and LeetCode problems.</em>
+  </p>
+</div>
 
 <hr>
 
