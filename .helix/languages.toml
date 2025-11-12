@@ -1,0 +1,89 @@
+# Language server configuration for Grimoire workspace
+
+# Python configuration for DSA and systems design work
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "python"
+file-types = ["py", "pyi", "py3", "pyw"]
+shebangs = ["python", "python3"]
+roots = ["pyproject.toml", "setup.py", ".git"]
+comment-token = "#"
+language-id = "python"
+auto-format = true
+indent = { tab-width = 4, unit = "    " }
+
+# Use both basedpyright (type checking) and ruff (linting/formatting)
+language-servers = ["basedpyright", "ruff"]
+
+# BasedPyright configuration - Community fork of pyright with additional features
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+
+[language-server.basedpyright.config.basedpyright.analysis]
+typeCheckingMode = "basic"  # "off", "basic", or "strict"
+diagnosticMode = "workspace"
+autoSearchPaths = true
+useLibraryCodeForTypes = true
+# Extra paths for grimoire packages
+extraPaths = ["./packages/cantrips/src", "./packages/runes/src"]
+
+# Ruff LSP configuration - ultra-fast linting and formatting (built-in server)
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
+
+# Python formatter - use ruff
+[language.formatter]
+command = "ruff"
+args = ["format", "--line-length", "88", "-"]
+
+# Markdown configuration for documentation
+[[language]]
+name = "markdown"
+scope = "source.md"
+file-types = ["md", "markdown"]
+roots = [".git"]
+auto-format = true
+language-servers = ["marksman"]
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "markdown", "--prose-wrap", "always", "--print-width", "88"]
+
+# TOML configuration for pyproject.toml and config files
+[[language]]
+name = "toml"
+scope = "source.toml"
+file-types = ["toml"]
+roots = [".git"]
+auto-format = true
+language-servers = ["taplo"]
+
+[language.formatter]
+command = "taplo"
+args = ["format", "-"]
+
+# JSON configuration for package.json and other configs
+[[language]]
+name = "json"
+scope = "source.json"
+file-types = ["json", "jsonc"]
+roots = [".git"]
+auto-format = true
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "json"]
+
+# Shell script configuration for grimoire scripts
+[[language]]
+name = "bash"
+scope = "source.bash"
+file-types = ["sh", "bash"]
+shebangs = ["sh", "bash", "dash"]
+roots = [".git"]
+auto-format = false  # Don't auto-format shell scripts
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }

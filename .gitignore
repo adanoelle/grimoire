@@ -8,3 +8,21 @@ wheels/
 
 # Virtual environments
 .venv
+
+# pytest
+.pytest_cache/
+
+# Nix
+.direnv/
+result
+result-*
+.envrc.cache
+
+# Helix runtime (don't commit generated runtime files)
+.helix/runtime/
+
+# Editor swap files
+*.swp
+*.swo
+*~
+.DS_Store

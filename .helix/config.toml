@@ -1,0 +1,40 @@
+# Project-specific Helix configuration for Grimoire
+# This inherits from your global ~/.config/helix/config.toml
+# Only overriding grimoire-specific settings
+
+[editor]
+# Auto-save on focus loss (helps when switching between editor and terminal)
+auto-save = true
+
+# Show line numbers (helpful for test failures)
+line-number = "relative"
+
+# Cursor line highlighting for better focus
+cursorline = true
+
+[editor.file-picker]
+# Show hidden files (.claude/, .venv/, etc.) in file picker
+hidden = false
+
+# Ignore certain directories in file picker
+ignore = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "*.pyc",
+    ".pytest_cache",
+    ".direnv",
+    "result",
+]
+
+[editor.lsp]
+# Show inline diagnostics (type errors, linting issues)
+display-messages = true
+display-inlay-hints = true
+
+# Auto-signature help while typing
+auto-signature-help = true
+
+[editor.soft-wrap]
+# Soft wrap for markdown files (docs)
+enable = true
