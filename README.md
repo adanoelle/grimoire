@@ -1,8 +1,8 @@
 <p align="center">
   <img src="assets/grimoire.gif" alt="Grimoire" width="200">
+  <br>
+  <strong style="font-size: 1.8em; letter-spacing: 0.1em;">G R I M O I R E</strong>
 </p>
-
-# Grimoire
 
 A structured workspace for interview preparation through hands-on implementation of
 data structures, algorithms, and LeetCode problems.
