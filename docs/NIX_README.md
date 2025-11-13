@@ -208,13 +208,53 @@ nix develop
 
 ### Claude Code Not Installing
 
+This is common on NixOS due to filesystem differences.
+
+#### Option 1: Manual npm install (recommended)
+
 ```bash
-# Manually install
-npm install -g @anthropic-ai/claude-code
+# Ensure npm prefix is configured
+npm config set prefix ~/.npm-global
+
+# Install Claude Code
+npm install -g @anthropic-ai/claude-code@latest
+
+# Add to PATH if needed (usually automatic in nix shell)
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Check it's available
 which claude
 claude --version
+```
+
+#### Option 2: Use nix-shell wrapper
+
+If npm install fails completely, you can create a wrapper script:
+
+```bash
+# Create a wrapper script
+mkdir -p ~/.local/bin
+cat > ~/.local/bin/claude << 'EOF'
+#!/usr/bin/env bash
+nix-shell -p nodejs_22 --run "npx @anthropic-ai/claude-code@latest $@"
+EOF
+chmod +x ~/.local/bin/claude
+
+# Add to PATH
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+#### Option 3: System-wide on NixOS
+
+Add to your `configuration.nix`:
+
+```nix
+environment.systemPackages = with pkgs; [
+  nodejs_22
+];
+
+# Then install Claude Code for your user
+# Run: npm install -g @anthropic-ai/claude-code
 ```
 
 ### LSP Not Working in Helix
@@ -260,17 +300,20 @@ direnv allow
 
 - Uses Apple Silicon (aarch64-darwin) or Intel (x86_64-darwin)
 - Some packages may be built from source
-- Claude Code installs via npm
+- Claude Code typically installs smoothly via npm
+- Node.js and npm work as expected
 
 ### NixOS (Desktop)
 
 - Native Nix integration
 - Faster package installation (binary cache)
 - Can add flake to system configuration
+- **Claude Code**: May require manual install (see Troubleshooting)
+- npm global installs may need extra setup due to FHS differences
 
 ### Sharing Between Machines
 
-The `flake.lock` ensures identical package versions:
+The `flake.lock` ensures identical package versions across machines:
 
 ```bash
 # On MacBook - commit the lock file
@@ -278,10 +321,32 @@ git add flake.lock
 git commit -m "nix: update flake.lock"
 git push
 
-# On Desktop - pull and use
+# On NixOS - pull and use
 git pull
 nix develop  # Uses exact same package versions!
 ```
+
+### Recommended Setup for Multi-Machine Workflow
+
+1. **Configure npm consistently** on both machines:
+   ```bash
+   npm config set prefix ~/.npm-global
+   ```
+
+2. **Install Claude Code manually** after first `nix develop`:
+   ```bash
+   npm install -g @anthropic-ai/claude-code@latest
+   ```
+
+3. **Sync your work** via git:
+   - Commit your progress regularly
+   - `flake.lock` keeps environments identical
+   - Both machines will have same Python, uv, Helix, LSP versions
+
+4. **Handle differences gracefully**:
+   - macOS: npm installs work automatically
+   - NixOS: May need manual Claude Code install
+   - Both: Everything else works identically!
 
 ## Advanced Usage
 

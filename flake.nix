@@ -65,7 +65,8 @@
             echo -e "''${BLUE}           Interview Preparation Workspace''${NC}"
             echo ""
 
-            # Add npm global bin to PATH for Claude Code
+            # Set up npm prefix and PATH consistently
+            # Use existing npm prefix or default to ~/.npm-global
             NPM_PREFIX=$(npm config get prefix 2>/dev/null || echo "$HOME/.npm-global")
             export PATH="$NPM_PREFIX/bin:$PATH"
 
@@ -75,14 +76,21 @@
               bash ./scripts/setup-git-workflow.sh 2>/dev/null || true
             fi
 
-            # Install Claude Code if not already installed (skip in CI)
-            if ! command -v claude &> /dev/null && [ -z "$CI" ]; then
-              echo -e "''${GREEN}→''${NC} Installing Claude Code CLI..."
-              npm install -g @anthropic-ai/claude-code@latest
-            elif [ -n "$CI" ]; then
+            # Claude Code setup (with NixOS compatibility)
+            if [ -n "$CI" ]; then
               echo -e "''${GREEN}→''${NC} Claude Code CLI (skipped in CI)"
-            else
+            elif command -v claude &> /dev/null; then
               echo -e "''${GREEN}→''${NC} Claude Code CLI ready"
+            else
+              # Try to install, but don't fail if it doesn't work
+              echo -e "''${GREEN}→''${NC} Installing Claude Code CLI..."
+              if npm install -g @anthropic-ai/claude-code@latest 2>/dev/null; then
+                echo -e "''${GREEN}✓''${NC} Claude Code installed successfully"
+              else
+                echo -e "''${YELLOW}⚠''${NC}  Claude Code auto-install failed (common on NixOS)"
+                echo -e "''${YELLOW}→''${NC} Manual install: npm install -g @anthropic-ai/claude-code"
+                echo -e "''${YELLOW}→''${NC} Or see: docs/NIX_README.md"
+              fi
             fi
 
             # Use project-specific Helix config
