@@ -80,7 +80,7 @@ cd ~/grimoire  # Loads again
 
 ### Claude Code
 
-Automatically installed via npm on first `nix develop`.
+Automatically installed to a **project-local** `.npm-global/` directory on first `nix develop`. This approach works reliably on both NixOS and macOS without modifying global npm configuration.
 
 ```bash
 # Check version
@@ -94,6 +94,11 @@ claude
 /check-in
 /commit-dsa
 ```
+
+**Note**: Each project gets its own Claude Code installation in `.npm-global/`, which is gitignored. This ensures:
+- No conflicts with global npm packages
+- Works on NixOS's immutable filesystem
+- Identical behavior on macOS and Linux
 
 ## Project-Specific Helix Configuration
 
@@ -208,54 +213,53 @@ nix develop
 
 ### Claude Code Not Installing
 
-This is common on NixOS due to filesystem differences.
+As of the latest version, Claude Code is installed **project-locally** to `.npm-global/` using the `NPM_CONFIG_PREFIX` environment variable. This approach works on both NixOS and macOS.
 
-#### Option 1: Manual npm install (recommended)
+#### If auto-install fails
+
+The shell hook will create `.npm-global/` and attempt installation automatically. If it fails:
 
 ```bash
-# Ensure npm prefix is configured
-npm config set prefix ~/.npm-global
-
-# Install Claude Code
+# Manual install (from within nix develop)
+mkdir -p .npm-global
 npm install -g @anthropic-ai/claude-code@latest
 
-# Add to PATH if needed (usually automatic in nix shell)
-export PATH="$HOME/.npm-global/bin:$PATH"
-
-# Check it's available
-which claude
+# Verify installation
+ls -la .npm-global/bin/claude
 claude --version
 ```
 
-#### Option 2: Use nix-shell wrapper
+The `NPM_CONFIG_PREFIX` environment variable is already set by the flake, so npm will install to the project directory.
 
-If npm install fails completely, you can create a wrapper script:
+#### Alternative: Use npx (no installation needed)
+
+If you prefer not to install Claude Code at all:
 
 ```bash
-# Create a wrapper script
-mkdir -p ~/.local/bin
-cat > ~/.local/bin/claude << 'EOF'
-#!/usr/bin/env bash
-nix-shell -p nodejs_22 --run "npx @anthropic-ai/claude-code@latest $@"
-EOF
-chmod +x ~/.local/bin/claude
+# Run directly with npx
+npx @anthropic-ai/claude-code@latest
 
-# Add to PATH
-export PATH="$HOME/.local/bin:$PATH"
+# Create an alias for convenience
+alias claude='npx @anthropic-ai/claude-code@latest'
 ```
 
-#### Option 3: System-wide on NixOS
+#### System-wide installation (not recommended)
 
-Add to your `configuration.nix`:
+If you want a global installation outside the flake:
 
 ```nix
+# Add to your configuration.nix or home-manager
 environment.systemPackages = with pkgs; [
   nodejs_22
 ];
 
-# Then install Claude Code for your user
-# Run: npm install -g @anthropic-ai/claude-code
+# Then manually:
+npm config set prefix ~/.npm-global
+npm install -g @anthropic-ai/claude-code
+export PATH="$HOME/.npm-global/bin:$PATH"
 ```
+
+Note: The project-local approach is preferred as it keeps the environment isolated and reproducible.
 
 ### LSP Not Working in Helix
 
@@ -300,7 +304,7 @@ direnv allow
 
 - Uses Apple Silicon (aarch64-darwin) or Intel (x86_64-darwin)
 - Some packages may be built from source
-- Claude Code typically installs smoothly via npm
+- Claude Code installs automatically to project-local `.npm-global/`
 - Node.js and npm work as expected
 
 ### NixOS (Desktop)
@@ -308,8 +312,8 @@ direnv allow
 - Native Nix integration
 - Faster package installation (binary cache)
 - Can add flake to system configuration
-- **Claude Code**: May require manual install (see Troubleshooting)
-- npm global installs may need extra setup due to FHS differences
+- **Claude Code**: Installs automatically using project-local approach
+- No FHS issues - `NPM_CONFIG_PREFIX` handles NixOS filesystem differences
 
 ### Sharing Between Machines
 
@@ -328,25 +332,22 @@ nix develop  # Uses exact same package versions!
 
 ### Recommended Setup for Multi-Machine Workflow
 
-1. **Configure npm consistently** on both machines:
-   ```bash
-   npm config set prefix ~/.npm-global
-   ```
+1. **Just use `nix develop`** on both machines:
+   - Claude Code installs automatically to `.npm-global/` (project-local)
+   - No manual npm configuration needed
+   - `NPM_CONFIG_PREFIX` is set by the flake automatically
 
-2. **Install Claude Code manually** after first `nix develop`:
-   ```bash
-   npm install -g @anthropic-ai/claude-code@latest
-   ```
-
-3. **Sync your work** via git:
+2. **Sync your work** via git:
    - Commit your progress regularly
    - `flake.lock` keeps environments identical
-   - Both machines will have same Python, uv, Helix, LSP versions
+   - `.npm-global/` is gitignored (each machine installs locally)
+   - Both machines have same Python, uv, Helix, LSP, and Claude versions
 
-4. **Handle differences gracefully**:
-   - macOS: npm installs work automatically
-   - NixOS: May need manual Claude Code install
-   - Both: Everything else works identically!
+3. **Benefits**:
+   - ✅ Identical setup on macOS and NixOS
+   - ✅ No global npm configuration changes
+   - ✅ Each project isolated from others
+   - ✅ Reproducible across all machines
 
 ## Advanced Usage
 

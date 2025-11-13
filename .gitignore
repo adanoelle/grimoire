@@ -18,6 +18,9 @@ result
 result-*
 .envrc.cache
 
+# npm (project-local)
+.npm-global/
+
 # Helix runtime (don't commit generated runtime files)
 .helix/runtime/
 

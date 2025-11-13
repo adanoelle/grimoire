@@ -65,10 +65,9 @@
             echo -e "''${BLUE}           Interview Preparation Workspace''${NC}"
             echo ""
 
-            # Set up npm prefix and PATH consistently
-            # Use existing npm prefix or default to ~/.npm-global
-            NPM_PREFIX=$(npm config get prefix 2>/dev/null || echo "$HOME/.npm-global")
-            export PATH="$NPM_PREFIX/bin:$PATH"
+            # Set up project-local npm prefix (NixOS + macOS compatible)
+            export PATH="$PWD/.npm-global/bin:$PATH"
+            export NPM_CONFIG_PREFIX="$PWD/.npm-global"
 
             # Set up git aliases for workflow
             if [ -f ./scripts/setup-git-workflow.sh ]; then
@@ -76,20 +75,20 @@
               bash ./scripts/setup-git-workflow.sh 2>/dev/null || true
             fi
 
-            # Claude Code setup (with NixOS compatibility)
+            # Claude Code setup (project-local, works on NixOS + macOS)
             if [ -n "$CI" ]; then
               echo -e "''${GREEN}→''${NC} Claude Code CLI (skipped in CI)"
-            elif command -v claude &> /dev/null; then
+            elif [[ -f "$PWD/.npm-global/bin/claude" ]]; then
               echo -e "''${GREEN}→''${NC} Claude Code CLI ready"
             else
-              # Try to install, but don't fail if it doesn't work
               echo -e "''${GREEN}→''${NC} Installing Claude Code CLI..."
+              mkdir -p "$PWD/.npm-global"
               if npm install -g @anthropic-ai/claude-code@latest 2>/dev/null; then
                 echo -e "''${GREEN}✓''${NC} Claude Code installed successfully"
               else
-                echo -e "''${YELLOW}⚠''${NC}  Claude Code auto-install failed (common on NixOS)"
-                echo -e "''${YELLOW}→''${NC} Manual install: npm install -g @anthropic-ai/claude-code"
-                echo -e "''${YELLOW}→''${NC} Or see: docs/NIX_README.md"
+                echo -e "''${YELLOW}⚠''${NC}  Claude Code auto-install failed"
+                echo -e "''${YELLOW}→''${NC} Try: mkdir -p .npm-global && npm install -g @anthropic-ai/claude-code"
+                echo -e "''${YELLOW}→''${NC} See: docs/NIX_README.md"
               fi
             fi
 
