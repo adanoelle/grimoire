@@ -29,3 +29,6 @@ result-*
 *.swo
 *~
 .DS_Store
+
+# Hypothesis cache
+.hypothesis/
