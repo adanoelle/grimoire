@@ -49,24 +49,24 @@ def problem_name(input_data: List[int]) -> int:
 
 
 @dataclass
-class TestCase:
+class Case:
     input: Any  # Replace with actual input type
     expected: Any  # Replace with actual expected output type
     description: str = ""
 
 
 TEST_CASES = [
-    TestCase(
+    Case(
         input=[1, 2, 3],
         expected=6,
         description="example 1: basic case",
     ),
-    TestCase(
+    Case(
         input=[],
         expected=0,
         description="edge: empty input",
     ),
-    TestCase(
+    Case(
         input=[1],
         expected=1,
         description="edge: single element",
