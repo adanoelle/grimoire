@@ -65,9 +65,14 @@ characters
   - Key insight: Compare absolute values, build solution iteratively in reverse
   - Related to: Arrays
 
-- [ ] **[Sliding Window](link)** - Article
+- [x] **[Sliding Window](link)** - Article
   - Pattern: Introduction to sliding window
   - Key insight: Learn the basic technique
+  - Related to: Arrays
+
+- [x] **[Longest Subarray Under Sum](link)** - Practice from Sliding Window article
+  - Pattern: Sliding window (variable size)
+  - Key insight: Expand window then shrink when constraint violated
   - Related to: Arrays
 
 - [ ] **[More Common Patterns](link)** - Article
@@ -116,9 +121,9 @@ characters
 
 ## Progress Tracker
 
-**Completed**: 2 / 12
+**Completed**: 3 / 13
 
-- Easy: 2 / 5
+- Easy: 3 / 6
 - Medium: 0 / 5
 - Hard: 0 / 2
 
@@ -132,6 +137,8 @@ characters
   problems
 - In-place array modifications can achieve O(1) space complexity
 - Python's tuple unpacking allows swapping without temporary variables
+- Sliding window (variable size) uses expand/shrink pattern: grow window until invalid, then shrink from left
+- Amortized O(n) time for sliding window - each element visited at most twice (once by right, once by left)
 
 ### Common mistakes I made
 

@@ -6,14 +6,14 @@ Practice problems organized by topic from the LeetCode DSA course.
 
 | Topic                                            | Easy     | Medium   | Hard    | Total    |
 | ------------------------------------------------ | -------- | -------- | ------- | -------- |
-| [Arrays & Strings](src/cantrips/arrays_strings/) | 2/5      | 0/5      | 0/2     | 2/12     |
+| [Arrays & Strings](src/cantrips/arrays_strings/) | 3/6      | 0/5      | 0/2     | 3/13     |
 | [Hashing](src/cantrips/hashing/)                 | 0/4      | 0/4      | 0/1     | 0/9      |
 | [Linked Lists](src/cantrips/linked_lists/)       | 0/3      | 0/4      | 0/1     | 0/8      |
 | [Stacks & Queues](src/cantrips/stacks_queues/)   | 0/3      | 0/3      | 0/1     | 0/7      |
 | [Trees & Graphs](src/cantrips/trees_graphs/)     | 0/4      | 0/6      | 0/2     | 0/12     |
 | [Heaps](src/cantrips/heaps/)                     | 0/2      | 0/3      | 0/1     | 0/6      |
 | [Greedy](src/cantrips/greedy/)                   | 0/2      | 0/3      | 0/1     | 0/6      |
-| **Total**                                        | **2/23** | **0/28** | **0/9** | **2/60** |
+| **Total**                                        | **3/24** | **0/28** | **0/9** | **3/61** |
 
 ## Study Workflow
 
@@ -27,7 +27,7 @@ Practice problems organized by topic from the LeetCode DSA course.
 
 ### 1. Arrays & Strings
 
-**Status**: In progress (2/12) **Core concepts**: Two pointers, sliding window, prefix sums
+**Status**: In progress (3/13) **Core concepts**: Two pointers, sliding window, prefix sums
 [View problems →](src/cantrips/arrays_strings/README.md)
 
 ### 2. Hashing
@@ -65,7 +65,7 @@ maps [View problems →](src/cantrips/hashing/README.md)
 Track recurring patterns as you discover them:
 
 - [x] Two pointers
-- [ ] Sliding window
+- [x] Sliding window
 - [ ] Fast & slow pointers
 - [ ] In-place reversal
 - [ ] Monotonic stack
