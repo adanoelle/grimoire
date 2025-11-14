@@ -75,17 +75,17 @@ characters
   - Key insight: Expand window then shrink when constraint violated
   - Related to: Arrays
 
+- [x] **[Maximum Average Subarray I](link)** - LC #643
+  - Pattern: Sliding window (fixed)
+  - Key insight: Maintain sum of window
+  - Related to: Arrays
+
 - [ ] **[More Common Patterns](link)** - Article
   - Pattern: Various
   - Key insight: Pattern recognition
   - Related to: Arrays
 
 ### Medium Problems
-
-- [ ] **[Maximum Average Subarray I](link)** - LC #643
-  - Pattern: Sliding window (fixed)
-  - Key insight: Maintain sum of window
-  - Related to: Arrays
 
 - [ ] **[Max Consecutive Ones III](link)** - LC #1004
   - Pattern: Sliding window (variable)
@@ -137,8 +137,61 @@ characters
   problems
 - In-place array modifications can achieve O(1) space complexity
 - Python's tuple unpacking allows swapping without temporary variables
-- Sliding window (variable size) uses expand/shrink pattern: grow window until invalid, then shrink from left
-- Amortized O(n) time for sliding window - each element visited at most twice (once by right, once by left)
+- Sliding window (variable size) uses expand/shrink pattern: grow window until invalid,
+  then shrink from left
+- Amortized O(n) time for sliding window - each element visited at most twice (once by
+  right, once by left)
+
+### Mental Model: Fixed vs Variable Windows
+
+**Fixed Size Windows**
+
+- one pointer [right]
+
+```python
+# Think: "idx is my right edge, idx-window_size is what jsut left"
+for idx in range(window_size, len(nums)):
+    curr += nums[idx] - nums[idx - window_size]
+```
+
+Mental Model:
+
+- Always track idx as right edge
+- left edge is automatically `idx - k + 1`
+
+**Variable Size Windows**
+
+- two pointers, left and right
+
+```python
+# Think: right expands, left shrinks when invalid
+left = 0
+for right in range(len(nums)):
+    curr += nums[right]
+    while curr > constraint:
+        curr -= nums[left]
+        left += 1
+```
+
+Mental Model:
+
+- Window is [left, ..., right] and size changes
+- I explicitly track both edges
+- While loop = "shrink until valid"
+
+Pattern Recognition Guide
+
+Use FOR LOOP (single pointer) when:
+
+- ✅ Window size is fixed (always k)
+- ✅ You know exactly how far to slide (one element at a time)
+- ✅ Example: "Find max average of subarray of size k"
+
+Use TWO POINTERS (for + while) when:
+
+- ✅ Window size is variable (grows/shrinks)
+- ✅ You have a constraint to maintain
+- ✅ Example: "Find longest subarray with sum ≤ k"
 
 ### Common mistakes I made
 
