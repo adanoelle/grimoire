@@ -45,9 +45,9 @@ Fill in problems as you work through the LeetCode hashing section.
 
 ### Easy Problems
 
-- [ ] **[Problem Name](link)** - LC #
-  - Pattern:
-  - Key insight:
+- [x] **[Contains Duplicate](https://leetcode.com/problems/contains-duplicate/)** - LC #217
+  - Pattern: HashSet for duplicates
+  - Key insight: Set comparison - if len(set) < len(list), duplicates exist
 
 ### Medium Problems
 
@@ -63,9 +63,9 @@ Fill in problems as you work through the LeetCode hashing section.
 
 ## Progress Tracker
 
-**Completed**: 0 / 9
+**Completed**: 1 / 9
 
-- Easy: 0 / 4
+- Easy: 1 / 4
 - Medium: 0 / 4
 - Hard: 0 / 1
 
@@ -73,7 +73,9 @@ Fill in problems as you work through the LeetCode hashing section.
 
 ### What I learned
 
--
+- First hashing problem! Hash sets provide O(1) lookup for duplicate detection
+- Set size comparison technique: comparing set length vs list length
+- Converting list to set automatically removes duplicates
 
 ### Common mistakes I made
 
