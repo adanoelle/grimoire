@@ -116,9 +116,9 @@ characters
 
 ## Progress Tracker
 
-**Completed**: 1 / 12
+**Completed**: 2 / 12
 
-- Easy: 1 / 5
+- Easy: 2 / 5
 - Medium: 0 / 5
 - Hard: 0 / 2
 
