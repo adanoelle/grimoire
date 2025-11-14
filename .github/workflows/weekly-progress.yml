@@ -38,10 +38,10 @@ jobs:
           REPORT_OUTPUT=$(./scripts/weekly-report.sh)
 
           # Save report to file
-          mkdir -p progress/weekly
-          echo "# Week ${{ steps.week.outputs.week }} - ${{ steps.week.outputs.date }}" > progress/weekly/${{ steps.week.outputs.filename }}
-          echo "" >> progress/weekly/${{ steps.week.outputs.filename }}
-          echo "$REPORT_OUTPUT" >> progress/weekly/${{ steps.week.outputs.filename }}
+          mkdir -p docs/devlog/weekly
+          echo "# Week ${{ steps.week.outputs.week }} - ${{ steps.week.outputs.date }}" > docs/devlog/weekly/${{ steps.week.outputs.filename }}
+          echo "" >> docs/devlog/weekly/${{ steps.week.outputs.filename }}
+          echo "$REPORT_OUTPUT" >> docs/devlog/weekly/${{ steps.week.outputs.filename }}
 
           # Also save for GitHub issue (with emoji and formatting)
           echo "report<<EOF" >> $GITHUB_OUTPUT
@@ -52,8 +52,8 @@ jobs:
         run: |
           git config user.name "grimoire-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add progress/weekly/${{ steps.week.outputs.filename }}
-          git commit -m "docs(progress): add weekly report for week ${{ steps.week.outputs.week }}" || echo "No changes to commit"
+          git add docs/devlog/weekly/${{ steps.week.outputs.filename }}
+          git commit -m "docs(devlog): add weekly report for week ${{ steps.week.outputs.week }}" || echo "No changes to commit"
           git push
 
       - name: Create GitHub issue with report
@@ -68,7 +68,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `📊 Week ${week} Progress Report (${date})`,
-              body: `## 🔮 Weekly Progress Report\n\n${report}\n\n---\n\n*Automatically generated every Sunday. View all reports in [\`progress/weekly/\`](../tree/main/progress/weekly)*`,
+              body: `## 🔮 Weekly Progress Report\n\n${report}\n\n---\n\n*Automatically generated every Sunday. View all reports in [\`docs/devlog/weekly/\`](../tree/main/docs/devlog/weekly)*`,
               labels: ['progress-tracker', 'weekly-report']
             });
 
@@ -79,7 +79,7 @@ jobs:
           echo "**Week:** ${{ steps.week.outputs.week }}" >> $GITHUB_STEP_SUMMARY
           echo "**Date:** ${{ steps.week.outputs.date }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Report saved to: \`progress/weekly/${{ steps.week.outputs.filename }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Report saved to: \`docs/devlog/weekly/${{ steps.week.outputs.filename }}\`" >> $GITHUB_STEP_SUMMARY
           echo "✅ GitHub issue created" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Keep up the great work! 📖✨" >> $GITHUB_STEP_SUMMARY
