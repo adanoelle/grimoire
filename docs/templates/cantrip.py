@@ -1,6 +1,8 @@
 """[Problem Name] - LeetCode #[Number]
 
-Difficulty: [Easy/Medium/Hard] | Topic: [Topic Name] | [Problem Link]
+Difficulty: [Easy/Medium/Hard]
+Topic: [Topic Name]
+Link: [Problem Link]
 
 # Problem
 
@@ -18,10 +20,12 @@ Constraints:
 are you using? Why does it work?]
 
 Complexity:
+
 - Time: O(?)
 - Space: O(?)
 
 Key Insights:
+
 - [What makes this approach work?]
 - [Any important observations?]
 """
@@ -50,8 +54,15 @@ def problem_name(input_data: List[int]) -> int:
 
 @dataclass
 class Case:
-    input: Any  # Replace with actual input type
-    expected: Any  # Replace with actual expected output type
+    """Test Case
+
+    Note:
+        Update fields to match those found in
+        leetcode problems. Make sure to updating
+        typing information
+    """
+    input: Any
+    expected: Any
     description: str = ""
 
 
@@ -108,26 +119,29 @@ if __name__ == "__main__":
     pytest.main([__file__, "-v"])
 
 
-# Reflections
-# -----------
 """
 ## What I Learned
+
 - [Key insight or technique you learned]
 - [Understanding gained about complexity or edge cases]
 - [Any algorithmic patterns recognized]
 
 ## Patterns Used
+
 - [Pattern name: e.g., Two Pointers, Sliding Window, etc.]
 
 ## Similar Problems
+
 - LeetCode #[num]: [Problem Name]
 - LeetCode #[num]: [Problem Name]
 
 ## Alternative Approaches
+
 1. **[Approach Name]**: [Brief description] - O(?) time, O(?) space
 2. **[Approach Name]**: [Brief description] - O(?) time, O(?) space
 
 ## Mistakes I Made
+ 
 - [Common pitfall or error you encountered]
 - [What you'd do differently next time]
 """
