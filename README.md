@@ -15,19 +15,20 @@
 ## About This Project
 
 > **Disclaimer:** This is my personal learning journal for technical interview
-> preparation. It represents my journey of understanding data structures, algorithms,
-> and systems design concepts through hands-on implementation and deliberate practice.
+> preparation. It represents my journey of understanding data structures,
+> algorithms, and systems design concepts through hands-on implementation and
+> deliberate practice.
 
-This repository is a structured workspace for preparing for technical interviews at
-large tech companies. Rather than simply collecting solutions, it focuses on:
+This repository is a structured workspace for preparing for technical interviews
+at large tech companies. Rather than simply collecting solutions, it focuses on:
 
 - **Understanding**: Implementing data structures from scratch (runes)
 - **Pattern Recognition**: Solving problems by topic and documenting recurring
   techniques (cantrips)
-- **Systems Design**: Learning distributed systems concepts through implementation
-  (incantations)
-- **Learning Process**: Capturing mistakes, insights, and mental models in reflections
-  documentation
+- **Systems Design**: Learning distributed systems concepts through
+  implementation (incantations)
+- **Learning Process**: Capturing mistakes, insights, and mental models in
+  reflections documentation
 
 ## Quick Start
 
@@ -152,9 +153,9 @@ Built with:
 
 ## Philosophy
 
-This workspace prioritizes understanding over completion. Each implementation is written
-from scratch to build intuition. Solutions are documented thoroughly to capture
-learnings and patterns that emerge across problems.
+This workspace prioritizes understanding over completion. Each implementation is
+written from scratch to build intuition. Solutions are documented thoroughly to
+capture learnings and patterns that emerge across problems.
 
 ## Additional Resources
 
