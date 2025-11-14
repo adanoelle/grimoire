@@ -32,3 +32,6 @@ result-*
 
 # Hypothesis cache
 .hypothesis/
+
+# Editor configuration (user-specific)
+.helix/

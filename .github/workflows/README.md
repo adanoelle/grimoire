@@ -28,7 +28,7 @@ This directory contains automated workflows for the grimoire workspace.
 
 **What it does:**
 1. Runs `./scripts/weekly-report.sh`
-2. Saves report to `progress/weekly/YYYY-WWW.md`
+2. Saves report to `docs/devlog/weekly/YYYY-WWW.md`
 3. Creates a GitHub issue with the report (labeled `progress-tracker`)
 4. Commits the report file back to the repo
 
@@ -57,7 +57,7 @@ The CI workflow adds a summary to each PR showing:
 - Test results
 
 ### Progress Tracking
-Weekly reports create searchable GitHub issues and markdown files in `progress/weekly/`.
+Weekly reports create searchable GitHub issues and markdown files in `docs/devlog/weekly/`.
 
 ### Nix Integration
 Both workflows use the Nix flake for reproducible environments, ensuring tests run in the same environment as local development.
