@@ -56,6 +56,14 @@ Fill in problems as you work through the LeetCode hashing section.
   - Pattern: Complement pattern
   - Key insight: Check for complement BEFORE inserting to avoid using same element twice
 
+- [x] **[Missing Number](https://leetcode.com/problems/missing-number/)** - LC #268
+  - Pattern: HashSet for existence
+  - Key insight: Create set of [0, n+1] range, remove found elements, remaining is missing
+
+- [x] **[Jewels and Stones](https://leetcode.com/problems/jewels-and-stones/)** - LC #771
+  - Pattern: HashSet for O(1) lookup
+  - Key insight: Convert jewels to set, count stones that exist in set
+
 ### Medium Problems
 
 - [ ] **[Problem Name](link)** - LC #
@@ -70,9 +78,9 @@ Fill in problems as you work through the LeetCode hashing section.
 
 ## Progress Tracker
 
-**Completed**: 2 / 9
+**Completed**: 4 / 9
 
-- Easy: 2 / 4
+- Easy: 4 / 4 ✅
 - Medium: 0 / 4
 - Hard: 0 / 1
 
@@ -86,10 +94,15 @@ Fill in problems as you work through the LeetCode hashing section.
 - Complement pattern: target - current = needed (Two Sum)
 - Hash maps can track value-to-index mappings for pair problems
 - Order matters: check complement before inserting to avoid same-element errors
+- HashSet for range checking: create expected range, remove found values (Missing Number)
+- HashSet for O(1) membership testing is fundamental pattern (Jewels and Stones)
+- **Completed all 4 Easy hashing problems** - ready for Medium difficulty!
 
 ### Common mistakes I made
 
 - Adding values to hash map before checking for complement (causes same-index returns in Two Sum)
+- Using len(nums) instead of len(nums)+1 for range [0,n] (Missing Number)
+- Variable shadowing: reassigning parameter names to different types (style issue)
 
 ## Related Runes
 
