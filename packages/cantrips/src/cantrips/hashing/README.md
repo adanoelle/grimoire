@@ -52,6 +52,10 @@ Fill in problems as you work through the LeetCode hashing section.
   - Pattern: HashSet for duplicates
   - Key insight: Set comparison - if len(set) < len(list), duplicates exist
 
+- [x] **[Two Sum](https://leetcode.com/problems/two-sum/)** - LC #1
+  - Pattern: Complement pattern
+  - Key insight: Check for complement BEFORE inserting to avoid using same element twice
+
 ### Medium Problems
 
 - [ ] **[Problem Name](link)** - LC #
@@ -66,9 +70,9 @@ Fill in problems as you work through the LeetCode hashing section.
 
 ## Progress Tracker
 
-**Completed**: 1 / 9
+**Completed**: 2 / 9
 
-- Easy: 1 / 4
+- Easy: 2 / 4
 - Medium: 0 / 4
 - Hard: 0 / 1
 
@@ -79,10 +83,13 @@ Fill in problems as you work through the LeetCode hashing section.
 - First hashing problem! Hash sets provide O(1) lookup for duplicate detection
 - Set size comparison technique: comparing set length vs list length
 - Converting list to set automatically removes duplicates
+- Complement pattern: target - current = needed (Two Sum)
+- Hash maps can track value-to-index mappings for pair problems
+- Order matters: check complement before inserting to avoid same-element errors
 
 ### Common mistakes I made
 
--
+- Adding values to hash map before checking for complement (causes same-index returns in Two Sum)
 
 ## Related Runes
 
