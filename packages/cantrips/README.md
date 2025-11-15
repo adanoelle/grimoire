@@ -7,13 +7,13 @@ Practice problems organized by topic from the LeetCode DSA course.
 | Topic                                            | Easy     | Medium   | Hard    | Total    |
 | ------------------------------------------------ | -------- | -------- | ------- | -------- |
 | [Arrays & Strings](src/cantrips/arrays_strings/) | 3/6      | 0/5      | 0/2     | 3/13     |
-| [Hashing](src/cantrips/hashing/)                 | 0/4      | 0/4      | 0/1     | 0/9      |
+| [Hashing](src/cantrips/hashing/)                 | 4/4      | 0/4      | 0/1     | 4/9      |
 | [Linked Lists](src/cantrips/linked_lists/)       | 0/3      | 0/4      | 0/1     | 0/8      |
 | [Stacks & Queues](src/cantrips/stacks_queues/)   | 0/3      | 0/3      | 0/1     | 0/7      |
 | [Trees & Graphs](src/cantrips/trees_graphs/)     | 0/4      | 0/6      | 0/2     | 0/12     |
 | [Heaps](src/cantrips/heaps/)                     | 0/2      | 0/3      | 0/1     | 0/6      |
 | [Greedy](src/cantrips/greedy/)                   | 0/2      | 0/3      | 0/1     | 0/6      |
-| **Total**                                        | **3/24** | **0/28** | **0/9** | **3/61** |
+| **Total**                                        | **7/24** | **0/28** | **0/9** | **7/61** |
 
 ## Study Workflow
 
@@ -32,7 +32,7 @@ Practice problems organized by topic from the LeetCode DSA course.
 
 ### 2. Hashing
 
-**Status**: Not started **Core concepts**: Hash maps, hash sets, counting, frequency
+**Status**: Easy tier complete! (4/9) **Core concepts**: Hash maps, hash sets, counting, frequency
 maps [View problems →](src/cantrips/hashing/README.md)
 
 ### 3. Linked Lists
@@ -66,6 +66,8 @@ Track recurring patterns as you discover them:
 
 - [x] Two pointers
 - [x] Sliding window
+- [x] HashSet for existence/duplicates
+- [x] HashMap for complement pattern
 - [ ] Fast & slow pointers
 - [ ] In-place reversal
 - [ ] Monotonic stack
