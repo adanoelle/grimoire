@@ -77,8 +77,28 @@ Track recurring patterns as you discover them:
 - [ ] BFS/DFS traversal
 - [ ] Backtracking
 
+## Kata Practice Integration
+
+**Daily workflow:** Kata warmup (5-10 min) → LeetCode problems (45-60 min)
+
+See **[Kata-Cantrip Correlation Guide](../../docs/KATA_CANTRIP_CORRELATION.md)** for:
+- Which kata patterns you've used in solved problems
+- Recommended next problems to fill pattern gaps
+- ⚠️ **CRITICAL**: You haven't practiced Binary Search or Fast/Slow Pointers yet!
+- Track your progress toward pattern mastery
+
+**Quick kata commands:**
+```bash
+just kata-list                    # See available patterns
+just kata-practice binary_search  # Start daily practice
+just kata-reset-pattern binary_search  # Reset after practice
+```
+
 ## Resources
 
 - [LeetCode DSA Course](https://leetcode.com/explore/)
 - [Data Structures (runes)](../runes/)
+- [Algorithm Katas (runes/algorithms)](../runes/src/runes/algorithms/)
+- [Kata-Cantrip Correlation](../../docs/KATA_CANTRIP_CORRELATION.md)
+- [Kata Practice Guide](../../docs/KATA_PRACTICE.md)
 - [Templates](../../docs/templates/)
