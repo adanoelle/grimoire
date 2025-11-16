@@ -283,3 +283,51 @@ clean:
     @find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
     @find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
     @echo "✅ Cleaned up Python cache files"
+
+# ============================================================================
+# Algorithm Kata Practice
+# ============================================================================
+# Daily algorithm drills for building muscle memory
+
+# Reset all kata implementations back to 'pass' (after practice)
+# Example: just kata-reset
+kata-reset:
+    @echo "⚠️  This will reset ALL kata implementations back to 'pass'"
+    @echo ""
+    @read -p "Continue? [Y/n]: " answer && [ "$${answer:-Y}" != "n" ] && [ "$${answer:-Y}" != "N" ] || (echo "Cancelled." && exit 1)
+    @python scripts/reset_katas.py
+
+# Reset katas for a specific pattern only
+# Example: just kata-reset-pattern binary_search
+kata-reset-pattern pattern:
+    @echo "⚠️  This will reset '{{pattern}}' kata implementations back to 'pass'"
+    @echo ""
+    @read -p "Continue? [Y/n]: " answer && [ "$${answer:-Y}" != "n" ] && [ "$${answer:-Y}" != "N" ] || (echo "Cancelled." && exit 1)
+    @python scripts/reset_katas.py {{pattern}}
+
+# Preview what would be reset (dry run)
+# Example: just kata-dry-run
+kata-dry-run:
+    @python scripts/reset_katas.py --dry-run
+
+# Run tests for a specific kata
+# Example: just kata-test binary_search
+kata-test pattern:
+    @python packages/runes/src/runes/algorithms/**/{{pattern}}/kata.py
+
+# List all available kata patterns
+kata-list:
+    @echo "Available kata patterns:"
+    @find packages/runes/src/runes/algorithms -name "kata.py" | sed 's|packages/runes/src/runes/algorithms/||' | sed 's|/kata.py||' | sed 's|^|  - |'
+
+# Complete kata workflow: practice → test → reset
+# Example: just kata-practice binary_search
+kata-practice pattern:
+    @echo "🥋 Kata Practice: {{pattern}}"
+    @echo ""
+    @echo "1. Open kata file and code from memory"
+    @echo "2. Run tests: just kata-test {{pattern}}"
+    @echo "3. When done, reset: just kata-reset-pattern {{pattern}}"
+    @echo ""
+    @echo "Opening kata file..."
+    @${EDITOR:-code} packages/runes/src/runes/algorithms/**/{{pattern}}/kata.py

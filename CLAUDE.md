@@ -5,17 +5,21 @@ workflow for AI assistants.
 
 ## Project Overview
 
-**Grimoire** is a comprehensive interview preparation workspace for large tech companies containing:
+**Grimoire** is a comprehensive interview preparation workspace for large tech
+companies containing:
 
 - **Runes**: Data structures and algorithms implemented from scratch
 - **Cantrips**: LeetCode problem solutions organized by topic
 - **Incantations**: Systems design concepts and practice (NEW)
 
-The goal is hands-on learning through implementation and practice, preparing for both:
+The goal is hands-on learning through implementation and practice, preparing for
+both:
+
 1. **DSA Interviews**: Following LeetCode course structure
 2. **Systems Design Interviews**: Studying distributed systems patterns
 
-**Current Focus**: 8-week interview sprint for Jan/Feb interviews at large tech companies.
+**Current Focus**: 8-week interview sprint for Jan/Feb interviews at large tech
+companies.
 
 ## Workspace Structure
 
@@ -27,7 +31,9 @@ grimoire/
 │   │   ├── grimoire-keeper.md           # Progress tracking & accountability
 │   │   ├── study-partner.md             # DSA learning guidance
 │   │   ├── systems-sage.md              # Systems design guide
-│   │   └── testing-sage.md              # Property-based testing expert
+│   │   ├── testing-sage.md              # Property-based testing expert
+│   │   ├── leetcode-sensei.md           # LeetCode ritual guide
+│   │   └── kata-master.md               # Algorithm kata practice coach
 │   ├── skills/                          # Model-invoked autonomous capabilities
 │   │   ├── progress-today/
 │   │   ├── progress-week/
@@ -37,6 +43,8 @@ grimoire/
 │   └── commands/                        # User-invoked slash commands
 │       ├── start-session.md
 │       ├── check-in.md
+│       ├── kata.md
+│       ├── ritual.md
 │       ├── commit-dsa.md
 │       ├── commit-systems.md
 │       ├── weekly-review.md
@@ -50,6 +58,9 @@ grimoire/
 │   │   ├── topic.md                     # Topic progress template
 │   │   ├── fundamental.py               # Systems concept template
 │   │   └── design.py                    # System design template
+│   ├── ALGORITHM_MASTERY.md             # Core patterns & breathing knowledge
+│   ├── LEETCODE_RITUAL.md               # 4-phase practice ritual for every problem
+│   ├── KATA_PRACTICE.md                 # Algorithm kata daily practice guide
 │   ├── CHEATSHEET.md                    # Quick reference - print this! ⭐
 │   ├── DAILY_WORKFLOW.md                # Practical daily study guide
 │   ├── INTERVIEW_SPRINT.md              # 8-week sprint overview
@@ -76,10 +87,17 @@ grimoire/
 │   │       │   ├── stack/
 │   │       │   ├── queue/
 │   │       │   └── ...
-│   │       └── algorithms/              # Directory per algorithm category
-│   │           ├── sorting/
+│   │       └── algorithms/              # Algorithm katas for daily practice
+│   │           ├── two_pointers/
+│   │           │   ├── opposite_ends/      # __init__.py (templates), kata.py (practice)
+│   │           │   └── fast_slow/          # Cycle detection katas
 │   │           ├── searching/
-│   │           └── graph/
+│   │           │   └── binary_search/      # Classic, variants, 100-rep goal
+│   │           ├── sliding_window/
+│   │           │   ├── fixed_window/       # Max sum, averages
+│   │           │   └── variable_window/    # Longest substring
+│   │           ├── sorting/                # (Future katas)
+│   │           └── graph/                  # (Future katas)
 │   │
 │   ├── cantrips/                        # LeetCode solutions
 │   │   ├── README.md                    # Main progress dashboard
@@ -130,33 +148,41 @@ Progression: Learn **runes** → Practice **cantrips** → Master **incantations
 
 ## Interview Sprint Mode (Current: 8 Weeks)
 
-**Context**: Preparing for interviews at large tech companies in Jan/Feb. Focus on interview-readiness, not perfection.
+**Context**: Preparing for interviews at large tech companies in Jan/Feb. Focus on
+interview-readiness, not perfection.
 
 ### Week-by-Week Focus
 
-**Weeks 1-2**: DSA foundations (Arrays, Strings, Hashing) + Systems fundamentals (scaling, caching, databases)
+**Weeks 1-2**: DSA foundations (Arrays, Strings, Hashing) + Systems fundamentals
+(scaling, caching, databases)
+
 - 25-30 LeetCode problems (Easy/Medium)
 - 3-5 fundamental concepts in `incantations/fundamentals/`
 
 **Weeks 3-4**: DSA depth (Linked Lists, Stacks, Queues, Trees) + First designs
+
 - 25-30 problems (Medium focus)
 - 4 easy system designs (URL shortener, Pastebin, Rate limiter)
 
 **Weeks 5-6**: Advanced DSA (Binary Search, DFS/BFS, Heaps, DP) + Complex systems
+
 - 30-35 problems (Medium/Hard)
 - 6 medium designs (Twitter, Instagram, Uber, YouTube)
 
 **Weeks 7-8**: Mock interviews + weak areas
+
 - 20-25 problems (review + new)
 - Mock system designs with timing
 - Practice explaining out loud
 
 ### Daily Structure (5-6 hours)
+
 - **Morning (3 hrs)**: 2-3 LeetCode problems + documentation
 - **Afternoon (2-3 hrs)**: 1 systems concept/design + Python implementation
 - **Evening (30 min)**: Review, commit, set goals
 
 ### Target Coverage
+
 - **DSA**: 100-120 problems (70% Medium, 20% Easy, 10% Hard)
 - **Systems**: 15-20 full designs, 10-15 fundamentals mastered
 
@@ -207,7 +233,7 @@ Progression: Learn **runes** → Practice **cantrips** → Master **incantations
 
 ## Study Partner Agents
 
-The grimoire includes five specialized agents in `.claude/agents/` to support
+The grimoire includes seven specialized agents in `.claude/agents/` to support
 learning:
 
 ### session-starter
@@ -266,8 +292,8 @@ study-partner" or ask naturally when stuck
 
 ### testing-sage
 
-**Purpose**: Property-based testing expert **Invoke**: "Invoke testing-sage" when
-you want help with Hypothesis test strategies
+**Purpose**: Property-based testing expert **Invoke**: "Invoke testing-sage" when you
+want help with Hypothesis test strategies
 
 **What it does**:
 
@@ -290,7 +316,8 @@ working on system designs or learning distributed systems concepts
 
 **What it does**:
 
-- ✅ Guides through RADIO framework (Requirements, Architecture, Data, Interface, Optimization)
+- ✅ Guides through RADIO framework (Requirements, Architecture, Data, Interface,
+  Optimization)
 - ✅ Asks Socratic questions about architecture and trade-offs
 - ✅ Points out missing considerations and bottlenecks
 - ✅ Provides honest, direct feedback (not sycophantic)
@@ -303,6 +330,71 @@ working on system designs or learning distributed systems concepts
 
 **Tools**: Read, Glob, Grep (read-only)
 
+### leetcode-sensei
+
+**Purpose**: Disciplined LeetCode practice guide **Invoke**: Use
+`/ritual [problem-number]` or "Invoke leetcode-sensei"
+
+**What it does**:
+
+- ✅ Guides through all 4 phases of LEETCODE_RITUAL.md step-by-step
+- ✅ Keeps you accountable to the ritual with gentle time reminders
+- ✅ Asks Socratic questions to ensure deep thinking
+- ✅ Enforces thinking out loud (essential interview skill)
+- ✅ Helps with self-assessment scorecard (tracks score out of 14)
+- ✅ Tracks improvement over time
+- ✅ Creates properly formatted commit messages
+- ❌ Never solves problems for you
+- ❌ Never gives away patterns or solutions
+- ❌ Never lets you skip ritual steps
+
+**Key principle**: Build interview-ready habits through disciplined practice
+
+**Tools**: Read, Glob, Grep, Bash (for commits)
+
+**Four Phases:**
+
+1. Pre-Solve Analysis (7-10 min) - Pattern recognition, brute force, optimal approach
+2. Solution Development (25-35 min) - Code with think-aloud narration
+3. Verification (5-10 min) - Test examples, edge cases, complexity
+4. Reflection (5 min) - Self-assessment, identify improvement area, commit
+
+**Use for**: Every single LeetCode problem during your 8-week sprint
+
+### kata-master
+
+**Purpose**: Algorithm kata practice coach and mastery tracker **Invoke**: Use
+`/kata` or "Invoke kata-master"
+
+**What it does**:
+
+- ✅ Guides daily kata practice sessions (pick pattern, time attempts, log results)
+- ✅ Tracks mastery progression (Learning → Practicing → Mastered)
+- ✅ Monitors time improvements and bug reduction
+- ✅ Tracks the binary search 100-rep goal
+- ✅ Reads git commits from cantrips (LeetCode) to correlate patterns
+- ✅ Shows how kata practice improves LeetCode performance
+- ✅ Celebrates milestones (zero bugs, target times, streaks)
+- ✅ Identifies patterns needing more work
+- ❌ Never codes katas for you
+- ❌ Never gives hints during practice
+- ❌ Never lets you skip tracking
+
+**Key principle**: Deliberate practice builds muscle memory
+
+**Tools**: Read, Glob, Grep, Bash (for git commits)
+
+**Four functions:**
+
+1. Guided kata session - Pick pattern, practice, record results
+2. Mastery progress - View levels for each pattern
+3. Weekly correlation - Kata practice ↔ LeetCode success
+4. Milestone tracking - 100 reps, achievements, streaks
+
+**Use for**: Daily 5-10 min kata warmup before LeetCode, evening reinforcement
+
+**Integration**: Use `/kata` before `/ritual` for optimal daily flow
+
 ## Claude Code Skills and Commands
 
 The grimoire includes Claude Code Skills (model-invoked) and Slash Commands
@@ -310,8 +402,8 @@ The grimoire includes Claude Code Skills (model-invoked) and Slash Commands
 
 ### Skills (`.claude/skills/`)
 
-Skills are autonomous capabilities that agents can use without verbose bash
-commands. They save ~50,000-100,000 tokens over the 8-week sprint.
+Skills are autonomous capabilities that agents can use without verbose bash commands.
+They save ~50,000-100,000 tokens over the 8-week sprint.
 
 **Available skills:**
 
@@ -321,38 +413,47 @@ commands. They save ~50,000-100,000 tokens over the 8-week sprint.
 - **commit-suggest**: Generates properly formatted commit messages
 - **test-problem**: Intelligently detects and runs pytest tests
 
-Agents automatically use these skills when appropriate. You don't need to invoke
-them manually.
+Agents automatically use these skills when appropriate. You don't need to invoke them
+manually.
 
 ### Slash Commands (`.claude/commands/`)
 
-Slash commands are user-invoked shortcuts that expand to prompts. Type them in
-Claude Code for instant workflows.
+Slash commands are user-invoked shortcuts that expand to prompts. Type them in Claude
+Code for instant workflows.
 
 **Available commands:**
 
 - `/start-session` - Morning kickoff with session-starter agent
 - `/check-in` - Quick progress check (shows today's commits)
+- `/kata` - Algorithm kata practice with kata-master (build muscle memory)
+- `/ritual` - LeetCode practice with leetcode-sensei guide (all 4 phases)
 - `/commit-dsa` - Commit DSA work with proper formatting
 - `/commit-systems` - Commit systems work with proper formatting
 - `/weekly-review` - Sunday review with comprehensive stats
 - `/design` - Start system design session with systems-sage
 
 Example usage:
+
 ```
 /check-in
 ```
 
-Expands to a prompt that shows today's progress with commit counts and
-assessment.
+Expands to a prompt that shows today's progress with commit counts and assessment.
 
 ### When to Use Agents
 
 - **Start of day**: Use session-starter to get organized
+- **Morning warmup (5-10 min)**: Use `/kata` for algorithm drill practice
+  (kata-master guides)
+- **Practicing LeetCode problem**: Use `/ritual` to invoke leetcode-sensei for full
+  guided practice (all 4 phases)
 - **Any time check-in**: Use grimoire-keeper to see progress, get accountability
+- **Evening reinforcement (5 min)**: Use `/kata` to drill patterns used today
+- **Weekly kata report**: Use kata-master to see practice ↔ LeetCode correlation
 - **Stuck on DSA problem (15-30 min)**: Invoke study-partner for guidance
 - **Stuck on systems design**: Invoke systems-sage for architecture questions
-- **Need concept explanation**: Ask study-partner (DSA) or systems-sage (distributed systems)
+- **Need concept explanation**: Ask study-partner (DSA) or systems-sage (distributed
+  systems)
 - **Debugging your code**: study-partner asks about your logic
 - **Ready to commit**: Use grimoire-keeper to structure commit message
 - **Want property-based tests**: Invoke testing-sage for Hypothesis strategies
@@ -438,16 +539,21 @@ Update checkboxes and counts as you complete problems and implementations.
 
 ## When Helping the User
 
-- **Use agents appropriately**: Defer to session-starter/study-partner/testing-sage/systems-sage when applicable
+- **Use agents appropriately**: Defer to
+  session-starter/study-partner/testing-sage/systems-sage when applicable
 - **Naming**: Respect the grimoire/runes/cantrips/incantations theme
 - **Implementation**: User wants to write code themselves for learning
 - **Guide, don't solve**: Ask questions, don't give solutions (like study-partner)
-- **Templates**: Suggest using simplified template names (cantrip.py, fundamental.py, design.py, etc.)
+- **Templates**: Suggest using simplified template names (cantrip.py, fundamental.py,
+  design.py, etc.)
 - **Progress**: Help update READMEs and track completed work
 - **Patterns**: Help identify and document recurring techniques
-- **Connections**: Link problems to related data structures in runes, and systems concepts to incantations
-- **Interview focus**: User is in 8-week sprint mode - prioritize interview-readiness over perfection
-- **Python for speed**: Keep all implementations in Python for fast iteration during sprint
+- **Connections**: Link problems to related data structures in runes, and systems
+  concepts to incantations
+- **Interview focus**: User is in 8-week sprint mode - prioritize interview-readiness
+  over perfection
+- **Python for speed**: Keep all implementations in Python for fast iteration during
+  sprint
 
 ## Common Tasks
 
@@ -507,6 +613,39 @@ Update checkboxes and counts as you complete problems and implementations.
 5. Document trade-offs and follow-up questions
 6. Practice explaining out loud (record yourself!)
 7. Update `incantations/README.md` progress tracker
+
+### Practicing algorithm katas (daily muscle memory drills)
+
+**Quick Reference:**
+
+```bash
+just kata-list                         # View all available kata patterns
+just kata-practice binary_search       # Open kata in Helix with workflow steps
+just kata-test binary_search           # Run tests for a kata
+just kata-reset-pattern binary_search  # Reset kata back to 'pass' (Y/n confirmation)
+just kata-reset                        # Reset ALL katas (Y/n confirmation)
+just kata-dry-run                      # Preview what would be reset without changes
+```
+
+**Typical workflow:**
+
+1. `just kata-list` - See available patterns
+2. `just kata-practice binary_search` - Opens kata file in Helix
+3. Code the kata from memory (delete `pass`, implement algorithm)
+4. Save and run tests (`:w` in Helix, then run `python kata.py` or
+   `just kata-test binary_search`)
+5. Log your time and bugs in the practice log section
+6. `just kata-reset-pattern binary_search` - Reset to clean state for next practice
+   (hit Enter to confirm)
+
+**Safety features:**
+
+- All reset commands have Y/n confirmation prompts (default Y, just press Enter)
+- `kata-dry-run` previews changes without modifying files
+- Practice logs and mastery checklists are always preserved
+- Git tracking allows reverting if needed
+
+**See:** `docs/KATA_PRACTICE.md` for full kata practice philosophy and workflow
 
 ## File Organization Best Practices
 

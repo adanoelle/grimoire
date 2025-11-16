@@ -92,6 +92,10 @@
               fi
             fi
 
+            # Set Helix as default editor
+            export EDITOR="hx"
+            export VISUAL="hx"
+
             # Use project-specific Helix config
             export HELIX_RUNTIME="''${PWD}/.helix"
             if [ -d ".helix" ]; then

@@ -15,18 +15,18 @@
 ## About This Project
 
 > **Disclaimer:** This is my personal learning journal for technical interview
-> preparation. It represents my journey of understanding data structures,
-> algorithms, and systems design concepts through hands-on implementation and
-> deliberate practice.
+> preparation. It represents my journey of understanding data structures, algorithms,
+> and systems design concepts through hands-on implementation and deliberate
+> practice.
 
-This repository is a structured workspace for preparing for technical interviews
-at large tech companies. Rather than simply collecting solutions, it focuses on:
+This repository is a structured workspace for preparing for technical interviews at
+large tech companies. Rather than simply collecting solutions, it focuses on:
 
 - **Understanding**: Implementing data structures from scratch (runes)
 - **Pattern Recognition**: Solving problems by topic and documenting recurring
   techniques (cantrips)
-- **Systems Design**: Learning distributed systems concepts through
-  implementation (incantations)
+- **Systems Design**: Learning distributed systems concepts through implementation
+  (incantations)
 - **Learning Process**: Capturing mistakes, insights, and mental models in
   reflections documentation
 
@@ -46,7 +46,7 @@ just test-array reverse_string
 ## What's Inside
 
 **Runes** - Data structures and algorithms implemented from scratch for deep
-understanding.
+understanding. Includes algorithm **katas** for daily muscle memory practice.
 
 **Cantrips** - LeetCode problem solutions organized by topic with test cases and
 complexity analysis.
@@ -57,9 +57,11 @@ The grimoire follows a learn-by-doing approach:
 
 1. **Learn** - Watch LeetCode video lessons, take notes
 2. **Implement** - Build data structures from scratch in `runes/`
-3. **Practice** - Solve related problems in `cantrips/`
-4. **Test** - Verify solutions with pytest
-5. **Reflect** - Document patterns and insights
+3. **Practice Katas** - Daily algorithm drills for muscle memory
+   (`just kata-practice`)
+4. **Solve Problems** - Apply patterns in `cantrips/` LeetCode solutions
+5. **Test** - Verify solutions with pytest
+6. **Reflect** - Document patterns and insights
 
 ## Project Structure
 
@@ -68,7 +70,10 @@ grimoire/
 ├── packages/
 │   ├── runes/           # Data structures & algorithms
 │   │   ├── structures/  # LinkedList, Stack, Queue, etc.
-│   │   └── algorithms/  # Sorting, searching, graph algorithms
+│   │   └── algorithms/  # Daily kata practice (muscle memory drills)
+│   │       ├── two_pointers/
+│   │       ├── searching/
+│   │       └── sliding_window/
 │   │
 │   └── cantrips/        # LeetCode solutions by topic
 │       └── src/cantrips/
@@ -78,7 +83,8 @@ grimoire/
 │           └── ...
 │
 ├── docs/
-│   └── templates/       # Templates for new implementations
+│   ├── templates/       # Templates for new implementations
+│   └── KATA_PRACTICE.md # Algorithm kata daily practice guide
 │
 └── justfile             # Task automation recipes
 ```
@@ -103,6 +109,27 @@ just cantrip-array <problem_name>
 # - Parametrized pytest tests
 # - Reflections section
 ```
+
+## Algorithm Kata Practice
+
+Build muscle memory for core patterns through daily drills:
+
+```bash
+# View available kata patterns
+just kata-list
+
+# Practice a pattern (opens in Helix)
+just kata-practice binary_search
+
+# Reset after practice (Y/n confirmation)
+just kata-reset-pattern binary_search
+
+# Preview changes before resetting
+just kata-dry-run
+```
+
+**Daily workflow:** 5-10 min kata warmup → LeetCode problems See
+`docs/KATA_PRACTICE.md` for the full kata philosophy and workflow.
 
 ## Testing
 
