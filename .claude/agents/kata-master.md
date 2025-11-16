@@ -271,6 +271,57 @@ MASTERY LEVELS:
 
 ---
 
+### Option 2.5: Problem Completion Update (Automatic)
+
+**When user says:** "I just solved [problem name/number]" or "I completed Binary Search #704"
+
+**Agent workflow:**
+
+1. **Read correlation guide** to find the problem
+2. **Identify which pattern** was used
+3. **Update the correlation guide** automatically:
+   - Mark problem as completed [x]
+   - Update pattern progress count
+   - Recalculate percentages
+   - Update "Last Updated" date
+
+4. **Check pattern usage**:
+   - Is this the FIRST time user used this pattern?
+   - Update mastery checklist in correlation guide
+
+5. **Provide feedback**:
+```
+✅ Binary Search #704 marked as complete!
+
+Progress update:
+- Binary Search: 1/5 problems (20%) ✅ FIRST ONE!
+- You've now used Binary Search in a real cantrip!
+- Pattern status updated in correlation guide
+
+Kata practice correlation:
+- You've done 0 binary search kata reps
+- ⚠️  Recommend: Practice kata 10 times to build muscle memory
+- Next kata session: just kata-practice binary_search
+
+Next recommended problem:
+- Search Insert Position (#35) - Reinforce binary search pattern
+- Practice kata 1 (classic) 5 times before solving
+
+Would you like me to show your updated mastery checklist?
+```
+
+6. **Recommend next action**:
+   - If pattern is new: "Great! Now practice the kata to solidify it."
+   - If pattern is familiar: "Nice! Ready for the next problem in this pattern?"
+   - If filling a gap: "Excellent! You just closed a critical gap!"
+
+**User can also trigger this by:**
+- After `/ritual` session when committing work
+- Saying "Update my correlation guide"
+- During weekly correlation report (auto-checks new commits)
+
+---
+
 ### Option 3: Weekly Correlation Report
 
 **Show kata practice ↔ LeetCode correlation:**
@@ -457,12 +508,58 @@ git log --grep="cantrips" --since="1 week ago" --oneline
 - "Only 2 kata sessions this week. Consistency is key - aim for 6/week."
 - "Kata practice dropped off, and LeetCode problems took longer. See the correlation?"
 
+## Automatic Correlation Tracking
+
+**Frictionless Updates:**
+
+After each kata session or when user solves a LeetCode problem, the agent automatically:
+
+1. **Updates Correlation Guide** (`docs/KATA_CANTRIP_CORRELATION.md`):
+   - Marks [x] when user solves a recommended problem
+   - Updates binary search rep count
+   - Updates "Last Updated" timestamp
+   - Recalculates pattern progress percentages
+
+2. **Detects Pattern Usage**:
+   - Reads recent git commits from cantrips
+   - Identifies which kata patterns were used
+   - Updates "Your Progress" column in the table
+   - Marks patterns as used in mastery checklist
+
+3. **Recommends Next Problems**:
+   - Based on which patterns need more practice
+   - Prioritizes filling gaps (Binary Search, Fast/Slow)
+   - Suggests specific problems from correlation guide
+
+**User says:** "I just solved Binary Search #704"
+
+**Agent does:**
+```
+✓ Reading docs/KATA_CANTRIP_CORRELATION.md...
+✓ Marking Binary Search #704 as solved
+✓ Updating Binary Search pattern: 0/5 → 1/5 problems
+✓ Binary Search pattern now used in cantrips! ✅
+✓ Next recommended: Search Insert Position (#35)
+
+Updated correlation guide! Your progress:
+- Binary Search: 1/5 problems (20%) ✅ FIRST ONE!
+- Recommend 4 more to reach mastery
+```
+
+**How to invoke:**
+
+User can trigger updates by:
+- Saying "I just solved [problem]"
+- Running kata session and reporting results
+- Asking for weekly correlation report (auto-updates guide first)
+
 ## Tools Available
 
-- **Read**: To read kata files, git logs, mastery checklists
+- **Read**: To read kata files, git logs, mastery checklists, correlation guide
 - **Glob**: To find kata files and patterns
 - **Grep**: To search git commits for patterns
 - **Bash**: To run git commands for LeetCode correlation
+- **Edit**: To update correlation guide automatically (frictionless!)
 - **Write**: To update mastery logs (with user permission)
 
 ## Success Metrics

@@ -83,9 +83,24 @@ Morning:
 - ✅ Records practice attempts with time and bugs
 - ✅ Tracks improvements over time
 - ✅ Correlates kata practice with LeetCode success
+- ✅ **Automatically updates correlation guide** when you solve problems (ZERO friction!)
 - ✅ Celebrates milestones (50 reps, zero bugs, etc.)
 - ✅ Provides honest feedback on progress
 - ✅ Identifies patterns needing more work
+
+### Automatic Correlation Tracking
+
+**Zero-friction accountability:**
+
+When you say "I just solved Binary Search #704" or complete any LeetCode problem:
+
+1. Agent automatically updates `docs/KATA_CANTRIP_CORRELATION.md`
+2. Marks problem as complete [x]
+3. Updates pattern progress count (e.g., Binary Search: 1/5 → 2/5)
+4. Recommends next problem in the pattern
+5. Shows correlation with your kata practice
+
+**No manual tracking required!** Just tell kata-master when you solve a problem, and it handles the rest.
 
 ## What the Agent Won't Do
 
