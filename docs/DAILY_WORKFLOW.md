@@ -20,11 +20,13 @@ cd ~/grimoire
 ```
 
 Then invoke session-starter:
+
 ```
 "Start my study session"
 ```
 
 Session-starter will:
+
 - Review yesterday's commits
 - Check progress in READMEs
 - Help set today's specific goals
@@ -33,8 +35,10 @@ Session-starter will:
 ### Problem Solving (2.5 hours)
 
 **Problem 1 (45-60 min)**
+
 1. Pick problem from current topic
-2. Copy template: `cp docs/templates/cantrip.py packages/cantrips/src/cantrips/[topic]/[problem_name].py`
+2. Copy template:
+   `cp docs/templates/cantrip.py packages/cantrips/src/cantrips/[topic]/[problem_name].py`
 3. Understand requirements (5 min)
 4. Plan approach (5 min)
 5. Implement (20-30 min)
@@ -42,15 +46,18 @@ Session-starter will:
 7. Document learnings (10 min)
 
 **If stuck >20 minutes:**
+
 ```
 "Invoke study-partner - I'm stuck on [problem]. I've tried [approach] but [issue]."
 ```
 
 **Problem 2 (45-60 min)**
+
 - Repeat process
 - Try different pattern if possible
 
 **Problem 3 (optional, 30-45 min)**
+
 - If time and energy permit
 - Or redo tricky problem from yesterday
 
@@ -61,6 +68,7 @@ Session-starter will:
 3. Update main progress dashboard
 
 **Commit your work:**
+
 ```bash
 git add packages/cantrips/
 git commit -m "cantrips(arrays): two-sum, valid-palindrome, container-water"
@@ -73,6 +81,7 @@ See `GIT_WORKFLOW.md` for commit message conventions.
 ## Lunch Break (11am-2pm)
 
 **Critical for performance:**
+
 - ✅ Eat actual food
 - ✅ Walk outside (20+ min)
 - ✅ Rest your eyes (no screens)
@@ -91,22 +100,26 @@ Choose between Fundamental Day or Design Day:
 ### Option A: Fundamental Day (3 days/week: Tue/Thu/Sat)
 
 **Study Concept (30-45 min)**
+
 - Read from `docs/SYSTEMS_DESIGN_GUIDE.md`
 - Read engineering blog post
 - Watch ByteByteGo video
 - Read Alex Xu chapter
 
 **Invoke systems-sage:**
+
 ```
 "I'm studying [caching strategies]. Help me understand when to use write-through vs write-back."
 ```
 
 **Implement Key Algorithm (60-90 min)**
+
 ```bash
 cp docs/templates/fundamental.py packages/incantations/src/incantations/fundamentals/[concept].py
 ```
 
 Implement in Python:
+
 - LRU cache
 - Consistent hashing ring
 - Token bucket rate limiter
@@ -114,15 +127,18 @@ Implement in Python:
 - etc.
 
 **Systems-sage can guide:**
+
 ```
 "What should I implement to really understand consistent hashing?"
 ```
 
 **Document (20-30 min)**
+
 - Fill in template: variations, trade-offs, examples
 - Include real-world use cases (Netflix, Uber, etc.)
 
 **Commit:**
+
 ```bash
 git add packages/incantations/
 git commit -m "incantations(fundamentals): consistent-hashing with virtual nodes"
@@ -131,6 +147,7 @@ git commit -m "incantations(fundamentals): consistent-hashing with virtual nodes
 ### Option B: Design Day (2-3 days/week: Mon/Wed/Fri)
 
 **Invoke systems-sage as interviewer:**
+
 ```
 "I want to design [URL shortener]. Act as my interviewer."
 ```
@@ -138,6 +155,7 @@ git commit -m "incantations(fundamentals): consistent-hashing with virtual nodes
 **Work through RADIO (90-120 min)**
 
 Systems-sage will guide you:
+
 - "What are the requirements? Be specific about scale."
 - "Walk me through your architecture. Why these components?"
 - "Show me your database schema. What's your access pattern?"
@@ -146,26 +164,31 @@ Systems-sage will guide you:
 Interactive back-and-forth like real interview.
 
 **Implement Core Algorithm (30-45 min)**
+
 ```bash
 cp docs/templates/design.py packages/incantations/src/incantations/designs/[system].py
 ```
 
 Implement the "meaty" part in Python:
+
 - Short code generation
 - Feed ranking algorithm
 - Matching algorithm
 - Whatever is most interesting
 
 **Document (20-30 min)**
+
 - Complete design template
 - Trade-offs and follow-ups
 
 **Practice Explaining (15 min)**
+
 - Record yourself on phone
 - Walk through design out loud
 - Listen back: Are you clear?
 
 **Commit:**
+
 ```bash
 git add packages/incantations/
 git commit -m "incantations(designs): url-shortener with base62 encoding and caching"
@@ -188,6 +211,7 @@ git log --oneline --since="1 week ago" --no-merges
 ```
 
 Ask yourself:
+
 - What patterns did I practice?
 - What concepts clicked?
 - What am I still fuzzy on?
@@ -198,6 +222,7 @@ Ask yourself:
 
 ```markdown
 ## Tomorrow (Dec 24)
+
 - **DSA**: 2 linked list problems (fast/slow pointer pattern)
 - **Systems**: Complete Twitter feed design OR study database sharding
 - **Focus**: Understanding trade-offs between fanout approaches
@@ -217,60 +242,71 @@ git commit -m "docs: updated progress notes"
 ## Using Agents Throughout Day
 
 ### session-starter (Once, at start of day)
-**When**: First thing when sitting down
-**Invocation**: `"Start my study session"`
+
+**When**: First thing when sitting down **Invocation**: `"Start my study session"`
 **Purpose**: Focus and goal-setting (<10 min)
 
 ### grimoire-keeper (Throughout day, any time)
-**When**: Check-ins, commits, reviews
-**Invocations**:
+
+**When**: Check-ins, commits, reviews **Invocations**:
+
 - `"Check in"` - See today's progress
 - `"What have I done today?"` - Detailed stats
 - `"I finished [work], ready to commit"` - Structure commit
 - `"Am I on track?"` - Pace vs targets
-- `"Weekly review"` - Full analysis
-**Purpose**: Accountability and progress tracking with minimal overhead
+- `"Weekly review"` - Full analysis **Purpose**: Accountability and progress tracking
+  with minimal overhead
 
 ### study-partner (As needed during DSA)
+
 **When**:
+
 - Stuck >20 min
 - Bug in implementation
 - Want to verify approach
 
 **Invocations**:
+
 - `"I'm stuck on [problem]. I think [approach] but [issue]."`
 - `"My linked list reversal returns wrong result. Help me debug."`
 - `"I solved this O(n²). Is there better? Don't tell me, guide me."`
 
 ### systems-sage (Start of systems + as needed)
+
 **When**:
+
 - Beginning systems work
 - Stuck on architecture
 - Want feedback
 - Learning concept
 
 **Invocations**:
+
 - `"Design Instagram. Act as my interviewer."`
 - `"Stuck on fanout-on-write vs read. Help me reason through it."`
 - `"Review my URL shortener for bottlenecks."`
 
 ### testing-sage (Optional)
-**When**: Adding property-based tests
-**Invocation**: `"Help me add Hypothesis tests for two-sum on sorted array."`
+
+**When**: Adding property-based tests **Invocation**:
+`"Help me add Hypothesis tests for two-sum on sorted array."`
 
 ---
 
 ## Weekly Rhythm
 
 **Monday/Wednesday/Friday**: Design days
+
 - Afternoon = full system design practice
 - Mock interview style with systems-sage
 
 **Tuesday/Thursday/Saturday**: Fundamental days
+
 - Afternoon = study concept + implement
 - Deep understanding through code
 
 **Sunday**: Review & Mock Interview
+
 - Morning: Redo tricky problems from scratch
 - Afternoon: Timed mock design (45 min)
 - Review weak areas
@@ -280,6 +316,7 @@ git commit -m "docs: updated progress notes"
 ## Tracking Progress (Simple)
 
 ### Primary: Git Commits
+
 Your commit history IS your tracker.
 
 ```bash
@@ -294,6 +331,7 @@ git log --oneline --since="1 week ago" --no-merges | wc -l
 ```
 
 **Good commit messages** (see `GIT_WORKFLOW.md`):
+
 ```
 cantrips(arrays): two-sum, container-water [two-pointers]
 incantations(fundamentals): lru-cache with OrderedDict
@@ -302,26 +340,31 @@ cantrips(trees): revisited serialize-tree, now understand approach
 ```
 
 ### Secondary: Progress READMEs
+
 Update checkboxes weekly:
+
 - `packages/cantrips/README.md`
 - `packages/incantations/README.md`
 
 ### Optional: Daily Notes
+
 Add `PROGRESS.md` at root:
 
 ```markdown
 # Week 1 (Dec 21-27)
 
 ## Day 1 (Mon, Dec 21)
-**DSA** (3h): reverse-string, valid-palindrome, two-sum
-**Systems** (2h): URL shortener design
-**Patterns**: Two pointers clicking, base62 encoding understood
+
+**DSA** (3h): reverse-string, valid-palindrome, two-sum **Systems** (2h): URL
+shortener design **Patterns**: Two pointers clicking, base62 encoding understood
 **Fuzzy**: Cache invalidation strategies
 
 ## Day 2 (Tue, Dec 22)
+
 ...
 
 ## Week Summary
+
 - **DSA**: 12 problems solved (8 arrays, 4 strings)
 - **Systems**: 2 designs, 3 fundamentals
 - **Confidence**: 7/10 DSA, 6/10 Systems
@@ -329,7 +372,9 @@ Add `PROGRESS.md` at root:
 ```
 
 ### Don't Use: SuperProductivity, Toggl, etc.
+
 **Why not during sprint:**
+
 - Adds cognitive overhead
 - Context switching between tools
 - Perfectionism trap
@@ -445,18 +490,21 @@ git status
 ## Motivation Reminders
 
 **When overwhelmed:**
+
 - Focus on TODAY's 2-3 problems, 1 concept
 - Review what you've ALREADY learned (git log)
 - Trust the process - daily work compounds
 - Rest is part of learning
 
 **Daily mantras:**
+
 - 🔮 "I'm building my grimoire, one spell at a time"
 - 🔮 "Every problem teaches me a pattern"
 - 🔮 "Struggle means growth"
 - 🔮 "I explain clearly because I understand deeply"
 
 **Remember:**
+
 - You have 8 focused weeks - rare opportunity
 - Interviews test preparation, not IQ
 - Thousands pass these every year

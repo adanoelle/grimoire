@@ -59,13 +59,15 @@ The **testing-sage** agent will:
 
 The **systems-sage** agent will:
 
-- Guide you through RADIO framework (Requirements, Architecture, Data, Interface, Optimization)
+- Guide you through RADIO framework (Requirements, Architecture, Data, Interface,
+  Optimization)
 - Ask Socratic questions about your design choices
 - Point out missing considerations and bottlenecks
 - Provide honest feedback on your architecture
 - Help you think through trade-offs without designing for you
 
-See `docs/HYPOTHESIS_GUIDE.md` for testing examples and `docs/SYSTEMS_DESIGN_GUIDE.md` for systems design reference.
+See `docs/HYPOTHESIS_GUIDE.md` for testing examples and
+`docs/SYSTEMS_DESIGN_GUIDE.md` for systems design reference.
 
 ---
 
@@ -102,13 +104,11 @@ git status                    # Check what you worked on last
 **When**: Starting a new topic (Arrays, Hashing, Trees, etc.)
 
 1. **Watch & Learn (30-45 min)**
-
    - [ ] Watch LeetCode course video for topic
    - [ ] Take notes in a scratch file or notebook
    - [ ] Identify key concepts and patterns
 
 2. **Implement Structure (45-60 min)**
-
    - [ ] Create directory: `runes/structures/[name]/`
    - [ ] Copy template:
          `cp docs/templates/data_structure_template.md runes/structures/[name]/README.md`
@@ -129,7 +129,6 @@ git status                    # Check what you worked on last
 **When**: Practicing problems for current topic
 
 1. **Warm Up (10 min)**
-
    - [ ] Review topic README: `cantrips/src/cantrips/[topic]/README.md`
    - [ ] Refresh pattern recognition
    - [ ] Review previous solutions briefly
@@ -139,21 +138,18 @@ git status                    # Check what you worked on last
    **For each problem:**
 
    a. **Understand (5-10 min)**
-
    - [ ] Read problem carefully
    - [ ] Write down input/output examples
    - [ ] Identify constraints
    - [ ] Think: "What pattern is this?"
 
    b. **Plan (5-10 min)**
-
    - [ ] Sketch approach on paper or comments
    - [ ] Consider edge cases
    - [ ] Estimate complexity
    - [ ] Don't code yet!
 
    c. **Implement (15-30 min)**
-
    - [ ] Copy template:
          `cp docs/templates/cantrip_template.py cantrips/[topic]/[problem_name].py`
    - [ ] Fill in problem description
@@ -162,14 +158,12 @@ git status                    # Check what you worked on last
    - [ ] Add test cases
 
    d. **Verify (5-10 min)**
-
    - [ ] Run your tests
    - [ ] Test edge cases manually
    - [ ] Check LeetCode if needed
    - [ ] Fix bugs, understand why they happened
 
    e. **Harden with Properties (Optional, 10-15 min)**
-
    - [ ] Invoke testing-sage or reference `docs/HYPOTHESIS_GUIDE.md`
    - [ ] Uncomment Hypothesis section in your solution
    - [ ] Add property-based tests to discover edge cases
@@ -188,13 +182,11 @@ git status                    # Check what you worked on last
 **When**: Friday or after completing a topic
 
 1. **Review Implementations (30 min)**
-
    - [ ] Re-read your runes implementations
    - [ ] Can you explain each operation's complexity?
    - [ ] Try to re-implement a simple structure from memory
 
 2. **Pattern Analysis (30 min)**
-
    - [ ] Review all problems solved this week
    - [ ] Group by pattern (two pointers, sliding window, etc.)
    - [ ] Write down pattern recognition triggers
@@ -210,7 +202,6 @@ git status                    # Check what you worked on last
 **When**: Want to deepen understanding of previous solutions or practice testing
 
 1. **Select Solutions to Harden (10 min)**
-
    - [ ] Pick 2-3 previous cantrip solutions
    - [ ] Choose problems with clear constraints (sorted arrays, bounded values, etc.)
    - [ ] Prefer problems you found tricky
@@ -218,7 +209,6 @@ git status                    # Check what you worked on last
 2. **Add Property-Based Tests (45-60 min)**
 
    **For each solution:**
-
    - [ ] Invoke testing-sage for the problem
    - [ ] Identify properties/invariants to test
    - [ ] Uncomment Hypothesis section in solution file
@@ -259,13 +249,11 @@ git commit -m "Topic: Problem(s) solved / Structure implemented"
 **When**: Sunday or end of week
 
 1. **Review the Week**
-
    - [ ] Count problems solved (easy/medium/hard)
    - [ ] Review all "Lessons Learned" sections
    - [ ] Identify strongest and weakest patterns
 
 2. **Plan Next Week**
-
    - [ ] Choose next topic(s)
    - [ ] Set weekly goals (e.g., "Complete hashing section")
    - [ ] Schedule review days for previous topics
