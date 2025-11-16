@@ -1,0 +1,6 @@
+#!/bin/bash
+# Quick alias for resetting katas
+# Usage: ./scripts/reset-kata [pattern]
+
+cd "$(dirname "$0")/.."
+python scripts/reset_katas.py "$@"
