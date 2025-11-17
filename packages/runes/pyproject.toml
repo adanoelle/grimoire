@@ -7,10 +7,13 @@ authors = [
     { name = "Ada", email = "adanoelleyoung@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
 
 [project.scripts]
-runes = "runes:main"
+runes = "runes.cli.app:main"
 
 [build-system]
 requires = ["hatchling"]
