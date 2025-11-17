@@ -48,8 +48,24 @@ The kata-master agent guides you through deliberate practice of core algorithmic
 1. /kata session
 2. Pick pattern (e.g., two pointers)
 3. Code kata from memory (agent guides you)
-4. Report time and results
-5. Agent logs progress and shows improvement
+4. Run tests: just kata-test <kata_name>
+5. Report time and results
+6. Agent logs progress and shows improvement
+```
+
+**Testing Options:**
+```bash
+# Run specific kata by name (recommended - no noise!)
+just kata-test reverse_string
+
+# Run all katas in a pattern directory
+just kata-test-pattern two_pointers
+
+# Run all kata tests across all patterns
+just kata-test-all
+
+# Legacy doctest mode (if test_kata.py not created yet)
+just kata-test-doctest two_pointers/opposite_ends
 ```
 
 **Evening reinforcement (5 min):**
@@ -175,6 +191,27 @@ Sliding Window needs more kata practice.
 Add 2 sessions this week.
 ```
 
+## Pytest-Based Testing (New!)
+
+**Why pytest instead of doctest?**
+
+- ✅ Run individual katas without noise from unimplemented ones
+- ✅ Clear TODO status for katas you haven't coded yet
+- ✅ Better error messages and debugging
+- ✅ Flexible test execution (by name, pattern, or all)
+- ✅ Works with justfile wrappers for simplicity
+
+**Workflow:**
+1. Code your kata implementation in `kata.py`
+2. Remove `@kata_todo()` decorator from corresponding test in `test_kata.py`
+3. Run `just kata-test <kata_name>` to see only that kata's tests
+4. No noise from unimplemented katas (they show as "SKIP" with TODO status)
+
+**Migration:**
+- New kata files will use pytest by default (test_kata.py)
+- Existing kata files can keep using doctest (kata-test-doctest)
+- See `docs/templates/kata_test_template.py` for migration guide
+
 ## Philosophy
 
 **Katas are like scales for musicians.**
@@ -193,6 +230,8 @@ Add 2 sessions this week.
 - `/kata progress` - Check mastery
 - `/kata report` - Weekly insights
 - `/kata milestones` - Track big goals
+- `just kata-test <name>` - Run specific kata tests
+- `just kata-test-all` - Check all progress
 
 ---
 

@@ -24,6 +24,28 @@
 # just test-all
 
 # ============================================================================
+# KATA PRACTICE SYSTEM
+# ============================================================================
+# Pattern names reinforce LeetCode vocabulary through daily typing.
+#
+# Morning workflow:
+#   just kata::practice two-pointers/opposite-ends   # Opens Helix
+#   just kata::test two-pointers/opposite-ends       # Run tests
+#   just kata::reset two-pointers/opposite-ends      # Reset for tomorrow
+#
+# Every command types the full pattern = spaced repetition.
+
+# Import kata module
+mod kata 'packages/runes/src/runes/algorithms/kata.just'
+
+# NOTE: Use kata::command syntax for kata operations:
+#   just kata::practice two-pointers/opposite-ends
+#   just kata::test two-pointers/opposite-ends
+#   just kata::reset two-pointers/opposite-ends
+#
+# (No aliases to avoid conflicts with existing cantrip commands)
+
+# ============================================================================
 # Main Commands
 # ============================================================================
 
@@ -288,46 +310,14 @@ clean:
 # Algorithm Kata Practice
 # ============================================================================
 # Daily algorithm drills for building muscle memory
-
-# Reset all kata implementations back to 'pass' (after practice)
-# Example: just kata-reset
-kata-reset:
-    @echo "⚠️  This will reset ALL kata implementations back to 'pass'"
-    @echo ""
-    @read -p "Continue? [Y/n]: " answer && [ "$${answer:-Y}" != "n" ] && [ "$${answer:-Y}" != "N" ] || (echo "Cancelled." && exit 1)
-    @python scripts/reset_katas.py
-
-# Reset katas for a specific pattern only
-# Example: just kata-reset-pattern binary_search
-kata-reset-pattern pattern:
-    @echo "⚠️  This will reset '{{pattern}}' kata implementations back to 'pass'"
-    @echo ""
-    @read -p "Continue? [Y/n]: " answer && [ "$${answer:-Y}" != "n" ] && [ "$${answer:-Y}" != "N" ] || (echo "Cancelled." && exit 1)
-    @python scripts/reset_katas.py {{pattern}}
-
-# Preview what would be reset (dry run)
-# Example: just kata-dry-run
-kata-dry-run:
-    @python scripts/reset_katas.py --dry-run
-
-# Run tests for a specific kata
-# Example: just kata-test binary_search
-kata-test pattern:
-    @python packages/runes/src/runes/algorithms/**/{{pattern}}/kata.py
-
-# List all available kata patterns
-kata-list:
-    @echo "Available kata patterns:"
-    @find packages/runes/src/runes/algorithms -name "kata.py" | sed 's|packages/runes/src/runes/algorithms/||' | sed 's|/kata.py||' | sed 's|^|  - |'
-
-# Complete kata workflow: practice → test → reset
-# Example: just kata-practice binary_search
-kata-practice pattern:
-    @echo "🥋 Kata Practice: {{pattern}}"
-    @echo ""
-    @echo "1. Open kata file and code from memory"
-    @echo "2. Run tests: just kata-test {{pattern}}"
-    @echo "3. When done, reset: just kata-reset-pattern {{pattern}}"
-    @echo ""
-    @echo "Opening kata file..."
-    @${EDITOR:-code} packages/runes/src/runes/algorithms/**/{{pattern}}/kata.py
+# NOTE: Main kata commands moved to kata.just module (imported above)
+#
+# New workflow:
+#   just practice two-pointers/opposite-ends
+#   just test two-pointers/opposite-ends
+#   just reset two-pointers/opposite-ends
+#
+# Legacy aliases (backwards compatibility):
+alias kata-list := kata::list
+alias kata-test-all := kata::test-all
+alias kata-reset-all := kata::reset-all

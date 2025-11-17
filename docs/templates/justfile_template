@@ -1,0 +1,60 @@
+# [PATTERN NAME] - Local Kata Commands
+#
+# Run from this directory or import into root justfile
+
+# Run all tests for this pattern
+test:
+    pytest test_kata.py -v
+
+# Run tests for a specific kata class (e.g., just test-one TestKata1FunctionName)
+test-one KATA:
+    pytest test_kata.py::{{KATA}} -v
+
+# Run only LeetCode example tests
+test-examples:
+    pytest test_kata.py -k "leetcode_examples" -v
+
+# Run only edge case tests
+test-edges:
+    pytest test_kata.py -k "edge_cases" -v
+
+# Run tests for kata 1 level problems only
+test-kata1:
+    pytest test_kata.py -m kata1 -v
+
+# Run tests for kata 2 level problems only
+test-kata2:
+    pytest test_kata.py -m kata2 -v
+
+# Run tests for kata 3 level (advanced) problems only
+test-kata3:
+    pytest test_kata.py -m kata3 -v
+
+# Reset kata.py back to 'pass' implementations
+# Note: Adjust pattern_name to match your directory name
+reset:
+    python ../../../../scripts/reset_katas.py [pattern_name]
+
+# Open kata.py in editor
+practice:
+    $EDITOR kata.py
+
+# Run tests, then reset if all pass (full cycle)
+cycle:
+    @echo "Running all tests..."
+    @pytest test_kata.py -v && echo "\n✅ All tests passed! Resetting kata.py..." && python ../../../../scripts/reset_katas.py [pattern_name] || echo "\n❌ Tests failed - fix bugs before reset"
+
+# Show quick help
+help:
+    @echo "[PATTERN NAME] - Kata Commands"
+    @echo ""
+    @echo "Testing:"
+    @echo "  just test              # Run all tests"
+    @echo "  just test-one NAME     # Run specific kata (e.g., TestKata1FunctionName)"
+    @echo "  just test-examples     # Run LeetCode examples only"
+    @echo "  just test-kata1        # Run kata1 level only"
+    @echo ""
+    @echo "Workflow:"
+    @echo "  just practice          # Open kata.py in editor"
+    @echo "  just reset             # Reset kata.py to 'pass'"
+    @echo "  just cycle             # Test + reset if pass"
