@@ -1,6 +1,7 @@
 # Daily Study Workflow - Practical Guide
 
-Your executable guide for productive study days during the 8-week interview sprint.
+Your executable guide for productive study days during the 8-week interview
+sprint.
 
 ## Time Allocation (5-6 hours/day)
 
@@ -25,13 +26,17 @@ Evening (optional):
 ```
 
 **Why it works:**
+
 - **Kata first** = Fresh muscle memory of the pattern
 - **LeetCode second** = Immediate application (pattern already in your fingers!)
 - **Spaced repetition** = Morning drill + evening drill = 2x exposure
 
 **The difference:**
-- **Without katas**: "I know the pattern exists... let me think through it... *struggles for 20 min*"
-- **With katas**: "I just coded this 10 minutes ago... *fingers start typing automatically*"
+
+- **Without katas**: "I know the pattern exists... let me think through it...
+  _struggles for 20 min_"
+- **With katas**: "I just coded this 10 minutes ago... _fingers start typing
+  automatically_"
 
 ### Mastery Level Progression
 
@@ -39,16 +44,19 @@ Each pattern has 5 levels that tell you what problems you're ready for:
 
 - **Level 1 (Learning)**: Understanding the pattern - Practice with reference
 - **Level 2 (Practicing)**: Coding from memory - **Ready for Easy cantrips**
-- **Level 3 (Proficient)**: Zero bugs, under target time - **Ready for Medium cantrips**
+- **Level 3 (Proficient)**: Zero bugs, under target time - **Ready for Medium
+  cantrips**
 - **Level 4 (Mastered)**: 10+ perfect reps - **Ready for Hard cantrips**
 - **Level 5 (Breathing)**: Automatic, can teach others - **Interview ready**
 
 **Check your level before each LeetCode problem:**
+
 - Want to solve LC Easy? → Need Level 2 on that pattern
 - Want to solve LC Medium? → Need Level 3 on that pattern
 - Want to solve LC Hard? → Need Level 4 on that pattern
 
-**If you struggle on a problem:** Return to katas for 5-10 more reps, then retry.
+**If you struggle on a problem:** Return to katas for 5-10 more reps, then
+retry.
 
 See `docs/KATA_PRACTICE.md` for full kata philosophy.
 
@@ -79,7 +87,8 @@ Session-starter will:
 
 **BEFORE solving LeetCode problems, drill your patterns!**
 
-This is the most important change: kata practice FIRST builds muscle memory that makes LeetCode problems easier.
+This is the most important change: kata practice FIRST builds muscle memory that
+makes LeetCode problems easier.
 
 ```bash
 /kata    # Invoke kata-master agent
@@ -95,6 +104,7 @@ This is the most important change: kata practice FIRST builds muscle memory that
 6. Update mastery logs
 
 **Example session:**
+
 ```
 User: /kata
 
@@ -126,12 +136,14 @@ kata-master: ✓ New personal best: 1:45!
 ```
 
 **Why this works:**
+
 - Fresh muscle memory of the pattern
 - Fingers remember the mechanics
 - Pattern recognition primed
 - Transitions to LeetCode immediately apply what you drilled
 
 **Check your mastery level:**
+
 - Level 1-2: Practice Easy cantrips only
 - Level 3: Ready for Medium cantrips
 - Level 4-5: Ready for all difficulties
@@ -147,6 +159,7 @@ kata-master: ✓ New personal best: 1:45!
 **leetcode-sensei guides you through 4 phases:**
 
 **Phase 1: Pre-Solve Analysis (7-10 min)**
+
 ```
 Sensei: What pattern do you recognize?
 You: Two pointers - I just practiced this!
@@ -160,13 +173,16 @@ Sensei: ✓ Perfect! Level 2 is ready for Easy.
 ```
 
 **Phase 2: Solution Development (25-35 min)**
+
 - Code with think-aloud narration
 - Your kata practice makes this smoother!
 
 **Phase 3: Verification (5-10 min)**
+
 - Test examples and edge cases
 
 **Phase 4: Reflection (5 min)**
+
 - Self-assessment scorecard
 - Update kata mastery log: "Used successfully in LC #344"
 - Commit your work
@@ -339,11 +355,13 @@ git commit -m "incantations(designs): url-shortener with base62 encoding and cac
 ```
 
 **kata-master helps you:**
+
 - Practice patterns you used in today's cantrips
 - 1-2 quick katas (2-3 min each)
 - Reinforces muscle memory before bed
 
 **Example:**
+
 ```
 kata-master: You used Two Pointers in LC #344 today.
              Quick reinforcement?
@@ -362,12 +380,14 @@ kata-master: ✓ 1:40! 5 seconds faster than this morning!
 ```
 
 **Why evening practice works:**
+
 - Spaced repetition (morning + evening = 2x exposure)
 - Consolidates learning from the day
 - Ends day on a win (quick, easy katas)
 - Only 5 minutes - sustainable
 
 **Skip if:**
+
 - You're tired (rest > practice when exhausted)
 - You already practiced 3+ times today
 - Evening commitments
@@ -415,19 +435,20 @@ git commit -m "docs: updated progress notes"
 
 ### session-starter (Once, at start of day)
 
-**When**: First thing when sitting down
-**Invocation**: `"Start my study session"`
-**Purpose**: Focus and goal-setting (<10 min)
+**When**: First thing when sitting down **Invocation**:
+`"Start my study session"` **Purpose**: Focus and goal-setting (<10 min)
 
 ### ⭐ kata-master (Morning warmup + Evening reinforcement)
 
 **When**:
+
 - START of DSA practice (every morning)
 - END of day (optional evening reinforcement)
 
 **Invocations**: `/kata`
 
 **What it does**:
+
 - Guides pattern selection (based on your week/goals)
 - Times your kata attempts
 - Tracks progress and bugs
@@ -436,6 +457,7 @@ git commit -m "docs: updated progress notes"
 - Celebrates milestones (zero bugs, target times, 100 reps)
 
 **Morning flow**:
+
 ```bash
 /kata              # 5-10 min kata warmup
 /ritual            # 45-60 min LeetCode problem
@@ -445,10 +467,10 @@ git commit -m "docs: updated progress notes"
 
 ### ⭐ leetcode-sensei (During LeetCode practice)
 
-**When**: Solving LeetCode problems
-**Invocation**: `/ritual [problem-number]`
+**When**: Solving LeetCode problems **Invocation**: `/ritual [problem-number]`
 
 **What it does**:
+
 - Guides through all 4 phases of the ritual
 - Checks kata mastery level before proceeding
 - Recommends kata practice if struggling
@@ -463,6 +485,7 @@ git commit -m "docs: updated progress notes"
 **When**: Check-ins, commits, reviews
 
 **Invocations**:
+
 - `"Check in"` - See today's progress
 - `"What have I done today?"` - Detailed stats
 - `"I finished [work], ready to commit"` - Structure commit
@@ -474,11 +497,13 @@ git commit -m "docs: updated progress notes"
 ### study-partner (As needed during DSA)
 
 **When**:
+
 - Stuck >20 min
 - Bug in implementation
 - Want to verify approach
 
 **Invocations**:
+
 - `"I'm stuck on [problem]. I think [approach] but [issue]."`
 - `"My linked list reversal returns wrong result. Help me debug."`
 - `"I solved this O(n²). Is there better? Don't tell me, guide me."`
@@ -488,12 +513,14 @@ git commit -m "docs: updated progress notes"
 ### systems-sage (Start of systems + as needed)
 
 **When**:
+
 - Beginning systems work
 - Stuck on architecture
 - Want feedback
 - Learning concept
 
 **Invocations**:
+
 - `"Design Instagram. Act as my interviewer."`
 - `"Stuck on fanout-on-write vs read. Help me reason through it."`
 - `"Review my URL shortener for bottlenecks."`
@@ -502,8 +529,8 @@ git commit -m "docs: updated progress notes"
 
 ### testing-sage (Optional)
 
-**When**: Adding property-based tests
-**Invocation**: `"Help me add Hypothesis tests for two-sum on sorted array."`
+**When**: Adding property-based tests **Invocation**:
+`"Help me add Hypothesis tests for two-sum on sorted array."`
 
 **Purpose**: Property-based testing with Hypothesis
 

@@ -59,8 +59,8 @@ The **testing-sage** agent will:
 
 The **systems-sage** agent will:
 
-- Guide you through RADIO framework (Requirements, Architecture, Data, Interface,
-  Optimization)
+- Guide you through RADIO framework (Requirements, Architecture, Data,
+  Interface, Optimization)
 - Ask Socratic questions about your design choices
 - Point out missing considerations and bottlenecks
 - Provide honest feedback on your architecture
@@ -203,7 +203,8 @@ git status                    # Check what you worked on last
 
 1. **Select Solutions to Harden (10 min)**
    - [ ] Pick 2-3 previous cantrip solutions
-   - [ ] Choose problems with clear constraints (sorted arrays, bounded values, etc.)
+   - [ ] Choose problems with clear constraints (sorted arrays, bounded values,
+         etc.)
    - [ ] Prefer problems you found tricky
 
 2. **Add Property-Based Tests (45-60 min)**
@@ -368,6 +369,7 @@ Copy this to your daily note-taking:
 
 ---
 
-Remember: **The grimoire grows with consistent practice, not perfection.** Every line
-of code you write from scratch, every problem you struggle through, every insight you
-document - these are your runes, your building blocks of mastery. 🔮✨
+Remember: **The grimoire grows with consistent practice, not perfection.** Every
+line of code you write from scratch, every problem you struggle through, every
+insight you document - these are your runes, your building blocks of mastery.
+🔮✨
