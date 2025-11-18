@@ -90,12 +90,13 @@ grimoire/
 │   │       └── algorithms/              # Algorithm katas for daily practice
 │   │           ├── two_pointers/
 │   │           │   ├── opposite_ends/      # __init__.py (templates), kata.py (practice)
+│   │           │   │                       # test_kata.py (pytest), README.md (guide)
 │   │           │   └── fast_slow/          # Cycle detection katas
 │   │           ├── searching/
 │   │           │   └── binary_search/      # Classic, variants, 100-rep goal
 │   │           ├── sliding_window/
-│   │           │   ├── fixed_window/       # Max sum, averages
-│   │           │   └── variable_window/    # Longest substring
+│   │           │   ├── fixed_window/       # Max sum, averages (✅ pytest)
+│   │           │   └── variable_window/    # Longest substring (✅ pytest)
 │   │           ├── sorting/                # (Future katas)
 │   │           └── graph/                  # (Future katas)
 │   │
@@ -616,34 +617,93 @@ Update checkboxes and counts as you complete problems and implementations.
 
 ### Practicing algorithm katas (daily muscle memory drills)
 
-**Quick Reference:**
+**Interactive Menu (Primary Interface):**
 
 ```bash
-just kata-list                         # View all available kata patterns
-just kata-practice binary_search       # Open kata in Helix with workflow steps
-just kata-test binary_search           # Run tests for a kata
-just kata-reset-pattern binary_search  # Reset kata back to 'pass' (Y/n confirmation)
-just kata-reset                        # Reset ALL katas (Y/n confirmation)
-just kata-dry-run                      # Preview what would be reset without changes
+runes kata menu
+# Or via justfile
+just kata::menu
+```
+
+The interactive menu provides:
+- Pattern selection with practice history
+- Automatic timer for sessions
+- Integrated pytest test runner
+- Progress tracking and logging
+- Safe reset with automatic backups
+
+**Direct CLI Commands (Power Users):**
+
+```bash
+# View all patterns with status
+runes kata list
+
+# Practice a pattern (opens in $EDITOR with timer)
+runes kata practice two-pointers/opposite-ends
+
+# Run tests (pytest with markers)
+runes kata test sliding-window/fixed-window -k 1   # Just kata 1
+runes kata test sliding-window/fixed-window         # All katas
+
+# View detailed progress
+runes kata progress two-pointers/opposite-ends
+
+# Log a practice session manually
+runes kata log sliding-window/fixed-window 1 2:30 -b 1
+
+# Reset kata (creates automatic backup)
+runes kata reset sliding-window/fixed-window
+
+# Undo last reset
+runes kata undo
+```
+
+**Justfile Shortcuts (Backwards Compatible):**
+
+```bash
+just kata::menu                               # Interactive menu
+just kata::list                               # View all patterns
+just kata::practice two-pointers/opposite-ends  # Open in editor with timer
+just kata::test sliding-window/fixed-window    # Run pytest tests
+just kata::reset two-pointers/opposite-ends    # Reset (Y/n confirmation)
+just kata::reset-all                          # Reset ALL (dangerous!)
 ```
 
 **Typical workflow:**
 
-1. `just kata-list` - See available patterns
-2. `just kata-practice binary_search` - Opens kata file in Helix
-3. Code the kata from memory (delete `pass`, implement algorithm)
-4. Save and run tests (`:w` in Helix, then run `python kata.py` or
-   `just kata-test binary_search`)
-5. Log your time and bugs in the practice log section
-6. `just kata-reset-pattern binary_search` - Reset to clean state for next practice
-   (hit Enter to confirm)
+1. `runes kata menu` or `just kata::menu` - Launch interactive interface
+2. Select "Practice Kata" → choose pattern
+3. Code in editor (timer runs automatically)
+4. Select "Run Tests" when prompted (or test manually)
+5. Log session with time, bugs, notes
+6. Reset when ready for next practice session
+
+**Pytest Testing (Migrated Patterns):**
+
+Patterns migrated to pytest support marker-based test selection:
+
+```bash
+# Test specific katas
+runes kata test sliding-window/fixed-window -k 1        # Kata 1 only
+runes kata test sliding-window/fixed-window -m kata1    # Same
+runes kata test sliding-window/fixed-window -m "kata1 or kata2"  # Multiple
+
+# Test specific categories
+runes kata test sliding-window/fixed-window -m examples  # LeetCode examples
+runes kata test sliding-window/fixed-window -m edge     # Edge cases
+```
 
 **Safety features:**
 
-- All reset commands have Y/n confirmation prompts (default Y, just press Enter)
-- `kata-dry-run` previews changes without modifying files
-- Practice logs and mastery checklists are always preserved
+- All reset commands create automatic backups in `.kata_backups/`
+- `runes kata undo` restores most recent backup
+- `--dry-run` flag previews changes without modifying files
+- Practice logs and mastery checklists always preserved
 - Git tracking allows reverting if needed
+
+**Migration status:**
+- ✅ Pytest: sliding_window (fixed + variable), two_pointers/opposite_ends
+- ⚠️  Legacy doctest: binary_search, fast_slow (migration pending)
 
 **See:** `docs/KATA_PRACTICE.md` for full kata practice philosophy and workflow
 
