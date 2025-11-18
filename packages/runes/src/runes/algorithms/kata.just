@@ -10,6 +10,10 @@
 # Get algorithms directory (relative to root grimoire directory)
 algo_dir := justfile_directory() + "/packages/runes/src/runes/algorithms"
 
+# Launch interactive kata practice menu (no need to memorize commands!)
+menu:
+    @uv run runes kata menu
+
 # List all patterns with mastery status
 list:
     @uv run runes kata list
@@ -49,6 +53,10 @@ reset pattern:
 # Reset all patterns
 reset-all:
     @uv run runes kata reset-all
+
+# Undo last reset (restore from backup)
+undo pattern:
+    @uv run runes kata undo {{pattern}}
 
 # Quick log a practice session
 # Usage: just kata::log two_pointers/opposite_ends 1 2:30 [bugs] [notes]

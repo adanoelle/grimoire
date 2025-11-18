@@ -313,9 +313,10 @@ clean:
 # NOTE: Main kata commands moved to kata.just module (imported above)
 #
 # New workflow:
-#   just practice two-pointers/opposite-ends
-#   just test two-pointers/opposite-ends
-#   just reset two-pointers/opposite-ends
+#   just kata::menu                               # Interactive menu (no memorization!)
+#   just kata::practice two-pointers/opposite-ends
+#   just kata::test two-pointers/opposite-ends
+#   just kata::reset two-pointers/opposite-ends
 #
 # Legacy aliases (backwards compatibility):
 alias kata-list := kata::list
