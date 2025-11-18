@@ -112,24 +112,46 @@ just cantrip-array <problem_name>
 
 ## Algorithm Kata Practice
 
-Build muscle memory for core patterns through daily drills:
+Build muscle memory for core patterns through daily drills.
 
+**Quick Start (Interactive):**
 ```bash
-# View available kata patterns
-just kata-list
+# Launch interactive menu (recommended!)
+runes kata menu
 
-# Practice a pattern (opens in Helix)
-just kata-practice binary_search
-
-# Reset after practice (Y/n confirmation)
-just kata-reset-pattern binary_search
-
-# Preview changes before resetting
-just kata-dry-run
+# Or via justfile
+just kata::menu
 ```
 
-**Daily workflow:** 5-10 min kata warmup → LeetCode problems See
-`docs/KATA_PRACTICE.md` for the full kata philosophy and workflow.
+**The menu provides:**
+- Pattern selection with practice history
+- Automatic timer for practice sessions
+- Integrated test runner with pytest markers
+- Progress tracking and mastery logs
+- Safe kata reset with automatic backups
+
+**Manual CLI (for power users):**
+```bash
+# List all patterns
+runes kata list
+
+# Practice a specific pattern (opens in $EDITOR with timer)
+runes kata practice two-pointers/opposite-ends
+
+# Run tests with pytest markers
+runes kata test sliding-window/fixed-window -k 1  # Just kata 1
+
+# View detailed progress
+runes kata progress two-pointers/opposite-ends
+
+# Reset kata (with automatic backup)
+runes kata reset sliding-window/fixed-window
+runes kata undo  # Restore from backup if needed
+```
+
+**Daily workflow:** 5-10 min kata warmup → LeetCode problems
+
+See `docs/KATA_PRACTICE.md` for the full kata philosophy and practice guide.
 
 ## Testing
 
