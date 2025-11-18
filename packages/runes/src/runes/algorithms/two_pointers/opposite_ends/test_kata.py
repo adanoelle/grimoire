@@ -20,6 +20,7 @@ Remove the decorator when you've coded the solution in kata.py.
 import pytest
 import sys
 from pathlib import Path
+from hypothesis import given, strategies as st
 
 # Add current directory and algorithms directory to path for imports
 current_dir = Path(__file__).parent
@@ -76,32 +77,34 @@ class TestKata1TwoSum:
 
 
 # ============================================================================
-# KATA 2: Palindrome Number (LeetCode #9)
-# Target: < 2 min, zero bugs, O(log n) time, O(1) space
+# KATA 2: Valid Palindrome (LeetCode #125)
+# Target: < 2 min, zero bugs, O(n) time, O(1) space
 # ============================================================================
 
 class TestKata2Palindrome:
-    """Tests for is_palindrome kata (integers, not strings)"""
+    """Tests for is_palindrome kata (LeetCode #125 - Valid Palindrome)"""
 
-    # All test cases combined (LeetCode examples + edges)
+    # LeetCode examples + edge cases for string palindromes
     ALL_CASES = [
-        (121, True, "example 1: basic palindrome"),
-        (-121, False, "example 2: negative number"),
-        (10, False, "example 3: trailing zero"),
-        (0, True, "edge: zero is palindrome"),
-        (12321, True, "edge: odd length palindrome"),
-        (7, True, "edge: single digit"),
-        (123, False, "edge: non-palindrome"),
-        (1221, True, "edge: even length palindrome"),
+        ("A man, a plan, a canal: Panama", True, "example 1: classic palindrome with spaces/punctuation"),
+        ("race a car", False, "example 2: not a palindrome"),
+        (" ", True, "example 3: single space"),
+        ("", True, "edge: empty string"),
+        ("a", True, "edge: single character"),
+        ("ab", False, "edge: two chars non-palindrome"),
+        ("aa", True, "edge: two chars palindrome"),
+        ("Madam", True, "edge: mixed case palindrome"),
+        ("0P", False, "edge: alphanumeric non-palindrome"),
+        (".,", True, "edge: all non-alphanumeric"),
     ]
 
     @pytest.mark.kata2
-    @pytest.mark.parametrize("x,expected,desc",
+    @pytest.mark.parametrize("s,expected,desc",
                              ALL_CASES,
                              ids=[t[2] for t in ALL_CASES])
-    def test_all_cases(self, x, expected, desc):
-        """All test cases for palindrome number detection."""
-        assert is_palindrome(x) == expected
+    def test_all_cases(self, s, expected, desc):
+        """All test cases for string palindrome detection."""
+        assert is_palindrome(s) == expected
 
 
 # ============================================================================
@@ -197,3 +200,70 @@ class TestKata5ContainerWater:
     def test_all_cases(self, heights, expected, desc):
         """All test cases for container with most water."""
         assert container_with_most_water(heights) == expected
+
+
+# ============================================================================
+# PROPERTY-BASED TESTS (Using Hypothesis)
+# ============================================================================
+
+class TestKata1Properties:
+    """Property-based tests for two_sum_sorted (Kata 1)"""
+
+    @given(
+        nums=st.lists(st.integers(-1000, 1000), min_size=0, max_size=100).map(sorted),
+        target=st.integers(-2000, 2000)
+    )
+    def test_solution_validity(self, nums, target):
+        """If solution exists, the sum of the two numbers equals target."""
+        result = two_sum_sorted(nums, target)
+        if result:
+            assert len(result) == 2, "Result should contain exactly 2 indices"
+            i, j = result
+            assert 0 <= i < len(nums), "First index out of bounds"
+            assert 0 <= j < len(nums), "Second index out of bounds"
+            assert i < j, "Indices should be in order (i < j)"
+            assert nums[i] + nums[j] == target, f"Sum {nums[i]} + {nums[j]} != {target}"
+
+    @given(st.lists(st.integers(-100, 100), min_size=2, max_size=50).map(sorted))
+    def test_always_finds_sum_of_endpoints(self, nums):
+        """Should always find the sum of first and last elements."""
+        target = nums[0] + nums[-1]
+        result = two_sum_sorted(nums, target)
+        assert result is not None, f"Should find {nums[0]} + {nums[-1]} = {target}"
+        i, j = result
+        assert nums[i] + nums[j] == target
+
+
+class TestKata2Properties:
+    """Property-based tests for is_palindrome (Kata 2)"""
+
+    @given(st.text(alphabet=st.characters(min_codepoint=97, max_codepoint=122), min_size=0, max_size=50))
+    def test_lowercase_letters_symmetry(self, s):
+        """For lowercase letters only, palindrome means string equals its reverse."""
+        result = is_palindrome(s)
+        expected = (s == s[::-1])
+        assert result == expected, f"Palindrome check for '{s}' should be {expected}"
+
+    @given(st.text(min_size=0, max_size=30))
+    def test_single_char_always_palindrome(self, base):
+        """Single character strings are always palindromes."""
+        if len(base) == 1 and base.isalnum():
+            assert is_palindrome(base) == True
+
+    @given(st.text(alphabet="!@#$%^&*() ", min_size=0, max_size=20))
+    def test_no_alphanumeric_always_true(self, s):
+        """Strings with no alphanumeric characters should be considered palindromes."""
+        if not any(c.isalnum() for c in s):
+            assert is_palindrome(s) == True, f"Non-alphanumeric string '{s}' should be palindrome"
+
+    @given(st.text(alphabet=st.characters(whitelist_categories=('Lu', 'Ll')), min_size=1, max_size=20))
+    def test_case_insensitivity(self, s):
+        """Palindrome check should be case-insensitive."""
+        # If s is palindrome, changing case shouldn't affect result
+        if s.isalpha():
+            lower_result = is_palindrome(s.lower())
+            upper_result = is_palindrome(s.upper())
+            mixed_result = is_palindrome(s)
+            # All should agree (either all True or all False)
+            assert lower_result == upper_result == mixed_result, \
+                f"Case variants of '{s}' should have same palindrome status"

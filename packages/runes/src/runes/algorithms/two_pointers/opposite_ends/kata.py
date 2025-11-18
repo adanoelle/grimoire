@@ -50,7 +50,18 @@ def two_sum_sorted(nums: list[int], target: int) -> list[int]:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    left = 0
+    right = len(nums) - 1
+    while left < right:
+        curr_sum = nums[left] + nums[right]
+        if curr_sum == target:
+            return [left, right]
+        elif curr_sum < target:
+            left += 1
+        else:
+            right -= 1
+    return []
+
 
 def is_palindrome(s: str) -> bool:
     """
@@ -80,7 +91,16 @@ def is_palindrome(s: str) -> bool:
 
     START CODING BELOW:
     """
-    pass
+    s = str(s)
+    left = 0
+    right =  len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+
 
 def reverse_string(s: list[str]) -> None:
     """
@@ -108,7 +128,15 @@ def reverse_string(s: list[str]) -> None:
 
     START CODING BELOW:
     """
-    pass
+    left = 0
+    right = len(s) -1
+    while left < right:
+        tmp = s[left]
+        s[left] = s[right]
+        s[right] = tmp
+        left += 1
+        right -= 1
+
 
 def three_sum_closest(nums: list[int], target: int) -> int:
     """
@@ -138,6 +166,7 @@ def three_sum_closest(nums: list[int], target: int) -> int:
     """
     pass
 
+
 def container_with_most_water(heights: list[int]) -> int:
     """
     KATA 5: Maximum water container area (LC #11)
@@ -163,6 +192,7 @@ def container_with_most_water(heights: list[int]) -> int:
     START CODING BELOW:
     """
     pass
+
 
 # ============================================================================
 # MASTERY TRACKING
@@ -202,31 +232,27 @@ BREATHING KNOWLEDGE (Ultimate Goal):
 # ============================================================================
 
 if __name__ == "__main__":
-    import doctest
-
     print("=" * 60)
     print("TWO POINTERS (OPPOSITE ENDS) - KATA PRACTICE")
     print("=" * 60)
     print()
-    print("🥋 Running tests...")
+    print("🥋 Run tests with pytest:")
     print()
-
-    # Run doctests
-    results = doctest.testmod()
-
-    if results.failed == 0:
-        print("✅ All tests passed!")
-        print(f"   {results.attempted} tests run")
-        print()
-        print("🎯 KATA MASTERY TIPS:")
-        print("   - Code from memory, no peeking!")
-        print("   - Time yourself")
-        print("   - Aim for zero bugs")
-        print("   - Practice daily until automatic")
-    else:
-        print(f"❌ {results.failed} test(s) failed")
-        print()
-        print("Debug, understand why, then retry tomorrow!")
-
+    print("   pytest test_kata.py                  # Run all tests")
+    print("   pytest test_kata.py -m kata1         # Run kata 1 only")
+    print("   pytest test_kata.py -m kata2         # Run kata 2 only")
+    print("   pytest test_kata.py -v               # Verbose output")
+    print()
+    print("Or use justfile commands:")
+    print()
+    print("   just kata::test two_pointers/opposite_ends")
+    print("   just opposite-ends::test")
+    print("   just opposite-ends::test-kata1")
+    print()
+    print("🎯 KATA MASTERY TIPS:")
+    print("   - Code from memory, no peeking!")
+    print("   - Time yourself")
+    print("   - Aim for zero bugs")
+    print("   - Practice daily until automatic")
     print()
     print("=" * 60)
