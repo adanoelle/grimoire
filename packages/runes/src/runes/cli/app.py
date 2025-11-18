@@ -7,7 +7,7 @@ Entry point for the runes kata command-line interface.
 import typer
 from rich.console import Console
 
-from .commands import list_cmd, progress_cmd, test_cmd, reset_cmd, practice_cmd
+from .commands import list_cmd, progress_cmd, test_cmd, reset_cmd, practice_cmd, menu_cmd
 
 console = Console()
 
@@ -23,6 +23,25 @@ kata_app = typer.Typer(
 )
 
 # Register kata commands
+@kata_app.command("menu")
+def menu_command():
+    """
+    Launch interactive kata practice menu.
+
+    Provides a user-friendly interface for:
+    - Selecting katas to practice
+    - Running tests with filters
+    - Viewing progress
+    - Resetting katas
+
+    No need to memorize justfile commands!
+
+    Example:
+        runes kata menu    # Launch interactive menu
+    """
+    menu_cmd.run_interactive_menu()
+
+
 @kata_app.command("list")
 def list_patterns_command():
     """
@@ -111,6 +130,23 @@ def reset_all_command(
         runes kata reset-all -f          # Force reset without prompt
     """
     reset_cmd.reset_all_patterns(force=force, dry_run=dry_run)
+
+
+@kata_app.command("undo")
+def undo_reset_command(
+    pattern: str = typer.Argument(..., help="Kata pattern name"),
+):
+    """
+    Undo the last reset by restoring from backup.
+
+    Backups are automatically created when you reset a kata.
+    This command restores the kata.py file from the .kata.backup file.
+
+    Examples:
+        runes kata undo opposite_ends        # Restore from backup
+        runes kata undo sliding_window/fixed_window
+    """
+    reset_cmd.undo_reset_pattern(pattern)
 
 
 @kata_app.command("practice")

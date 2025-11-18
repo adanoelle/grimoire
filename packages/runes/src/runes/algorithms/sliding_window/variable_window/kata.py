@@ -1,163 +1,238 @@
 """
-Sliding Window (Variable Size) - Daily Kata Practice
+🥋 SLIDING WINDOW (VARIABLE SIZE) - KATA PRACTICE
 
-🥋 Master the expand-contract dance
+Master the variable-size sliding window pattern through deliberate practice.
 
-Pattern: Expand with right, contract with left when constraint violated.
+RULES:
+1. Code from memory - NO looking at templates!
+2. Set timer for each kata
+3. Run tests after coding
+4. If bugs: understand why, redo tomorrow
+5. If perfect: move to next kata
+
+PROGRESSION:
+- Week 1: Code with reference, understand
+- Week 2: Code from memory, small bugs OK
+- Week 3: Code perfectly in under target time
+- Week 4+: Breathing knowledge - teach someone else
+
+PATTERN RECOGNITION:
+Use variable window when:
+- ✓ Need longest/shortest subarray meeting condition
+- ✓ Window size changes based on condition
+- ✓ Expand until condition violated, then contract
+- ✓ "At most K" or "at least X" constraints
+
+TECHNIQUE:
+1. Expand: Add right element, update state
+2. Contract: While condition violated, remove left element
+3. Update result: Track best window seen so far
+4. Repeat until right reaches end
 """
 
 
-def longest_substring_no_repeat(s: str) -> int:
+def length_of_longest_substring(s: str) -> int:
     """
-    KATA 1: Longest substring without repeating chars (LC #3)
+    KATA 1: Longest Substring Without Repeating Characters (LeetCode #3)
 
     ⏱️  Target time: < 3 minutes
-    🎯 Goal: Zero bugs, O(n) time, O(n) space
+    🎯 Goal: Zero bugs, O(n) time, O(min(n, alphabet)) space
 
-    Strategy:
-    - Expand: add char at right to set
-    - Contract: if duplicate, remove from left until no duplicate
-    - Track max length
+    Find the length of the longest substring without repeating characters.
 
     Edge cases:
-    - Empty string → 0
-    - All same character → 1
-    - No repeats → len(s)
+    - Empty string → return 0
+    - All unique characters → return len(s)
+    - All same character → return 1
+    - Two characters alternating
+
+    Hint if stuck: Use set/dict to track characters in current window.
+                   When duplicate found, shrink from left until no duplicate.
 
     Examples:
-        >>> longest_substring_no_repeat("abcabcbb")
+        >>> length_of_longest_substring("abcabcbb")
         3
-        >>> longest_substring_no_repeat("bbbbb")
+        >>> length_of_longest_substring("bbbbb")
         1
-        >>> longest_substring_no_repeat("pwwkew")
+        >>> length_of_longest_substring("pwwkew")
         3
-        >>> longest_substring_no_repeat("")
-        0
 
-    START CODING BELOW:
+    START CODING BELOW (delete 'pass' and write your solution):
     """
     pass
 
-def min_subarray_sum_geq_target(nums: list[int], target: int) -> int:
-    """
-    KATA 2: Minimum subarray with sum ≥ target (LC #209)
 
-    ⏱️  Target time: < 3 minutes
+def min_subarray_len(target: int, nums: list[int]) -> int:
+    """
+    KATA 2: Minimum Size Subarray Sum (LeetCode #209)
+
+    ⏱️  Target time: < 3.5 minutes
     🎯 Goal: Zero bugs, O(n) time, O(1) space
 
-    Strategy:
-    - Expand: add nums[right] to sum
-    - Contract: while sum ≥ target, shrink from left
-    - Track minimum length
+    Find the minimal length of a subarray whose sum is >= target.
+    Return 0 if no such subarray exists.
 
     Edge cases:
-    - No valid subarray → return 0
-    - Single element ≥ target → return 1
+    - No subarray meets target → return 0
+    - Single element >= target → return 1
+    - Entire array needed → return len(nums)
+    - All elements positive (guaranteed in LC #209)
+
+    Hint if stuck: Expand to meet target, then contract to minimize length.
+                   Track minimum length seen.
 
     Examples:
-        >>> min_subarray_sum_geq_target([2, 3, 1, 2, 4, 3], 7)
+        >>> min_subarray_len(7, [2,3,1,2,4,3])
         2
-        >>> min_subarray_sum_geq_target([1, 4, 4], 4)
+        >>> min_subarray_len(4, [1,4,4])
         1
-        >>> min_subarray_sum_geq_target([1, 1, 1], 11)
+        >>> min_subarray_len(11, [1,1,1,1,1,1,1,1])
         0
 
-    START CODING BELOW:
+    START CODING BELOW (delete 'pass' and write your solution):
     """
     pass
 
-def longest_substring_k_distinct(s: str, k: int) -> int:
+
+def total_fruit(fruits: list[int]) -> int:
     """
-    KATA 3: Longest substring with ≤ k distinct chars (LC #340)
+    KATA 3: Fruit Into Baskets (LeetCode #904)
+
+    ⏱️  Target time: < 4 minutes
+    🎯 Goal: Zero bugs, O(n) time, O(1) space (at most 2 types)
+
+    Pick maximum fruits from trees where you have 2 baskets.
+    Each basket holds one fruit type. Find max fruits with at most 2 types.
+
+    This is: "longest subarray with at most K=2 distinct elements"
+
+    Edge cases:
+    - All same type → return len(fruits)
+    - Alternating two types → return len(fruits)
+    - More than 2 types → need to find best window
+
+    Hint if stuck: Track frequency of each fruit type in window.
+                   When types > 2, shrink from left.
+
+    Examples:
+        >>> total_fruit([1,2,1])
+        3
+        >>> total_fruit([0,1,2,2])
+        3
+        >>> total_fruit([1,2,3,2,2])
+        4
+
+    START CODING BELOW (delete 'pass' and write your solution):
+    """
+    pass
+
+
+def length_of_longest_substring_k_distinct(s: str, k: int) -> int:
+    """
+    KATA 4: Longest Substring with At Most K Distinct Characters (LeetCode #340)
 
     ⏱️  Target time: < 4 minutes
     🎯 Goal: Zero bugs, O(n) time, O(k) space
 
-    Strategy:
-    - Use dict/defaultdict to count characters
-    - Expand: add char to count
-    - Contract: while distinct > k, remove from left
-    - Track max length
+    Find length of longest substring with at most k distinct characters.
+
+    Edge cases:
+    - k == 0 → return 0
+    - k >= unique chars in s → return len(s)
+    - Empty string → return 0
+
+    Hint if stuck: Same as Kata 3, but with variable k instead of k=2.
+                   Use frequency map, shrink when distinct > k.
 
     Examples:
-        >>> longest_substring_k_distinct("eceba", 2)
+        >>> length_of_longest_substring_k_distinct("eceba", 2)
         3
-        >>> longest_substring_k_distinct("aa", 1)
+        >>> length_of_longest_substring_k_distinct("aa", 1)
         2
 
-    START CODING BELOW:
+    START CODING BELOW (delete 'pass' and write your solution):
     """
     pass
 
-def max_consecutive_ones_k_flips(nums: list[int], k: int) -> int:
-    """
-    KATA 4: Max consecutive 1s with at most k flips (LC #1004)
 
-    ⏱️  Target time: < 4 minutes
+def num_subarray_product_less_than_k(nums: list[int], k: int) -> int:
+    """
+    KATA 5: Subarray Product Less Than K (LeetCode #713)
+
+    ⏱️  Target time: < 4.5 minutes
     🎯 Goal: Zero bugs, O(n) time, O(1) space
 
-    You can flip at most k zeros to ones. Find longest subarray of 1s.
+    Count number of contiguous subarrays where product < k.
 
-    Strategy:
-    - Expand: count zeros in window
-    - Contract: while zeros > k, shrink from left
-    - Track max window size
+    Edge cases:
+    - k <= 1 → return 0 (all products >= 1)
+    - Single element < k → counts as 1
+    - Product becomes >= k → shrink window
+
+    Hint if stuck: For each right position, count ALL valid subarrays ending at right.
+                   Number of subarrays = (right - left + 1)
 
     Examples:
-        >>> max_consecutive_ones_k_flips([1,1,1,0,0,0,1,1,1,1,0], 2)
-        6
-        >>> max_consecutive_ones_k_flips([0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], 3)
-        10
+        >>> num_subarray_product_less_than_k([10,5,2,6], 100)
+        8
+        >>> num_subarray_product_less_than_k([1,2,3], 0)
+        0
 
-    START CODING BELOW:
+    START CODING BELOW (delete 'pass' and write your solution):
     """
     pass
+
 
 # ============================================================================
 # MASTERY TRACKING
 # ============================================================================
 
 """
-MASTERY CHECKLIST:
-[ ] Kata 1: Can code in < 3 min, zero bugs
-[ ] Kata 2: Can code in < 3 min, zero bugs
-[ ] Kata 3: Can code in < 4 min, zero bugs
-[ ] Kata 4: Can code in < 4 min, zero bugs
-[ ] Understand expand-contract pattern deeply
-[ ] Know when to expand vs contract
-[ ] Recognize variable window pattern (< 30 sec)
+Track your practice sessions below. Be honest about bugs!
 
-PRACTICE LOG:
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+YYYY-MM-DD | 1    | MM:SS | N    | Description of any issues or insights
+YYYY-MM-DD | 1    | MM:SS | N    | ...
 
-
-BREATHING KNOWLEDGE:
-[ ] All 4 katas in under 13 minutes total
-[ ] Zero bugs
-[ ] Can explain expand-contract while coding
-[ ] Pattern recognition automatic
+MASTERY CHECKLIST:
+For each kata, check off when you achieve:
+[ ] Code from memory without hints
+[ ] Zero bugs on first run
+[ ] Under target time
+[ ] Can explain trade-offs
+[ ] Automatic pattern recognition
 """
 
 
-if __name__ == "__main__":
-    import doctest
+# ============================================================================
+# TEST RUNNER
+# ============================================================================
 
+if __name__ == "__main__":
     print("=" * 60)
     print("SLIDING WINDOW (VARIABLE SIZE) - KATA PRACTICE")
     print("=" * 60)
     print()
-
-    results = doctest.testmod()
-
-    if results.failed == 0:
-        print("✅ All tests passed!")
-        print(f"   {results.attempted} tests run")
-        print()
-        print("🎯 Master expand-contract: grow window, shrink when constraint breaks!")
-    else:
-        print(f"❌ {results.failed} test(s) failed")
-        print("Debug and retry!")
-
+    print("🥋 Run tests with pytest:")
+    print()
+    print("   pytest test_kata.py                  # Run all tests")
+    print("   pytest test_kata.py -m kata1         # Run kata 1 only")
+    print("   pytest test_kata.py -m kata2         # Run kata 2 only")
+    print("   pytest test_kata.py -v               # Verbose output")
+    print()
+    print("Or use justfile commands:")
+    print()
+    print("   just kata::test sliding_window/variable_window")
+    print("   just variable-window::test")
+    print("   just variable-window::test-kata1")
+    print()
+    print("🎯 KATA MASTERY TIPS:")
+    print("   - Code from memory, no peeking!")
+    print("   - Time yourself")
+    print("   - Aim for zero bugs")
+    print("   - Practice daily until automatic")
+    print()
+    print("   Key insight: Expand until invalid, contract until valid")
     print()
     print("=" * 60)

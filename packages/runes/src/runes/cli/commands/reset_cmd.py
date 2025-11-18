@@ -213,11 +213,20 @@ def reset_pattern(
             console.print("[dim]Reset cancelled.[/dim]\n")
             raise typer.Exit(0)
 
+    # Create backup before writing
+    backup_file = kata_file.with_suffix('.kata.backup')
+    try:
+        backup_file.write_text(content)
+    except Exception as e:
+        console.print(f"[yellow]Warning: Could not create backup: {e}[/yellow]")
+        # Continue anyway - backup is nice-to-have, not critical
+
     # Write the reset content
     try:
         kata_file.write_text(reset_content)
         print_success(f"✓ Reset {pattern.display_name} - all kata functions now return 'pass'")
-        console.print(f"\n[dim]File: {kata_file}[/dim]\n")
+        console.print(f"[dim]File: {kata_file}[/dim]")
+        console.print(f"[dim]Backup: {backup_file}[/dim]\n")
     except Exception as e:
         print_error(f"Could not write to {kata_file.name}: {e}")
         raise typer.Exit(1)
@@ -282,3 +291,59 @@ def reset_all_patterns(
     console.print()
     print_success(f"✓ Reset {reset_count}/{len(patterns)} patterns")
     console.print()
+
+
+def undo_reset_pattern(pattern_name: str):
+    """
+    Undo the last reset by restoring from backup file.
+
+    Args:
+        pattern_name: Pattern to undo (e.g., 'opposite_ends' or 'two_pointers/opposite_ends')
+    """
+    # Find the pattern
+    pattern_result = find_kata_pattern(pattern_name)
+
+    if not pattern_result.is_success():
+        print_error(f"Pattern not found: {pattern_name}")
+        print_info("Available patterns:")
+        for p in find_all_kata_patterns():
+            console.print(f"  • {p.name}")
+        console.print()
+        raise typer.Exit(1)
+
+    pattern = pattern_result.unwrap()
+    kata_file = pattern.kata_file
+    backup_file = kata_file.with_suffix('.kata.backup')
+
+    # Check if backup exists
+    if not backup_file.exists():
+        print_error(f"No backup found for {pattern.display_name}")
+        console.print(f"[dim]Expected backup at: {backup_file}[/dim]\n")
+        console.print("[yellow]Backups are created when you reset a kata.[/yellow]")
+        console.print("[dim]Run 'runes kata reset <pattern>' to create a backup.[/dim]\n")
+        raise typer.Exit(1)
+
+    # Read backup content
+    try:
+        backup_content = backup_file.read_text()
+    except Exception as e:
+        print_error(f"Could not read backup file: {e}")
+        raise typer.Exit(1)
+
+    # Show confirmation
+    console.print(f"\n[bold yellow]⚠️  This will restore {pattern.display_name} from backup[/bold yellow]")
+    console.print(f"[dim]This will overwrite any current work in {kata_file.name}[/dim]\n")
+
+    confirm = typer.confirm("Continue?", default=False)
+    if not confirm:
+        console.print("[dim]Undo cancelled.[/dim]\n")
+        raise typer.Exit(0)
+
+    # Restore from backup
+    try:
+        kata_file.write_text(backup_content)
+        print_success(f"✓ Restored {pattern.display_name} from backup")
+        console.print(f"[dim]File: {kata_file}[/dim]\n")
+    except Exception as e:
+        print_error(f"Could not restore from backup: {e}")
+        raise typer.Exit(1)

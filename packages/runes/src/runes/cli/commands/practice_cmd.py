@@ -33,7 +33,8 @@ def extract_kata_info(kata_file: Path, kata_number: int) -> Optional[dict]:
         return None
 
     # Find the function that contains "KATA {kata_number}:"
-    kata_pattern = rf"def\s+(\w+)\([^)]*\):.*?\"\"\".*?KATA\s+{kata_number}:([^\n]+).*?Target[:\s]+([^\\n]+).*?\"\"\""
+    # Note: Handle return type annotations like "-> float:" between ) and :
+    kata_pattern = rf"def\s+(\w+)\([^)]*\)[^:]*:.*?\"\"\".*?KATA\s+{kata_number}:([^\n]+).*?Target[^:]*:\s*([^\n]+).*?\"\"\""
 
     match = re.search(kata_pattern, content, re.DOTALL | re.IGNORECASE)
 

@@ -1,5 +1,5 @@
 """
-Sliding Window: Variable Size
+Sliding Window: Variable Size - Reference Implementations
 
 Core Intuition:
     Expand window by moving right pointer. When constraint violated,
@@ -8,7 +8,8 @@ Core Intuition:
 When to Use:
     - "Longest substring with..."
     - "Minimum subarray with..."
-    - Constraint on window contents (not just size)
+    - "At most K" or "at least X" constraints
+    - Window size changes based on condition
 
 Time Complexity: O(n) - each element enters and exits at most once
 Space Complexity: O(1) or O(k) for tracking window state
@@ -26,9 +27,9 @@ Template:
 """
 
 
-def longest_substring_no_repeat(s: str) -> int:
+def length_of_longest_substring(s: str) -> int:
     """
-    TEMPLATE: Longest substring without repeating characters (LC #3).
+    REFERENCE: Longest Substring Without Repeating Characters (LeetCode #3)
 
     This is THE canonical variable window template. Master this!
 
@@ -38,15 +39,7 @@ def longest_substring_no_repeat(s: str) -> int:
     Returns:
         Length of longest substring without repeating characters
 
-    Examples:
-        >>> longest_substring_no_repeat("abcabcbb")
-        3
-        >>> longest_substring_no_repeat("bbbbb")
-        1
-        >>> longest_substring_no_repeat("pwwkew")
-        3
-
-    Time: O(n), Space: O(min(n, m)) where m is charset size
+    Time: O(n), Space: O(min(n, alphabet))
     """
     char_set = set()
     left = 0
@@ -65,9 +58,11 @@ def longest_substring_no_repeat(s: str) -> int:
     return max_len
 
 
-def min_subarray_sum_geq_target(nums: list[int], target: int) -> int:
+def min_subarray_len(target: int, nums: list[int]) -> int:
     """
-    TEMPLATE: Minimum length subarray with sum ≥ target (LC #209).
+    REFERENCE: Minimum Size Subarray Sum (LeetCode #209)
+
+    Find minimal length subarray with sum >= target.
 
     Args:
         nums: Array of positive integers
@@ -75,14 +70,6 @@ def min_subarray_sum_geq_target(nums: list[int], target: int) -> int:
 
     Returns:
         Length of minimum subarray, or 0 if impossible
-
-    Examples:
-        >>> min_subarray_sum_geq_target([2, 3, 1, 2, 4, 3], 7)
-        2
-        >>> min_subarray_sum_geq_target([1, 4, 4], 4)
-        1
-        >>> min_subarray_sum_geq_target([1, 1, 1], 11)
-        0
 
     Time: O(n), Space: O(1)
     """
@@ -103,25 +90,60 @@ def min_subarray_sum_geq_target(nums: list[int], target: int) -> int:
     return min_len if min_len != float('inf') else 0
 
 
-def longest_substring_k_distinct(s: str, k: int) -> int:
+def total_fruit(fruits: list[int]) -> int:
     """
-    TEMPLATE: Longest substring with at most k distinct characters (LC #340).
+    REFERENCE: Fruit Into Baskets (LeetCode #904)
+
+    Pick maximum fruits with at most 2 types (baskets).
+
+    This is: "longest subarray with at most K=2 distinct elements"
+
+    Args:
+        fruits: Array where fruits[i] is type of fruit at tree i
+
+    Returns:
+        Maximum number of fruits that can be collected
+
+    Time: O(n), Space: O(1) - at most 2 types in dict
+    """
+    from collections import defaultdict
+
+    fruit_count = defaultdict(int)
+    left = 0
+    max_fruits = 0
+
+    for right in range(len(fruits)):
+        # Expand: add fruit at right
+        fruit_count[fruits[right]] += 1
+
+        # Contract: while more than 2 types
+        while len(fruit_count) > 2:
+            fruit_count[fruits[left]] -= 1
+            if fruit_count[fruits[left]] == 0:
+                del fruit_count[fruits[left]]
+            left += 1
+
+        max_fruits = max(max_fruits, right - left + 1)
+
+    return max_fruits
+
+
+def length_of_longest_substring_k_distinct(s: str, k: int) -> int:
+    """
+    REFERENCE: Longest Substring with At Most K Distinct Characters (LeetCode #340)
 
     Args:
         s: Input string
         k: Maximum distinct characters
 
     Returns:
-        Length of longest substring with ≤ k distinct chars
-
-    Examples:
-        >>> longest_substring_k_distinct("eceba", 2)
-        3
-        >>> longest_substring_k_distinct("aa", 1)
-        2
+        Length of longest substring with <= k distinct chars
 
     Time: O(n), Space: O(k)
     """
+    if k == 0:
+        return 0
+
     from collections import defaultdict
 
     char_count = defaultdict(int)
@@ -144,9 +166,57 @@ def longest_substring_k_distinct(s: str, k: int) -> int:
     return max_len
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+def num_subarray_product_less_than_k(nums: list[int], k: int) -> int:
+    """
+    REFERENCE: Subarray Product Less Than K (LeetCode #713)
 
-    print("✓ Sliding Window (Variable Size) templates loaded")
+    Count number of contiguous subarrays where product < k.
+
+    Args:
+        nums: Array of positive integers
+        k: Product threshold
+
+    Returns:
+        Count of valid subarrays
+
+    Time: O(n), Space: O(1)
+    """
+    if k <= 1:
+        return 0
+
+    product = 1
+    left = 0
+    count = 0
+
+    for right in range(len(nums)):
+        # Expand: multiply by nums[right]
+        product *= nums[right]
+
+        # Contract: while product too large
+        while product >= k:
+            product //= nums[left]
+            left += 1
+
+        # Add count of all subarrays ending at right
+        # From [left, right] to [right, right], that's (right - left + 1) subarrays
+        count += right - left + 1
+
+    return count
+
+
+if __name__ == "__main__":
+    print("=" * 60)
+    print("SLIDING WINDOW (VARIABLE SIZE) - REFERENCE IMPLEMENTATIONS")
+    print("=" * 60)
+    print()
+    print("✓ All reference implementations loaded")
+    print()
+    print("Available functions:")
+    print("  - length_of_longest_substring()")
+    print("  - min_subarray_len()")
+    print("  - total_fruit()")
+    print("  - length_of_longest_substring_k_distinct()")
+    print("  - num_subarray_product_less_than_k()")
+    print()
     print("Master the expand-contract dance!")
+    print("=" * 60)
