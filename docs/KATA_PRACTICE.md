@@ -258,49 +258,87 @@ runes kata reset sliding-window/fixed-window --dry-run
 
 ## The Mastery Progression
 
-### Week 1-2: Learning
+All kata patterns now include a standardized 5-level mastery system. Each level has specific criteria and tells you when you're ready to move from katas to cantrips.
 
-**Goal:** Understand the pattern
+### The 5-Level System
 
-- Read template (`__init__.py`)
-- Code kata WITH reference open
-- Focus on understanding each line
+**LEVEL 1 (Learning) - Week 1-2:**
+- Can code katas 1-3 with reference template open
+- Understand each line of code
 - Time doesn't matter yet
+- **Goal:** Build conceptual understanding
+- **When ready:** Move to Level 2
 
-**Success:** Can code kata correctly with reference
+**LEVEL 2 (Practicing) - Week 2-3:**
+- Can code katas 1-3 from memory
+- Less than 5 bugs per week across all katas
+- Average time under 2× target time
+- **Goal:** Build muscle memory
+- **READY FOR:** Easy cantrips (LC Easy problems)
+- **When ready:** Start solving Easy cantrips while continuing katas
 
-### Week 2-3: Practicing
+**LEVEL 3 (Proficient) - Week 3-4:**
+- Zero bugs on katas 1-3 for a full week
+- Consistently under target time
+- Can explain while coding
+- **Goal:** Achieve zero-bug mastery
+- **READY FOR:** Medium cantrips (LC Medium problems)
+- **When ready:** Start solving Medium cantrips
 
-**Goal:** Build memory
+**LEVEL 4 (Mastered) - Week 4-6:**
+- 10+ perfect reps on each kata
+- Under 80% of target time
+- Can code advanced katas (4-5) from memory
+- Used successfully in 5+ cantrips
+- **Goal:** Speed and advanced variations
+- **READY FOR:** Hard cantrips and teaching others
+- **When ready:** Challenge yourself with Hard problems
 
-- Code kata from memory
-- Small bugs are okay
-- Check template AFTER attempt
-- Redo next day
+**LEVEL 5 (Breathing Knowledge) - Week 6+:**
+- Pattern recognition is automatic (< 10 seconds in new problems)
+- Can code all katas in pattern under total time budget
+- Can teach this pattern to someone else
+- Fingers start typing before conscious thought
+- **Goal:** Interview-ready mastery
+- **INTERVIEW READY:** This pattern is now a superpower
 
-**Success:** Can code kata from memory with 1-2 small bugs
+### Kata-to-Cantrip Progression
 
-### Week 3-4: Refining
+**The Rule:** Reach Level 2 on a pattern before solving Easy cantrips with that pattern.
 
-**Goal:** Achieve perfection
+**Why it works:**
+1. Katas build pure technique (muscle memory)
+2. Easy cantrips teach pattern application (when to use)
+3. Medium cantrips combine patterns (interview scenarios)
+4. Hard cantrips test advanced variations (interview edge cases)
 
-- Code kata perfectly from memory
-- Under target time
-- Zero bugs
-- Explain while coding
+**If you struggle on a cantrip:**
+- Return to the prerequisite katas for 5-10 more reps
+- Check kata mastery level: May need to reach Level 3 before Medium problems
+- Practice specific edge cases that caused bugs
 
-**Success:** Consistent zero-bug implementations under target time
+### Mastery Indicators by Week
 
-### Week 4+: Breathing Knowledge
+**Week 1-2: Learning**
+- Can code katas with reference
+- Understanding > speed
+- Building pattern intuition
 
-**Goal:** Make it reflexive
+**Week 2-3: Practicing**
+- Can code from memory (small bugs OK)
+- Starting Easy cantrips
+- Connecting katas to problems
 
-- Code with eyes closed (literally!)
-- Instant pattern recognition in new problems
-- Can teach someone else
-- Used successfully in 5+ LeetCode problems
+**Week 3-4: Refining**
+- Zero bugs consistently
+- Starting Medium cantrips
+- Pattern recognition improving
 
-**Success:** Pattern is muscle memory, implementation automatic
+**Week 4+: Breathing Knowledge**
+- Automatic implementation
+- Solving Hard cantrips
+- Can teach the pattern
+- Interview ready
 
 ## Weekly Pattern Focus
 

@@ -17,6 +17,82 @@ PROGRESSION:
 Track your progress in the mastery log below.
 """
 
+# ============================================================================
+# RELATED CANTRIPS - Apply this pattern in real LeetCode problems
+# ============================================================================
+
+"""
+After mastering these katas, practice the pattern in these problems:
+
+EASY (Learn pattern application):
+- LC #344: Reverse String → cantrips/arrays_strings/reverse_string.py
+- LC #125: Valid Palindrome
+- LC #167: Two Sum II (Sorted Array)
+- LC #977: Squares of a Sorted Array → cantrips/arrays_strings/squares_sorted_array.py
+- LC #283: Move Zeroes
+
+MEDIUM (Pattern combinations):
+- LC #15: 3Sum
+- LC #11: Container With Most Water
+- LC #16: 3Sum Closest
+- LC #18: 4Sum
+- LC #42: Trapping Rain Water
+
+HARD (Advanced variations):
+- LC #42: Trapping Rain Water (can also be Hard)
+- LC #76: Minimum Window Substring (combines with sliding window)
+
+PROGRESSION PATH:
+1. Master katas 1-3 (two_sum_sorted, is_palindrome, reverse_string)
+2. Solve Easy cantrips (build pattern recognition)
+3. Master katas 4-5 (three_sum_closest, container_with_most_water)
+4. Tackle Medium cantrips (apply advanced variations)
+"""
+
+
+# ============================================================================
+# MASTERY PROGRESSION - When to move to cantrips
+# ============================================================================
+
+"""
+LEVEL 1 (Learning) - Week 1-2:
+[ ] Can code katas 1-3 with reference template open
+[ ] Understand each line of code
+[ ] Time doesn't matter yet
+
+LEVEL 2 (Practicing) - Week 2-3:
+[ ] Can code katas 1-3 from memory
+[ ] < 5 bugs per week across all katas
+[ ] Average time under 2× target time
+→ READY FOR: Easy cantrips (LC #344, #125, #167)
+
+LEVEL 3 (Proficient) - Week 3-4:
+[ ] Zero bugs on katas 1-3 for a week
+[ ] Consistently under target time
+[ ] Can explain while coding
+→ READY FOR: Medium cantrips (LC #15, #11)
+
+LEVEL 4 (Mastered) - Week 4-6:
+[ ] 10+ perfect reps on each kata
+[ ] Under 80% of target time
+[ ] Can code katas 4-5 from memory
+[ ] Used successfully in 5+ cantrips
+→ READY FOR: Hard cantrips and teaching others
+
+LEVEL 5 (Breathing Knowledge) - Week 6+:
+[ ] Pattern recognition is automatic (< 10 sec in new problems)
+[ ] Can code all 5 katas in under 12 minutes
+[ ] Can teach this pattern to someone else
+[ ] Fingers start typing before conscious thought
+→ INTERVIEW READY: This pattern is now a superpower
+
+WHEN TO MOVE TO CANTRIPS:
+- Reach Level 2 (Practicing) on katas 1-3 → Start Easy cantrips
+- Reach Level 3 (Proficient) → Start Medium cantrips
+- If you struggle on a cantrip → Return to katas for more reps
+"""
+
+
 def two_sum_sorted(nums: list[int], target: int) -> list[int]:
     """
     KATA 1: Find pair that sums to target in sorted array

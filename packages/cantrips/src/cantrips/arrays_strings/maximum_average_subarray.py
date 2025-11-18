@@ -32,6 +32,31 @@ Complexity:
 Key Insights:
 
 - Fixed window sizes can be iterated with for loops, index with the right pointer
+
+# Kata Practice Integration
+
+PREREQUISITE KATAS:
+- Drill first: sliding_window/fixed_window (kata 1: find_max_average)
+- Target: < 2 min, zero bugs
+- Location: packages/runes/src/runes/algorithms/sliding_window/fixed_window/kata.py
+
+THIS PROBLEM TEACHES:
+- When to recognize fixed sliding window pattern (subarray of exact size K)
+- Sliding window mechanics: initialize first window, then slide one element at a time
+- Maintaining window state incrementally (add right, remove left)
+- Interview insight: Naive O(n×k) solution (recalculate each window) vs optimal O(n) sliding approach
+
+MASTERY CHECK:
+Before attempting this problem, you should have:
+- Reached Level 2 (Practicing) on sliding_window/fixed_window kata 1
+- Can code find_max_average kata in < 2 min with zero bugs
+- Understand how to avoid recalculating entire window sum
+
+AFTER SOLVING:
+- If struggled with sliding logic → Return to sliding_window/fixed_window kata 1 for 5 more reps
+- If struggled with edge cases (k == len) → Practice kata with extreme inputs
+- If solved easily → Ready for LC #1343 (Num Subarrays >= Threshold), LC #1876 (Good Substrings)
+- Update kata mastery log: "Used successfully in LC #643"
 """
 
 import pytest

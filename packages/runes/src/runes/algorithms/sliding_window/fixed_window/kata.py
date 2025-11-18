@@ -31,6 +31,81 @@ TECHNIQUE:
 """
 
 
+# ============================================================================
+# RELATED CANTRIPS - Apply this pattern in real LeetCode problems
+# ============================================================================
+
+"""
+After mastering these katas, practice the pattern in these problems:
+
+EASY (Learn pattern application):
+- LC #643: Maximum Average Subarray I → cantrips/arrays_strings/maximum_average_subarray.py
+- LC #1876: Substrings of Size Three with Distinct Characters
+- LC #1343: Number of Sub-arrays of Size K and Average >= Threshold
+- LC #1176: Diet Plan Performance
+
+MEDIUM (Pattern combinations):
+- LC #567: Permutation in String (combines with hash map)
+- LC #438: Find All Anagrams in a String (combines with hash map)
+- LC #1052: Grumpy Bookstore Owner
+- LC #1423: Maximum Points You Can Obtain from Cards
+
+HARD (Advanced variations):
+- LC #239: Sliding Window Maximum (combines with monotonic deque)
+- LC #995: Minimum Number of K Consecutive Bit Flips
+
+PROGRESSION PATH:
+1. Master katas 1-2 (find_max_average, num_of_subarrays)
+2. Solve Easy cantrips (build pattern recognition)
+3. Master katas 3-5 (count_good_substrings, check_inclusion, find_anagrams)
+4. Tackle Medium cantrips (apply pattern with hash maps)
+5. Challenge yourself with Hard cantrips (monotonic deque combinations)
+"""
+
+
+# ============================================================================
+# MASTERY PROGRESSION - When to move to cantrips
+# ============================================================================
+
+"""
+LEVEL 1 (Learning) - Week 1-2:
+[ ] Can code katas 1-2 with reference template open
+[ ] Understand sliding window mechanics
+[ ] Time doesn't matter yet
+
+LEVEL 2 (Practicing) - Week 2-3:
+[ ] Can code katas 1-2 from memory
+[ ] < 5 bugs per week across all katas
+[ ] Average time under 2× target time
+→ READY FOR: Easy cantrips (LC #643, #1343)
+
+LEVEL 3 (Proficient) - Week 3-4:
+[ ] Zero bugs on katas 1-2 for a week
+[ ] Consistently under target time
+[ ] Can explain while coding
+→ READY FOR: Medium cantrips (LC #567, #438)
+
+LEVEL 4 (Mastered) - Week 4-6:
+[ ] 10+ perfect reps on each kata
+[ ] Under 80% of target time
+[ ] Can code katas 3-5 from memory
+[ ] Used successfully in 5+ cantrips
+→ READY FOR: Hard cantrips and teaching others
+
+LEVEL 5 (Breathing Knowledge) - Week 6+:
+[ ] Pattern recognition is automatic (< 10 sec in new problems)
+[ ] Can code all 5 katas in under 12 minutes
+[ ] Can teach this pattern to someone else
+[ ] Fingers start typing before conscious thought
+→ INTERVIEW READY: This pattern is now a superpower
+
+WHEN TO MOVE TO CANTRIPS:
+- Reach Level 2 (Practicing) on katas 1-2 → Start Easy cantrips
+- Reach Level 3 (Proficient) → Start Medium cantrips
+- If you struggle on a cantrip → Return to katas for more reps
+"""
+
+
 def find_max_average(nums: list[int], k: int) -> float:
     """
     KATA 1: Maximum Average Subarray I (LeetCode #643)

@@ -7,6 +7,89 @@ Code from memory. Time yourself. Achieve zero bugs.
 """
 
 
+# ============================================================================
+# RELATED CANTRIPS - Apply this pattern in real LeetCode problems
+# ============================================================================
+
+"""
+After mastering these katas, practice the pattern in these problems:
+
+EASY (Learn pattern application):
+- LC #141: Linked List Cycle
+- LC #876: Middle of the Linked List
+- LC #202: Happy Number
+- LC #234: Palindrome Linked List (combines with reversal)
+
+MEDIUM (Pattern core):
+- LC #142: Linked List Cycle II (find cycle start)
+- LC #143: Reorder List (combines with reversal)
+- LC #19: Remove Nth Node From End (use distance between pointers)
+- LC #287: Find the Duplicate Number (cycle detection in array!)
+- LC #457: Circular Array Loop
+
+HARD (Advanced variations):
+- LC #25: Reverse Nodes in k-Group (combines with reversal)
+- LC #82: Remove Duplicates from Sorted List II
+
+PROGRESSION PATH:
+1. Master katas 1-2 (has_cycle, find_middle)
+2. Solve Easy cantrips (LC #141, #876, #202)
+3. Master kata 3 (detect_cycle_start - the tricky one!)
+4. Tackle Medium cantrips (LC #142, #143, #287)
+5. Master kata 4 (is_happy_number - creative application)
+6. Challenge yourself with Hard cantrips
+"""
+
+
+# ============================================================================
+# MASTERY PROGRESSION - When to move to cantrips
+# ============================================================================
+
+"""
+LEVEL 1 (Learning) - Week 1:
+[ ] Can code katas 1-2 with reference template open
+[ ] Understand why fast-slow detects cycles
+[ ] Time doesn't matter yet
+
+LEVEL 2 (Practicing) - Week 1-2:
+[ ] Can code katas 1-2 from memory
+[ ] < 5 bugs per week across all katas
+[ ] Average time under 2× target time
+→ READY FOR: Easy cantrips (LC #141, #876, #202)
+
+LEVEL 3 (Proficient) - Week 2-3:
+[ ] Zero bugs on katas 1-2 for a week
+[ ] Consistently under target time
+[ ] Can code kata 3 from memory (cycle start is tricky!)
+→ READY FOR: Medium cantrips (LC #142, #143)
+
+LEVEL 4 (Mastered) - Week 3-5:
+[ ] 10+ perfect reps on each kata
+[ ] Under 80% of target time
+[ ] Can code kata 4 from memory
+[ ] Used successfully in 5+ cantrips
+→ READY FOR: Hard cantrips and teaching others
+
+LEVEL 5 (Breathing Knowledge) - Week 5+:
+[ ] Pattern recognition is automatic (< 10 sec in new problems)
+[ ] Can code all 4 katas in under 12 minutes
+[ ] Can teach this pattern to someone else
+[ ] Can explain the cycle detection proof
+→ INTERVIEW READY: This pattern is now a superpower
+
+THE CYCLE START TRICK (Kata 3):
+This is one of the most elegant algorithms in CS.
+Understanding WHY it works is interview gold.
+Practice explaining the math proof out loud!
+
+WHEN TO MOVE TO CANTRIPS:
+- Reach Level 2 (Practicing) on katas 1-2 → Start Easy cantrips
+- Reach Level 3 (Proficient) → Start Medium cantrips
+- If you struggle on a cantrip → Return to katas for more reps
+- THE RULE: Don't attempt LC #142 until you can code kata 3 perfectly
+"""
+
+
 class ListNode:
     """Linked list node."""
     def __init__(self, val=0, next=None):

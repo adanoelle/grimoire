@@ -33,6 +33,31 @@ Complexity:
 Key Insights:
 - [What makes this approach work?]
 - [Any important observations?]
+
+# Kata Practice Integration
+
+PREREQUISITE KATAS:
+- Drill first: sliding_window/variable_window (katas 1-2: length_of_longest_substring, min_subarray_len)
+- Target: < 3 min per kata, zero bugs
+- Location: packages/runes/src/runes/algorithms/sliding_window/variable_window/kata.py
+
+THIS PROBLEM TEACHES:
+- When to recognize variable sliding window pattern (longest/shortest subarray with constraint)
+- Expand-contract rhythm: grow window while valid, shrink while invalid
+- Tracking best window size seen so far
+- Interview insight: Variable window expands right every iteration, contracts left as needed
+
+MASTERY CHECK:
+Before attempting this problem, you should have:
+- Reached Level 2 (Practicing) on sliding_window/variable_window katas 1-2
+- Can code min_subarray_len kata in < 3.5 min with zero bugs
+- Understand expand-contract rhythm and when to update result
+
+AFTER SOLVING:
+- If struggled with expand-contract logic → Return to variable_window katas for 5 more reps
+- If struggled with constraint checking → Practice kata 2 (min_subarray_len) with edge cases
+- If solved easily → Ready for LC #3 (Longest Substring), LC #904 (Fruit Into Baskets)
+- Update kata mastery log: "Used successfully in longest subarray problem"
 """
 
 import pytest

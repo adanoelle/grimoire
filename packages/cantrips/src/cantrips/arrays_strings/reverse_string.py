@@ -25,6 +25,31 @@ Key Insights:
 - Two pointers from opposite ends is perfect for symmetric operations like reversing
 - In-place swapping eliminates the need for additional data structures
 - Loop terminates when pointers meet in the middle
+
+# Kata Practice Integration
+
+PREREQUISITE KATAS:
+- Drill first: two_pointers/opposite_ends (kata 3: reverse_string)
+- Target: < 1.5 min, zero bugs
+- Location: packages/runes/src/runes/algorithms/two_pointers/opposite_ends/kata.py
+
+THIS PROBLEM TEACHES:
+- When to recognize two-pointer pattern (symmetric operations, in-place requirement)
+- Edge case handling (empty array, single element, even vs odd length)
+- Interview communication (explain pointer movement while coding)
+- LeetCode submission format (modify in-place, return value)
+
+MASTERY CHECK:
+Before attempting this problem, you should have:
+- Reached Level 2 (Practicing) on two_pointers/opposite_ends katas 1-3
+- Can code reverse_string kata in < 1.5 min with zero bugs
+- Understand why two pointers work for symmetric operations
+
+AFTER SOLVING:
+- If struggled with logic → Return to kata 3 for 5 more reps
+- If struggled with edge cases → Practice kata 3 with extreme inputs
+- If solved easily → Ready for LC #125 (Valid Palindrome), LC #977 (Squares Sorted Array)
+- Update kata mastery log: "Used successfully in LC #344"
 """
 
 import pytest

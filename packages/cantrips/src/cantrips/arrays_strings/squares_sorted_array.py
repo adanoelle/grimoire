@@ -28,6 +28,31 @@ Key Insights:
 
 - Two pointers + for loop indices gives you the ability to compare two
   indices while maintaining an iterative index
+
+# Kata Practice Integration
+
+PREREQUISITE KATAS:
+- Drill first: two_pointers/opposite_ends (katas 1-3: two_sum_sorted, is_palindrome, reverse_string)
+- Target: < 2 min per kata, zero bugs
+- Location: packages/runes/src/runes/algorithms/two_pointers/opposite_ends/kata.py
+
+THIS PROBLEM TEACHES:
+- When to recognize two-pointer pattern (sorted array with negative/positive values)
+- Building result array from both ends simultaneously
+- Comparing absolute values at opposite pointers
+- Interview insight: Naive O(n log n) solution (square + sort) vs optimal O(n) two-pointer approach
+
+MASTERY CHECK:
+Before attempting this problem, you should have:
+- Reached Level 2 (Practicing) on two_pointers/opposite_ends katas 1-3
+- Can code two_sum_sorted in < 2 min with zero bugs
+- Understand pointer movement based on comparisons
+
+AFTER SOLVING:
+- If struggled with logic → Return to two_pointers/opposite_ends katas for 5 more reps
+- If struggled with negative numbers → Practice with edge cases like [-5, -4, -3, -2]
+- If solved easily → Ready for LC #125 (Valid Palindrome), LC #283 (Move Zeroes)
+- Update kata mastery log: "Used successfully in LC #977"
 """
 
 import pytest

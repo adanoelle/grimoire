@@ -10,6 +10,95 @@ Goal: Code classic binary search 100 times until muscle memory.
 """
 
 
+# ============================================================================
+# RELATED CANTRIPS - Apply this pattern in real LeetCode problems
+# ============================================================================
+
+"""
+After mastering these katas, practice the pattern in these problems:
+
+EASY (Learn pattern application):
+- LC #35: Search Insert Position
+- LC #704: Binary Search
+- LC #278: First Bad Version
+- LC #374: Guess Number Higher or Lower
+- LC #69: Sqrt(x)
+
+MEDIUM (Pattern variations):
+- LC #33: Search in Rotated Sorted Array
+- LC #34: Find First and Last Position of Element in Sorted Array
+- LC #162: Find Peak Element
+- LC #153: Find Minimum in Rotated Sorted Array
+- LC #852: Peak Index in a Mountain Array
+- LC #74: Search a 2D Matrix
+- LC #240: Search a 2D Matrix II
+
+HARD (Advanced binary search):
+- LC #4: Median of Two Sorted Arrays
+- LC #1095: Find in Mountain Array
+- LC #410: Split Array Largest Sum
+- LC #154: Find Minimum in Rotated Sorted Array II (with duplicates)
+
+PROGRESSION PATH:
+1. Master kata 1 (classic) - Do 100 reps until muscle memory
+2. Solve Easy cantrips (LC #35, #704, #278)
+3. Master katas 2-4 (first/last occurrence, insert position)
+4. Tackle Medium cantrips (rotated arrays, 2D matrices)
+5. Master katas 5-6 (rotated array, peak element)
+6. Challenge yourself with Hard cantrips
+"""
+
+
+# ============================================================================
+# MASTERY PROGRESSION - When to move to cantrips
+# ============================================================================
+
+"""
+LEVEL 1 (Learning) - Week 1:
+[ ] Can code kata 1 with reference template open
+[ ] Understand loop invariants and boundary conditions
+[ ] Time doesn't matter yet
+
+LEVEL 2 (Practicing) - Week 1-2:
+[ ] Can code kata 1 from memory
+[ ] < 5 bugs per week on kata 1
+[ ] Average time under 4 minutes
+→ READY FOR: Easy cantrips (LC #35, #704)
+
+LEVEL 3 (Proficient) - Week 2-3:
+[ ] Zero bugs on kata 1 for a week
+[ ] Consistently under 2 minutes on kata 1
+[ ] Can code katas 2-4 from memory
+→ READY FOR: Medium cantrips (LC #33, #34, #162)
+
+LEVEL 4 (Mastered) - Week 3-5:
+[ ] 50+ perfect reps on kata 1
+[ ] Under 90 seconds on kata 1
+[ ] Can code all 6 katas from memory
+[ ] Used successfully in 10+ cantrips
+→ READY FOR: Hard cantrips and teaching others
+
+LEVEL 5 (Breathing Knowledge) - Week 5+:
+[ ] 100+ perfect reps on kata 1 (THE GOAL!)
+[ ] Can code kata 1 with eyes literally closed
+[ ] All 6 katas in under 20 minutes
+[ ] Pattern recognition is instant (< 5 sec)
+[ ] Can explain boundary conditions in your sleep
+→ INTERVIEW READY: Binary search is now a superpower
+
+THE 100-REP GOAL:
+Binary search is THE most critical algorithm to master.
+Off-by-one errors plague even experienced engineers.
+100 perfect repetitions builds neural pathways that make bugs impossible.
+
+WHEN TO MOVE TO CANTRIPS:
+- Reach Level 2 (Practicing) on kata 1 → Start Easy cantrips
+- Reach Level 3 (Proficient) → Start Medium cantrips
+- If you struggle on a cantrip → Return to kata 1 for 10 more reps
+- THE RULE: Never attempt Hard cantrips before 50+ perfect reps on kata 1
+"""
+
+
 def binary_search_classic(nums: list[int], target: int) -> int:
     """
     KATA 1: Classic binary search

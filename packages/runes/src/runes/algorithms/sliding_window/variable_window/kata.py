@@ -31,6 +31,84 @@ TECHNIQUE:
 """
 
 
+# ============================================================================
+# RELATED CANTRIPS - Apply this pattern in real LeetCode problems
+# ============================================================================
+
+"""
+After mastering these katas, practice the pattern in these problems:
+
+EASY (Learn pattern application):
+- LC #643: Maximum Average Subarray (similar mechanics, fixed size)
+- LC #1004: Max Consecutive Ones III
+- LC #485: Max Consecutive Ones
+
+MEDIUM (Pattern core):
+- LC #3: Longest Substring Without Repeating Characters
+- LC #209: Minimum Size Subarray Sum → cantrips/arrays_strings/longest-subarray-under-sum.py
+- LC #904: Fruit Into Baskets
+- LC #340: Longest Substring with At Most K Distinct Characters
+- LC #713: Subarray Product Less Than K
+- LC #424: Longest Repeating Character Replacement
+- LC #1438: Longest Continuous Subarray With Absolute Diff <= Limit
+
+HARD (Advanced variations):
+- LC #76: Minimum Window Substring (combines with hash map)
+- LC #992: Subarrays with K Different Integers
+- LC #1074: Number of Subarrays That Match Target Sum
+
+PROGRESSION PATH:
+1. Master katas 1-2 (length_of_longest_substring, min_subarray_len)
+2. Solve Easy cantrips for confidence
+3. Master katas 3-5 (total_fruit, k_distinct, subarray_product)
+4. Tackle Medium cantrips (core variable window patterns)
+5. Challenge yourself with Hard cantrips (complex constraint combinations)
+"""
+
+
+# ============================================================================
+# MASTERY PROGRESSION - When to move to cantrips
+# ============================================================================
+
+"""
+LEVEL 1 (Learning) - Week 1-2:
+[ ] Can code katas 1-2 with reference template open
+[ ] Understand expand-contract rhythm
+[ ] Time doesn't matter yet
+
+LEVEL 2 (Practicing) - Week 2-3:
+[ ] Can code katas 1-2 from memory
+[ ] < 5 bugs per week across all katas
+[ ] Average time under 2× target time
+→ READY FOR: Easy cantrips and simple Medium problems
+
+LEVEL 3 (Proficient) - Week 3-4:
+[ ] Zero bugs on katas 1-2 for a week
+[ ] Consistently under target time
+[ ] Can explain while coding
+→ READY FOR: Medium cantrips (LC #3, #209, #904)
+
+LEVEL 4 (Mastered) - Week 4-6:
+[ ] 10+ perfect reps on each kata
+[ ] Under 80% of target time
+[ ] Can code katas 3-5 from memory
+[ ] Used successfully in 5+ cantrips
+→ READY FOR: Hard cantrips and teaching others
+
+LEVEL 5 (Breathing Knowledge) - Week 6+:
+[ ] Pattern recognition is automatic (< 10 sec in new problems)
+[ ] Can code all 5 katas in under 18 minutes
+[ ] Can teach this pattern to someone else
+[ ] Expand-contract rhythm is muscle memory
+→ INTERVIEW READY: This pattern is now a superpower
+
+WHEN TO MOVE TO CANTRIPS:
+- Reach Level 2 (Practicing) on katas 1-2 → Start Easy cantrips
+- Reach Level 3 (Proficient) → Start Medium cantrips
+- If you struggle on a cantrip → Return to katas for more reps
+"""
+
+
 def length_of_longest_substring(s: str) -> int:
     """
     KATA 1: Longest Substring Without Repeating Characters (LeetCode #3)

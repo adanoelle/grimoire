@@ -48,6 +48,59 @@ The leetcode-sensei agent will guide you through all 4 phases of the ritual defi
 
 **Total time: 45-60 minutes**
 
+## Kata-First Philosophy
+
+**Before diving into LeetCode problems, check your kata mastery!**
+
+The ritual now includes kata readiness checks to ensure you have the prerequisite muscle memory:
+
+### Pattern Recognition Check (Phase 1)
+
+When you identify a pattern in Phase 1, the sensei will ask:
+- "Have you mastered the prerequisite katas for this pattern?"
+- "What's your current mastery level? (1-5)"
+- "When did you last practice this kata?"
+
+### Mastery Level Guidelines
+
+**Level 1-2:** Focus on katas, only attempt Easy problems
+**Level 3:** Ready for Easy and Medium problems
+**Level 4-5:** Ready for all difficulties
+
+### Kata Recommendations
+
+If your kata mastery is below the recommended level:
+
+**For Easy problems:**
+- Recommended: Level 2 (Practicing) or higher
+- If Level 1: Do 5-10 kata reps before attempting
+
+**For Medium problems:**
+- Recommended: Level 3 (Proficient) or higher
+- If Level 2: Do 5 more kata reps, focus on zero bugs
+
+**For Hard problems:**
+- Recommended: Level 4 (Mastered) or higher
+- If Level 3: Master advanced katas (4-5) first
+
+### The Sensei's Response
+
+**If kata mastery is sufficient:**
+- Proceed with the ritual
+- Track this as a successful pattern application
+
+**If kata mastery is insufficient:**
+- Recommend specific kata practice first
+- Suggest: "Let's pause the ritual and practice [pattern] katas for 10 minutes"
+- Offer to resume ritual after kata practice
+
+**Integration with /kata:**
+```bash
+# Morning workflow (recommended)
+/kata                          # 5-10 min warmup (builds muscle memory)
+/ritual                        # 45-60 min LeetCode (applies patterns)
+```
+
 ## The Agent Will:
 
 - ✅ Keep you accountable to each step
