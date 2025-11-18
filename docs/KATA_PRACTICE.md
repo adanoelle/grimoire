@@ -1,18 +1,20 @@
 ## Algorithm Kata Practice - Daily Ritual
 
-> "Musicians practice scales. Athletes practice drills. Engineers practice katas."
+> "Musicians practice scales. Athletes practice drills. Engineers practice
+> katas."
 
-This guide explains how to use `runes/algorithms/` kata exercises to build muscle
-memory for core algorithmic patterns. This is the **missing piece** between knowing
-patterns intellectually and implementing them reflexively in interviews.
+This guide explains how to use `runes/algorithms/` kata exercises to build
+muscle memory for core algorithmic patterns. This is the **missing piece**
+between knowing patterns intellectually and implementing them reflexively in
+interviews.
 
 ## Philosophy: Scales vs. Songs
 
-**LeetCode problems are "songs"** - complete performances where you apply patterns in
-context.
+**LeetCode problems are "songs"** - complete performances where you apply
+patterns in context.
 
-**Algorithm katas are "scales"** - fundamental techniques practiced until they're
-muscle memory.
+**Algorithm katas are "scales"** - fundamental techniques practiced until
+they're muscle memory.
 
 A concert pianist doesn't just play songs. They practice scales, arpeggios, and
 technical exercises **every single day**. The scales make the songs effortless.
@@ -92,6 +94,7 @@ just kata::menu
 ```
 
 The menu handles everything:
+
 1. Shows all patterns with practice history
 2. Opens kata in your editor with timer
 3. Runs tests when you're ready
@@ -141,6 +144,7 @@ just kata::reset sliding-window/fixed-window      # Reset (Y/n confirm)
 Patterns migrated to pytest use markers for granular test selection:
 
 **Test specific katas:**
+
 ```bash
 # Just kata 1
 runes kata test sliding-window/fixed-window -k 1
@@ -153,6 +157,7 @@ runes kata test sliding-window/fixed-window
 ```
 
 **Test specific categories:**
+
 ```bash
 # Just LeetCode examples
 runes kata test sliding-window/fixed-window -m examples
@@ -162,26 +167,29 @@ runes kata test sliding-window/fixed-window -m edge
 ```
 
 **Verbose output (see all test names):**
+
 ```bash
 runes kata test sliding-window/fixed-window -v -k 1
 ```
 
 **Available markers:**
+
 - `kata1`, `kata2`, `kata3`, `kata4`, `kata5` - Individual practice problems
 - `examples` - LeetCode example test cases
 - `edge` - Edge case tests
 - `properties` - Property-based tests (if available)
 
 **Why pytest?**
+
 - Granular test selection (practice one kata at a time)
 - Better error messages
 - Marker-based organization
 - Industry standard testing framework
 
-**Migration status:**
-Check which patterns use pytest: `runes kata list`
+**Migration status:** Check which patterns use pytest: `runes kata list`
+
 - ✅ Green check = pytest
-- ⚠️  Yellow warning = legacy doctest
+- ⚠️ Yellow warning = legacy doctest
 
 ### Safety and Backups
 
@@ -213,12 +221,14 @@ cp .kata_backups/sliding-window_fixed-window_20250118_143052.py \
 ```
 
 **What's preserved:**
+
 - ✅ Practice logs and session history
 - ✅ Mastery checklists
 - ✅ Your personal notes in docstrings
 - ✅ All test files (never reset)
 
 **What's reset:**
+
 - ❌ Function implementations (back to `pass`)
 - ❌ Only in `kata.py`, never touches `__init__.py` templates
 
@@ -324,8 +334,8 @@ runes kata reset sliding-window/fixed-window --dry-run
 
 **For binary search specifically:**
 
-Code classic binary search **100 times** until you can do it perfectly, with zero
-bugs, in under 2 minutes, **with your eyes closed**.
+Code classic binary search **100 times** until you can do it perfectly, with
+zero bugs, in under 2 minutes, **with your eyes closed**.
 
 This is not hyperbole. True mastery = muscle memory.
 
@@ -348,14 +358,14 @@ Date       | Kata | Attempt # | Time  | Bugs | Notes
 Each kata file has a checklist:
 
 ```markdown
-MASTERY CHECKLIST: [ ] Kata 1: Can code in < 2 min, zero bugs [ ] Kata 2: Can code in
-< 3 min, zero bugs [ ] Kata 3: Can code in < 4 min, zero bugs [ ] Can explain the
-pattern while coding [ ] Can identify when to use (< 30 sec recognition) [ ] Used
-successfully in 5+ LeetCode problems
+MASTERY CHECKLIST: [ ] Kata 1: Can code in < 2 min, zero bugs [ ] Kata 2: Can
+code in < 3 min, zero bugs [ ] Kata 3: Can code in < 4 min, zero bugs [ ] Can
+explain the pattern while coding [ ] Can identify when to use (< 30 sec
+recognition) [ ] Used successfully in 5+ LeetCode problems
 
-BREATHING KNOWLEDGE (Ultimate Goal): [ ] All katas in under 15 minutes total [ ] Zero
-bugs across all katas [ ] Can teach this pattern to someone else [ ] Pattern
-recognition is automatic
+BREATHING KNOWLEDGE (Ultimate Goal): [ ] All katas in under 15 minutes total [ ]
+Zero bugs across all katas [ ] Can teach this pattern to someone else [ ]
+Pattern recognition is automatic
 ```
 
 ## Integration with LeetCode Ritual
@@ -529,6 +539,7 @@ runes kata menu
 ```
 
 Follow the prompts:
+
 1. Choose "Practice Kata"
 2. Select a pattern (try `two-pointers/opposite-ends`)
 3. Code in your editor (timer runs automatically)
@@ -569,7 +580,8 @@ runes kata menu          # 5-10 min warmup
 runes kata menu          # 5 min drill patterns used today
 ```
 
-**8-week goal:** Walk into Google interview with muscle memory that makes interviewers say: "This person really knows their stuff."
+**8-week goal:** Walk into Google interview with muscle memory that makes
+interviewers say: "This person really knows their stuff."
 
 ---
 
@@ -589,7 +601,7 @@ Then applying them to those 100-120 problems in your 8-week sprint.
 
 ---
 
-**Ready to start?** Pick your first pattern and do your first kata right now. Set a
-timer. Code from memory. This is how you become exceptional.
+**Ready to start?** Pick your first pattern and do your first kata right now.
+Set a timer. Code from memory. This is how you become exceptional.
 
 🥋

@@ -149,8 +149,8 @@ Progression: Learn **runes** → Practice **cantrips** → Master **incantations
 
 ## Interview Sprint Mode (Current: 8 Weeks)
 
-**Context**: Preparing for interviews at large tech companies in Jan/Feb. Focus on
-interview-readiness, not perfection.
+**Context**: Preparing for interviews at large tech companies in Jan/Feb. Focus
+on interview-readiness, not perfection.
 
 ### Week-by-Week Focus
 
@@ -165,7 +165,8 @@ interview-readiness, not perfection.
 - 25-30 problems (Medium focus)
 - 4 easy system designs (URL shortener, Pastebin, Rate limiter)
 
-**Weeks 5-6**: Advanced DSA (Binary Search, DFS/BFS, Heaps, DP) + Complex systems
+**Weeks 5-6**: Advanced DSA (Binary Search, DFS/BFS, Heaps, DP) + Complex
+systems
 
 - 30-35 problems (Medium/Hard)
 - 6 medium designs (Twitter, Instagram, Uber, YouTube)
@@ -254,8 +255,8 @@ learning:
 
 ### grimoire-keeper
 
-**Purpose**: Progress tracking and accountability partner **Invoke**: "Check in" or
-"grimoire-keeper, check in" - any time during day
+**Purpose**: Progress tracking and accountability partner **Invoke**: "Check in"
+or "grimoire-keeper, check in" - any time during day
 
 **What it does**:
 
@@ -293,8 +294,8 @@ study-partner" or ask naturally when stuck
 
 ### testing-sage
 
-**Purpose**: Property-based testing expert **Invoke**: "Invoke testing-sage" when you
-want help with Hypothesis test strategies
+**Purpose**: Property-based testing expert **Invoke**: "Invoke testing-sage"
+when you want help with Hypothesis test strategies
 
 **What it does**:
 
@@ -312,13 +313,13 @@ want help with Hypothesis test strategies
 
 ### systems-sage
 
-**Purpose**: Systems design expert and guide **Invoke**: "Invoke systems-sage" when
-working on system designs or learning distributed systems concepts
+**Purpose**: Systems design expert and guide **Invoke**: "Invoke systems-sage"
+when working on system designs or learning distributed systems concepts
 
 **What it does**:
 
-- ✅ Guides through RADIO framework (Requirements, Architecture, Data, Interface,
-  Optimization)
+- ✅ Guides through RADIO framework (Requirements, Architecture, Data,
+  Interface, Optimization)
 - ✅ Asks Socratic questions about architecture and trade-offs
 - ✅ Points out missing considerations and bottlenecks
 - ✅ Provides honest, direct feedback (not sycophantic)
@@ -355,7 +356,8 @@ working on system designs or learning distributed systems concepts
 
 **Four Phases:**
 
-1. Pre-Solve Analysis (7-10 min) - Pattern recognition, brute force, optimal approach
+1. Pre-Solve Analysis (7-10 min) - Pattern recognition, brute force, optimal
+   approach
 2. Solution Development (25-35 min) - Code with think-aloud narration
 3. Verification (5-10 min) - Test examples, edge cases, complexity
 4. Reflection (5 min) - Self-assessment, identify improvement area, commit
@@ -369,7 +371,8 @@ working on system designs or learning distributed systems concepts
 
 **What it does**:
 
-- ✅ Guides daily kata practice sessions (pick pattern, time attempts, log results)
+- ✅ Guides daily kata practice sessions (pick pattern, time attempts, log
+  results)
 - ✅ Tracks mastery progression (Learning → Practicing → Mastered)
 - ✅ Monitors time improvements and bug reduction
 - ✅ Tracks the binary search 100-rep goal
@@ -403,8 +406,8 @@ The grimoire includes Claude Code Skills (model-invoked) and Slash Commands
 
 ### Skills (`.claude/skills/`)
 
-Skills are autonomous capabilities that agents can use without verbose bash commands.
-They save ~50,000-100,000 tokens over the 8-week sprint.
+Skills are autonomous capabilities that agents can use without verbose bash
+commands. They save ~50,000-100,000 tokens over the 8-week sprint.
 
 **Available skills:**
 
@@ -414,13 +417,13 @@ They save ~50,000-100,000 tokens over the 8-week sprint.
 - **commit-suggest**: Generates properly formatted commit messages
 - **test-problem**: Intelligently detects and runs pytest tests
 
-Agents automatically use these skills when appropriate. You don't need to invoke them
-manually.
+Agents automatically use these skills when appropriate. You don't need to invoke
+them manually.
 
 ### Slash Commands (`.claude/commands/`)
 
-Slash commands are user-invoked shortcuts that expand to prompts. Type them in Claude
-Code for instant workflows.
+Slash commands are user-invoked shortcuts that expand to prompts. Type them in
+Claude Code for instant workflows.
 
 **Available commands:**
 
@@ -439,26 +442,29 @@ Example usage:
 /check-in
 ```
 
-Expands to a prompt that shows today's progress with commit counts and assessment.
+Expands to a prompt that shows today's progress with commit counts and
+assessment.
 
 ### When to Use Agents
 
 - **Start of day**: Use session-starter to get organized
 - **Morning warmup (5-10 min)**: Use `/kata` for algorithm drill practice
   (kata-master guides)
-- **Practicing LeetCode problem**: Use `/ritual` to invoke leetcode-sensei for full
-  guided practice (all 4 phases)
+- **Practicing LeetCode problem**: Use `/ritual` to invoke leetcode-sensei for
+  full guided practice (all 4 phases)
 - **Any time check-in**: Use grimoire-keeper to see progress, get accountability
 - **Evening reinforcement (5 min)**: Use `/kata` to drill patterns used today
-- **Weekly kata report**: Use kata-master to see practice ↔ LeetCode correlation
+- **Weekly kata report**: Use kata-master to see practice ↔ LeetCode
+  correlation
 - **Stuck on DSA problem (15-30 min)**: Invoke study-partner for guidance
 - **Stuck on systems design**: Invoke systems-sage for architecture questions
-- **Need concept explanation**: Ask study-partner (DSA) or systems-sage (distributed
-  systems)
+- **Need concept explanation**: Ask study-partner (DSA) or systems-sage
+  (distributed systems)
 - **Debugging your code**: study-partner asks about your logic
 - **Ready to commit**: Use grimoire-keeper to structure commit message
 - **Want property-based tests**: Invoke testing-sage for Hypothesis strategies
-- **Practicing system design**: Use systems-sage to simulate interviewer questions
+- **Practicing system design**: Use systems-sage to simulate interviewer
+  questions
 - **End of session**: Use grimoire-keeper for daily review, set tomorrow's goals
 - **Weekly review**: Use grimoire-keeper for progress analysis and planning
 
@@ -533,8 +539,10 @@ from cantrips.arrays_strings.two_pointers import Solution
 ## Progress Tracking
 
 1. **Main dashboard**: `cantrips/README.md` - Overview of all topics
-2. **Topic READMEs**: `cantrips/src/cantrips/[topic]/README.md` - Detailed per topic
-3. **Structure READMEs**: `runes/structures/[name]/README.md` - Per data structure
+2. **Topic READMEs**: `cantrips/src/cantrips/[topic]/README.md` - Detailed per
+   topic
+3. **Structure READMEs**: `runes/structures/[name]/README.md` - Per data
+   structure
 
 Update checkboxes and counts as you complete problems and implementations.
 
@@ -544,17 +552,18 @@ Update checkboxes and counts as you complete problems and implementations.
   session-starter/study-partner/testing-sage/systems-sage when applicable
 - **Naming**: Respect the grimoire/runes/cantrips/incantations theme
 - **Implementation**: User wants to write code themselves for learning
-- **Guide, don't solve**: Ask questions, don't give solutions (like study-partner)
-- **Templates**: Suggest using simplified template names (cantrip.py, fundamental.py,
-  design.py, etc.)
+- **Guide, don't solve**: Ask questions, don't give solutions (like
+  study-partner)
+- **Templates**: Suggest using simplified template names (cantrip.py,
+  fundamental.py, design.py, etc.)
 - **Progress**: Help update READMEs and track completed work
 - **Patterns**: Help identify and document recurring techniques
-- **Connections**: Link problems to related data structures in runes, and systems
-  concepts to incantations
-- **Interview focus**: User is in 8-week sprint mode - prioritize interview-readiness
-  over perfection
-- **Python for speed**: Keep all implementations in Python for fast iteration during
-  sprint
+- **Connections**: Link problems to related data structures in runes, and
+  systems concepts to incantations
+- **Interview focus**: User is in 8-week sprint mode - prioritize
+  interview-readiness over perfection
+- **Python for speed**: Keep all implementations in Python for fast iteration
+  during sprint
 
 ## Common Tasks
 
@@ -626,6 +635,7 @@ just kata::menu
 ```
 
 The interactive menu provides:
+
 - Pattern selection with practice history
 - Automatic timer for sessions
 - Integrated pytest test runner
@@ -702,14 +712,16 @@ runes kata test sliding-window/fixed-window -m edge     # Edge cases
 - Git tracking allows reverting if needed
 
 **Migration status:**
+
 - ✅ Pytest: sliding_window (fixed + variable), two_pointers/opposite_ends
-- ⚠️  Legacy doctest: binary_search, fast_slow (migration pending)
+- ⚠️ Legacy doctest: binary_search, fast_slow (migration pending)
 
 **See:** `docs/KATA_PRACTICE.md` for full kata practice philosophy and workflow
 
 ## File Organization Best Practices
 
-- One data structure per directory in runes (allows for README, examples, variations)
+- One data structure per directory in runes (allows for README, examples,
+  variations)
 - One problem per file in cantrips (clear separation)
 - Use descriptive filenames matching problem names (snake_case)
 - Keep implementations self-contained but link to runes when relevant

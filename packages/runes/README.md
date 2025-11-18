@@ -5,27 +5,32 @@
 ## What's Inside
 
 **Data Structures** (`structures/`)
+
 - LinkedList, Stack, Queue, Tree, Graph, etc.
 - Each implemented from scratch for deep understanding
 - Comprehensive documentation and complexity analysis
 
 **Algorithm Katas** (`algorithms/`)
+
 - Daily practice drills for building muscle memory
 - Core patterns: two pointers, sliding window, binary search, etc.
 - Interactive practice system with timing and progress tracking
 
 ## Kata Practice System
 
-The kata system helps you master algorithmic patterns through deliberate practice.
+The kata system helps you master algorithmic patterns through deliberate
+practice.
 
 ### Quick Start
 
 **Interactive Menu (Recommended for beginners):**
+
 ```bash
 runes kata menu
 ```
 
 The interactive menu guides you through:
+
 1. Select a pattern to practice
 2. Opens in your editor with automatic timer
 3. Run tests when you're ready (pytest with markers)
@@ -33,6 +38,7 @@ The interactive menu guides you through:
 5. View progress and mastery status
 
 **What gets tracked:**
+
 - Practice session history with dates
 - Best times per kata
 - Bug counts (helps identify weak areas)
@@ -61,14 +67,18 @@ algorithms/
 
 ### The Practice Workflow
 
-**Philosophy:** Musicians practice scales, athletes drill fundamentals. You practice katas.
+**Philosophy:** Musicians practice scales, athletes drill fundamentals. You
+practice katas.
 
 **Daily ritual:**
-1. **Morning warmup (5-10 min):** Practice 2-3 katas from your current focus pattern
+
+1. **Morning warmup (5-10 min):** Practice 2-3 katas from your current focus
+   pattern
 2. **LeetCode practice (45-60 min):** Apply the pattern in real problems
 3. **Evening reinforcement (5 min):** Repeat katas from patterns used today
 
 **Why this works:**
+
 - Kata first → Fresh muscle memory
 - LeetCode second → Immediate application
 - Spaced repetition → Pattern becomes automatic
@@ -76,24 +86,29 @@ algorithms/
 ### Migration Status
 
 **Migrated to pytest:**
+
 - ✅ sliding_window/fixed_window (5 katas)
 - ✅ sliding_window/variable_window (5 katas)
 - ✅ two_pointers/opposite_ends (5 katas)
 
 **Legacy (still uses doctest):**
+
 - ⚠️ searching/binary_search
 - ⚠️ two_pointers/fast_slow
 
-*Pytest migration brings better test organization, granular test selection, and improved error messages.*
+_Pytest migration brings better test organization, granular test selection, and
+improved error messages._
 
 ### Available Patterns
 
 View all available patterns:
+
 ```bash
 runes kata list
 ```
 
 Each pattern includes:
+
 - Comprehensive README with theory and examples
 - Reference implementations in `__init__.py`
 - Practice problems in `kata.py`
@@ -103,16 +118,19 @@ Each pattern includes:
 ### Safety Features
 
 **Automatic backups:**
+
 - Every reset creates a timestamped backup
 - Backups stored in `.kata_backups/`
 - Never lose your practice logs or notes
 
 **Undo capability:**
+
 ```bash
 runes kata undo  # Restore most recent backup
 ```
 
 **Dry-run mode:**
+
 ```bash
 runes kata reset <pattern> --dry-run  # Preview without changes
 ```
@@ -136,6 +154,7 @@ runes kata test sliding-window/fixed-window -v -k 1
 ```
 
 **Available markers:**
+
 - `kata1`, `kata2`, `kata3`, `kata4`, `kata5` - Individual katas
 - `examples` - LeetCode example test cases
 - `edge` - Edge case tests
@@ -143,6 +162,7 @@ runes kata test sliding-window/fixed-window -v -k 1
 ### Pattern READMEs
 
 Each pattern directory contains a comprehensive README:
+
 - **Pattern Overview:** Core concept and visualization
 - **When to Use:** Recognition criteria and anti-patterns
 - **Complexity:** Time/space analysis
@@ -158,21 +178,25 @@ Each pattern directory contains a comprehensive README:
 ### Mastery Progression
 
 **Learning (Weeks 1-2):**
+
 - Study templates (`__init__.py`)
 - Code katas with reference open
 - Focus on understanding
 
 **Practicing (Weeks 2-3):**
+
 - Code katas from memory
 - Small bugs acceptable
 - Redo next day
 
 **Refining (Weeks 3-4):**
+
 - Zero bugs consistently
 - Under target times
 - Explain while coding
 
 **Mastered (Week 4+):**
+
 - Pattern is muscle memory
 - Instant recognition in problems
 - Can teach others
