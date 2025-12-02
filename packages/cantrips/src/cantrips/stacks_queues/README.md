@@ -46,7 +46,7 @@ Fill in problems as you work through the section.
 
 ### Easy Problems
 
-- [ ] **[Problem Name](link)** - LC #
+- [x] **[Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)** - LC #20
 
 ### Medium Problems
 
@@ -58,9 +58,9 @@ Fill in problems as you work through the section.
 
 ## Progress Tracker
 
-**Completed**: 0 / 7
+**Completed**: 1 / 7
 
-- Easy: 0 / 3
+- Easy: 1 / 3
 - Medium: 0 / 3
 - Hard: 0 / 1
 
