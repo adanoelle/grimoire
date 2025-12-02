@@ -40,11 +40,11 @@ HARD (Advanced binary search):
 - LC #154: Find Minimum in Rotated Sorted Array II (with duplicates)
 
 PROGRESSION PATH:
-1. Master kata 1 (classic) - Do 100 reps until muscle memory
+1. Master kata one (classic) - Do 100 reps until muscle memory
 2. Solve Easy cantrips (LC #35, #704, #278)
-3. Master katas 2-4 (first/last occurrence, insert position)
+3. Master katas two-four (first/last occurrence, insert position)
 4. Tackle Medium cantrips (rotated arrays, 2D matrices)
-5. Master katas 5-6 (rotated array, peak element)
+5. Master katas five-six (rotated array, peak element)
 6. Challenge yourself with Hard cantrips
 """
 
@@ -55,33 +55,33 @@ PROGRESSION PATH:
 
 """
 LEVEL 1 (Learning) - Week 1:
-[ ] Can code kata 1 with reference template open
+[ ] Can code kata with reference template open
 [ ] Understand loop invariants and boundary conditions
 [ ] Time doesn't matter yet
 
 LEVEL 2 (Practicing) - Week 1-2:
-[ ] Can code kata 1 from memory
-[ ] < 5 bugs per week on kata 1
+[ ] Can code kata from memory
+[ ] < 5 bugs per week on kata 
 [ ] Average time under 4 minutes
 → READY FOR: Easy cantrips (LC #35, #704)
 
 LEVEL 3 (Proficient) - Week 2-3:
-[ ] Zero bugs on kata 1 for a week
-[ ] Consistently under 2 minutes on kata 1
-[ ] Can code katas 2-4 from memory
+[ ] Zero bugs on kata for a week
+[ ] Consistently under 2 minutes on kata
+[ ] Can code katas two through four from memory
 → READY FOR: Medium cantrips (LC #33, #34, #162)
 
 LEVEL 4 (Mastered) - Week 3-5:
-[ ] 50+ perfect reps on kata 1
-[ ] Under 90 seconds on kata 1
-[ ] Can code all 6 katas from memory
+[ ] 50+ perfect reps on kata one
+[ ] Under 90 seconds on kata one
+[ ] Can code all six katas from memory
 [ ] Used successfully in 10+ cantrips
 → READY FOR: Hard cantrips and teaching others
 
 LEVEL 5 (Breathing Knowledge) - Week 5+:
-[ ] 100+ perfect reps on kata 1 (THE GOAL!)
-[ ] Can code kata 1 with eyes literally closed
-[ ] All 6 katas in under 20 minutes
+[ ] 100+ perfect reps on kata one (THE GOAL!)
+[ ] Can code kata one with eyes literally closed
+[ ] All six katas in under 20 minutes
 [ ] Pattern recognition is instant (< 5 sec)
 [ ] Can explain boundary conditions in your sleep
 → INTERVIEW READY: Binary search is now a superpower
@@ -92,10 +92,10 @@ Off-by-one errors plague even experienced engineers.
 100 perfect repetitions builds neural pathways that make bugs impossible.
 
 WHEN TO MOVE TO CANTRIPS:
-- Reach Level 2 (Practicing) on kata 1 → Start Easy cantrips
+- Reach Level 2 (Practicing) on kata one → Start Easy cantrips
 - Reach Level 3 (Proficient) → Start Medium cantrips
-- If you struggle on a cantrip → Return to kata 1 for 10 more reps
-- THE RULE: Never attempt Hard cantrips before 50+ perfect reps on kata 1
+- If you struggle on a cantrip → Return to kata one for 10 more reps
+- THE RULE: Never attempt Hard cantrips before 50+ perfect reps on kata one
 """
 
 
@@ -131,6 +131,7 @@ def binary_search_classic(nums: list[int], target: int) -> int:
     """
     pass
 
+
 def find_first_occurrence(nums: list[int], target: int) -> int:
     """
     KATA 2: Find FIRST occurrence of target
@@ -157,6 +158,7 @@ def find_first_occurrence(nums: list[int], target: int) -> int:
     """
     pass
 
+
 def find_last_occurrence(nums: list[int], target: int) -> int:
     """
     KATA 3: Find LAST occurrence of target
@@ -164,7 +166,7 @@ def find_last_occurrence(nums: list[int], target: int) -> int:
     ⏱️  Target time: < 3 minutes
     🎯 Goal: Zero bugs, find rightmost occurrence
 
-    Opposite of kata 2: Keep searching right after finding.
+    Opposite of kata two: Keep searching right after finding.
 
     Examples:
         >>> find_last_occurrence([1, 2, 2, 2, 3], 2)
@@ -177,6 +179,7 @@ def find_last_occurrence(nums: list[int], target: int) -> int:
     START CODING BELOW:
     """
     pass
+
 
 def search_insert_position(nums: list[int], target: int) -> int:
     """
@@ -201,6 +204,7 @@ def search_insert_position(nums: list[int], target: int) -> int:
     """
     pass
 
+
 def search_rotated_array(nums: list[int], target: int) -> int:
     """
     KATA 5: Search in rotated sorted array (LC #33)
@@ -208,7 +212,7 @@ def search_rotated_array(nums: list[int], target: int) -> int:
     ⏱️  Target time: < 5 minutes
     🎯 Goal: Zero bugs, O(log n) time
 
-    This is ADVANCED! Master kata 1-4 first.
+    This is ADVANCED! Master katas one through four first.
 
     Array is sorted but rotated: [4,5,6,7,0,1,2]
 
@@ -228,6 +232,7 @@ def search_rotated_array(nums: list[int], target: int) -> int:
     START CODING BELOW:
     """
     pass
+
 
 def find_peak_element(nums: list[int]) -> int:
     """
@@ -250,41 +255,42 @@ def find_peak_element(nums: list[int]) -> int:
     """
     pass
 
+
 # ============================================================================
 # MASTERY TRACKING
 # ============================================================================
 
 """
-🎯 BINARY SEARCH MASTERY GOAL:
-Code classic binary search 100 times until you can do it perfectly,
-with zero bugs, in under 2 minutes, WITH YOUR EYES CLOSED.
+Track your practice sessions below. Be honest about bugs!
 
-This is not hyperbole. True mastery means muscle memory.
-
-PRACTICE LOG (Track every attempt):
-Date       | Kata | Attempt # | Time  | Bugs | Notes
------------|------|-----------|-------|------|------------------------
-2025-11-16 | 1    | 1         | 4:30  | 2    | Used left<right, off-by-one
-2025-11-16 | 1    | 2         | 3:15  | 1    | Forgot mid calculation
-2025-11-17 | 1    | 3         | 2:45  | 0    | Clean!
-2025-11-17 | 1    | 4         | 2:10  | 0    | Getting faster
-2025-11-18 | 1    | 5         | 1:50  | 0    | Under 2 min! ✓
-
+Date       | Kata | Time  | Bugs | Notes
+-----------|------|-------|------|---------------------------------------
+2025-12-01 | 5    | 2:30  | 0    | 
+2025-12-01 | 4    | 1:12  | 0    | 
+2025-12-01 | 3    | 1:30  | 0    | 
+2025-12-01 | 2    | 1:38  | 0    | 
+2025-12-01 | 1    | 1:13  | 0    | 
+2025-11-16 | 1    | 4:30  | 2    | Used left<right, off-by-one
+2025-11-16 | 1    | 3:15  | 1    | Forgot mid calculation
+2025-11-17 | 1    | 2:45  | 0    | Clean!
+2025-11-17 | 1    | 2:10  | 0    | Getting faster
+2025-11-18 | 1    | 1:50  | 0    | Under 2 min!
+YYYY-MM-DD | N    | MM:SS | N    | Description of any issues or insights
 
 MASTERY CHECKLIST:
-[ ] Kata 1: Coded 100 times, can do with eyes closed
-[ ] Kata 1: Under 2 min, zero bugs, last 10 attempts
-[ ] Kata 2: Can code in < 3 min, zero bugs
-[ ] Kata 3: Can code in < 3 min, zero bugs
-[ ] Kata 4: Can code in < 2 min, zero bugs
-[ ] Kata 5: Can code in < 5 min, zero bugs
-[ ] Kata 6: Can code in < 4 min, zero bugs
+[ ] Kata one: Coded 100 times, can do with eyes closed
+[ ] Kata one: Under 2 min, zero bugs, last 10 attempts
+[ ] Kata two: Can code in < 3 min, zero bugs
+[ ] Kata three: Can code in < 3 min, zero bugs
+[ ] Kata four: Can code in < 2 min, zero bugs
+[ ] Kata five: Can code in < 5 min, zero bugs
+[ ] Kata six: Can code in < 4 min, zero bugs
 [ ] Understand WHY each boundary condition
 [ ] Can explain while coding
 [ ] Recognize binary search in new problems (< 15 sec)
 
 BREATHING KNOWLEDGE:
-[ ] All 6 katas in under 20 minutes total
+[ ] All six katas in under 20 minutes total
 [ ] Zero bugs across all katas
 [ ] Can code classic BS with eyes literally closed
 [ ] Immediately recognize when to use binary search
@@ -298,31 +304,31 @@ Common Bugs I've Made (learn from these):
 
 
 if __name__ == "__main__":
-    import doctest
-
     print("=" * 60)
     print("BINARY SEARCH - KATA PRACTICE")
     print("=" * 60)
     print()
-    print("🥋 The most important algorithm to master!")
+    print("🥋 Run tests with pytest:")
     print()
-
-    results = doctest.testmod()
-
-    if results.failed == 0:
-        print("✅ All tests passed!")
-        print(f"   {results.attempted} tests run")
-        print()
-        print("KEEP PRACTICING until you can code this in your sleep!")
-        print("Goal: 100 perfect attempts of classic binary search")
-    else:
-        print(f"❌ {results.failed} test(s) failed")
-        print()
-        print("Debug, understand WHY, then retry!")
-        print("Binary search must be PERFECT.")
-
+    print("   pytest test_kata.py                  # Run all tests")
+    print("   pytest test_kata.py -m kata1         # Run kata one only")
+    print("   pytest test_kata.py -m kata2         # Run kata two only")
+    print("   pytest test_kata.py -v               # Verbose output")
+    print()
+    print("Or use justfile commands:")
+    print()
+    print("   just kata::test searching/binary_search")
+    print("   just binary-search::test")
+    print("   just binary-search::test-kata1")
+    print()
+    print("🎯 KATA MASTERY TIPS:")
+    print("   - Code from memory, no peeking!")
+    print("   - Time yourself")
+    print("   - Aim for ZERO bugs (this is non-negotiable)")
+    print("   - Practice until you can code with eyes closed")
+    print()
+    print("🎯 THE 100-REP GOAL:")
+    print("   Binary search is THE most critical algorithm.")
+    print("   100 perfect reps builds muscle memory that makes bugs impossible.")
     print()
     print("=" * 60)
-
-    pass
-    pass

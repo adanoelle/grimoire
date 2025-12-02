@@ -26,6 +26,26 @@ def pytest_configure(config):
         "markers",
         "kata3: kata difficulty level 3 (harder)"
     )
+    config.addinivalue_line(
+        "markers",
+        "kata4: kata difficulty level 4 (advanced)"
+    )
+    config.addinivalue_line(
+        "markers",
+        "kata5: kata difficulty level 5 (advanced)"
+    )
+    config.addinivalue_line(
+        "markers",
+        "kata6: kata difficulty level 6 (advanced)"
+    )
+    config.addinivalue_line(
+        "markers",
+        "examples: LeetCode canonical examples"
+    )
+    config.addinivalue_line(
+        "markers",
+        "edge: edge case tests"
+    )
 
 
 def kata_todo(reason="Not yet implemented"):

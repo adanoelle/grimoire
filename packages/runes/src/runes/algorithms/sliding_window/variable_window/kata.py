@@ -107,6 +107,7 @@ WHEN TO MOVE TO CANTRIPS:
 - Reach Level 3 (Proficient) → Start Medium cantrips
 - If you struggle on a cantrip → Return to katas for more reps
 """
+from collections import Counter # when checking frequency maps
 
 
 def length_of_longest_substring(s: str) -> int:
@@ -139,7 +140,7 @@ def length_of_longest_substring(s: str) -> int:
     """
     pass
 
-
+    
 def min_subarray_len(target: int, nums: list[int]) -> int:
     """
     KATA 2: Minimum Size Subarray Sum (LeetCode #209)
@@ -171,7 +172,7 @@ def min_subarray_len(target: int, nums: list[int]) -> int:
     """
     pass
 
-
+            
 def total_fruit(fruits: list[int]) -> int:
     """
     KATA 3: Fruit Into Baskets (LeetCode #904)
@@ -261,6 +262,72 @@ def num_subarray_product_less_than_k(nums: list[int], k: int) -> int:
     pass
 
 
+def min_window(s: str, t: str) -> str:
+    """
+    KATA 6: Minimum Window Substring (LeetCode #76)
+
+    ⏱️  Target time: < 5 minutes
+    🎯 Goal: Zero bugs, O(n) time, O(t) space
+
+    Find the minimum window in s that contains all characters of t.
+    Return empty string if no such window exists.
+
+    Pattern: Two frequency maps (have vs need), track "satisfied" count
+
+    Edge cases:
+    - t longer than s → return ""
+    - t has duplicate chars → need that many in window
+    - Multiple valid windows → return any minimum
+
+    Hint if stuck: Track how many unique chars are "satisfied" (have >= need).
+                   When all satisfied, try shrinking from left.
+
+    Examples:
+        >>> min_window("ADOBECODEBANC", "ABC")
+        'BANC'
+        >>> min_window("a", "a")
+        'a'
+        >>> min_window("a", "aa")
+        ''
+
+    START CODING BELOW (delete 'pass' and write your solution):
+    """
+    pass
+
+
+def subarrays_with_k_distinct(nums: list[int], k: int) -> int:
+    """
+    KATA 7: Subarrays with K Different Integers (LeetCode #992)
+
+    ⏱️  Target time: < 5 minutes
+    🎯 Goal: Zero bugs, O(n) time, O(k) space
+
+    Count subarrays with exactly k distinct integers.
+
+    Pattern: exactlyK(k) = atMostK(k) - atMostK(k-1)
+
+    Reuse your kata 4/5 logic as a helper!
+
+    Edge cases:
+    - k = 0 → return 0
+    - k > unique elements → return 0
+    - All same element, k=1 → n*(n+1)/2
+
+    Hint if stuck: Write a helper function count_at_most_k(nums, k) that counts
+                   subarrays with AT MOST k distinct elements (like kata 5 counting).
+                   Then: exactly_k = at_most_k(k) - at_most_k(k-1)
+
+    Examples:
+        >>> subarrays_with_k_distinct([1,2,1,2,3], 2)
+        7
+        >>> subarrays_with_k_distinct([1,2,1,3,4], 3)
+        3
+
+    START CODING BELOW (delete 'pass' and write your solution):
+    """
+    pass
+
+
 # ============================================================================
 # MASTERY TRACKING
 # ============================================================================
@@ -270,6 +337,16 @@ Track your practice sessions below. Be honest about bugs!
 
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+2025-12-02 | 1    | 1:44  | 0    | 
+2025-12-01 | 4    | 5:52  | 0    | 
+2025-11-30 | 3    | 6:28  | 0    | 
+2025-11-30 | 1    | 1:50  | 0    | 
+2025-11-25 | 5    | 2:07  | 1    | 
+2025-11-25 | 3    | 0:11  | 0    | 
+2025-11-25 | 1    | 2:15  | 0    | 
+2025-11-25 | 2    | 0:11  | 0    | 
+2025-11-25 | 2    | 7:08  | 1    | 
+2025-11-20 | 1    | 3:51  | 0    | Careful with comments: we want to contract while the condition is met!
 YYYY-MM-DD | 1    | MM:SS | N    | Description of any issues or insights
 YYYY-MM-DD | 1    | MM:SS | N    | ...
 

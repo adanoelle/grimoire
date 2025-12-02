@@ -30,6 +30,28 @@ TECHNIQUE:
 4. Repeat until window reaches end
 """
 
+"""
+# Fixed Window Pattern:
+
+1. Initialize tracking structure for first window
+2. Check the first window for result
+3. Slide left & right
+    a. add nums[right] or s[right] to tracking strucutre
+    b. remove nums[left] or s[left] from tracking structure
+    c. check if the current window matches our solution condition, update result
+    d. move left += 1
+4. return result
+
+
+Note, iterating bounds will always be
+
+```python
+for idx in range(window_size, len(data))
+```
+
+where we start at the window size and iterate over the length
+of the data we are iterating over.
+"""
 
 # ============================================================================
 # RELATED CANTRIPS - Apply this pattern in real LeetCode problems
@@ -133,16 +155,10 @@ def find_max_average(nums: list[int], k: int) -> float:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    curr_sum = sum(nums[:k])
-    max_sum = curr_sum
-    for idx in range(k, len(nums)):
-        curr_sum = curr_sum - nums[idx-k] + nums[idx]
-        max_sum = max(curr_sum, max_sum)
-
-    return max_sum / k
+    pass
 
 
-def num_of_subarrays(arr: list[int], k: int, threshold: int) -> int:
+def num_of_subarrays(nums: list[int], k: int, threshold: int) -> int:
     """
     KATA 2: Number of Sub-arrays of Size K and Average >= Threshold (LeetCode #1343)
 
@@ -264,6 +280,14 @@ Track your practice sessions below. Be honest about bugs!
 
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+2025-11-30 | 2    | 3:16  | 0    | 
+2025-11-30 | 1    | 4:26  | 0    | 
+2025-11-20 | 5    | 8:18  | 0    | Explaining the details of left indices went smoothly
+2025-11-20 | 4    | 6:57  | 0    | starting to explain counters in real time
+2025-11-19 | 4    | 0:13  | 0    | Remember to initialize the window with of the length of the target!
+2025-11-19 | 4    | 22:43 | 3    | I messed up the initialization of the window. It should be Counter(s2[:len(s1)])
+2025-11-18 | 3    | 2:03  | 2    | The windows in this problem are independent.
+2025-11-18 | 1    | 2:25  | 0    | Got the indexing right this time -> -[idx-k] and +[idx]
 2025-11-18 | 1    | 0:12  | 0    | Keep in mind that indexing with a fixed window is [idx - k] and [idx]
 2025-11-18 | 1    | 3:14  | 0    | 
 YYYY-MM-DD | 1    | MM:SS | N    | Description of any issues or insights

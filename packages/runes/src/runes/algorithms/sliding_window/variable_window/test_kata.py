@@ -35,6 +35,8 @@ from kata import (
     total_fruit,
     length_of_longest_substring_k_distinct,
     num_subarray_product_less_than_k,
+    min_window,
+    subarrays_with_k_distinct,
 )
 
 
@@ -242,6 +244,86 @@ class TestKata5SubarrayProduct:
 
 
 # ============================================================================
+# KATA 6: Minimum Window Substring (LeetCode #76)
+# Target: < 5 min, zero bugs, O(n) time, O(t) space
+# ============================================================================
+
+class TestKata6MinWindow:
+    """Tests for min_window kata (LeetCode #76)"""
+
+    LEETCODE_EXAMPLES = [
+        ("ADOBECODEBANC", "ABC", "BANC", "example 1: BANC contains ABC"),
+        ("a", "a", "a", "example 2: exact match"),
+        ("a", "aa", "", "example 3: impossible"),
+    ]
+
+    EDGE_CASES = [
+        ("", "a", "", "edge: empty s"),
+        ("a", "", "", "edge: empty t"),
+        ("aa", "aa", "aa", "edge: exact full match"),
+        ("cabwefgewcwaefgcf", "cae", "cwae", "edge: multiple valid windows"),
+        ("bba", "ab", "ba", "edge: chars in different order"),
+    ]
+
+    ALL_CASES = LEETCODE_EXAMPLES + EDGE_CASES
+
+    @pytest.mark.kata6
+    @pytest.mark.parametrize("s,t,expected,desc",
+                             LEETCODE_EXAMPLES,
+                             ids=[c[3] for c in LEETCODE_EXAMPLES])
+    def test_leetcode_examples(self, s, t, expected, desc):
+        """LeetCode canonical examples."""
+        assert min_window(s, t) == expected
+
+    @pytest.mark.kata6
+    @pytest.mark.parametrize("s,t,expected,desc",
+                             EDGE_CASES,
+                             ids=[c[3] for c in EDGE_CASES])
+    def test_edge_cases(self, s, t, expected, desc):
+        """Edge cases for minimum window substring."""
+        assert min_window(s, t) == expected
+
+
+# ============================================================================
+# KATA 7: Subarrays with K Different Integers (LeetCode #992)
+# Target: < 5 min, zero bugs, O(n) time, O(k) space
+# ============================================================================
+
+class TestKata7SubarraysKDistinct:
+    """Tests for subarrays_with_k_distinct kata (LeetCode #992)"""
+
+    LEETCODE_EXAMPLES = [
+        ([1, 2, 1, 2, 3], 2, 7, "example 1: 7 subarrays with exactly 2 distinct"),
+        ([1, 2, 1, 3, 4], 3, 3, "example 2: 3 subarrays with exactly 3 distinct"),
+    ]
+
+    EDGE_CASES = [
+        ([1, 1, 1, 1], 1, 10, "edge: all same, k=1 -> n*(n+1)/2"),
+        ([1, 2, 3], 4, 0, "edge: k > unique elements"),
+        ([1, 2], 2, 1, "edge: exactly one valid subarray"),
+        ([1, 2, 1, 2], 2, 6, "edge: alternating pattern"),
+    ]
+
+    ALL_CASES = LEETCODE_EXAMPLES + EDGE_CASES
+
+    @pytest.mark.kata7
+    @pytest.mark.parametrize("nums,k,expected,desc",
+                             LEETCODE_EXAMPLES,
+                             ids=[c[3] for c in LEETCODE_EXAMPLES])
+    def test_leetcode_examples(self, nums, k, expected, desc):
+        """LeetCode canonical examples."""
+        assert subarrays_with_k_distinct(nums, k) == expected
+
+    @pytest.mark.kata7
+    @pytest.mark.parametrize("nums,k,expected,desc",
+                             EDGE_CASES,
+                             ids=[c[3] for c in EDGE_CASES])
+    def test_edge_cases(self, nums, k, expected, desc):
+        """Edge cases for subarrays with k distinct."""
+        assert subarrays_with_k_distinct(nums, k) == expected
+
+
+# ============================================================================
 # PROPERTY-BASED TESTS (Using Hypothesis)
 # ============================================================================
 
@@ -335,3 +417,46 @@ class TestKata5Properties:
         """If k <= 1, result should be 0 (all products >= 1)."""
         result = num_subarray_product_less_than_k(nums, 1)
         assert result == 0, "k<=1 should return 0"
+
+
+class TestKata6Properties:
+    """Property-based tests for min_window (Kata 6)"""
+
+    @given(
+        s=st.text(alphabet="ABC", min_size=0, max_size=30),
+        t=st.text(alphabet="ABC", min_size=0, max_size=10)
+    )
+    def test_result_contains_all_chars(self, s, t):
+        """If result is non-empty, it must contain all chars of t."""
+        result = min_window(s, t)
+        if result:
+            from collections import Counter
+            result_count = Counter(result)
+            t_count = Counter(t)
+            for char, count in t_count.items():
+                assert result_count.get(char, 0) >= count
+
+    @given(s=st.text(alphabet="ABC", min_size=1, max_size=20))
+    def test_empty_t_returns_empty(self, s):
+        """If t is empty, result should be empty."""
+        result = min_window(s, "")
+        assert result == "", "Empty t should return empty string"
+
+
+class TestKata7Properties:
+    """Property-based tests for subarrays_with_k_distinct (Kata 7)"""
+
+    @given(
+        nums=st.lists(st.integers(1, 5), min_size=1, max_size=20),
+        k=st.integers(0, 6)
+    )
+    def test_count_non_negative(self, nums, k):
+        """Count should always be non-negative."""
+        result = subarrays_with_k_distinct(nums, k)
+        assert result >= 0, "Count cannot be negative"
+
+    @given(nums=st.lists(st.integers(1, 5), min_size=1, max_size=20))
+    def test_k_zero_returns_zero(self, nums):
+        """If k=0, result should be 0."""
+        result = subarrays_with_k_distinct(nums, 0)
+        assert result == 0, "k=0 should return 0"
