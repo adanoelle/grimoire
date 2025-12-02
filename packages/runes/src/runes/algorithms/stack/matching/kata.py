@@ -57,24 +57,25 @@ After mastering these katas, practice the pattern in these problems:
 
 EASY (Learn pattern application):
 - LC #20: Valid Parentheses → cantrips/stacks_queues/valid_parentheses.py
-- LC #1021: Remove Outermost Parentheses
+- LC #1047: Remove All Adjacent Duplicates In String
 - LC #1544: Make The String Great
+- LC #1021: Remove Outermost Parentheses (depth tracking, not stack)
 
 MEDIUM (Pattern combinations):
-- LC #921: Minimum Add to Make Parentheses Valid
 - LC #1249: Minimum Remove to Make Valid Parentheses
-- LC #1541: Minimum Insertions to Balance a Parentheses String
+- LC #1209: Remove All Adjacent Duplicates in String II (k times)
+- LC #1614: Maximum Nesting Depth of the Parentheses
 
 HARD (Advanced variations):
 - LC #32: Longest Valid Parentheses (stack stores indices)
 - LC #301: Remove Invalid Parentheses (BFS/DFS variation)
 
 PROGRESSION PATH:
-1. Master katas 1-2 (is_valid, remove_outer_parentheses)
+1. Master katas 1-2 (is_valid, remove_duplicates - basic matching)
 2. Solve Easy cantrips (build pattern recognition)
-3. Master katas 3-4 (min_add_to_make_valid, min_remove_to_make_valid)
-4. Tackle Medium cantrips (apply counting and modification patterns)
-5. Challenge yourself with kata 5 (longest_valid_parentheses) and Hard cantrips
+3. Master katas 3-4 (make_good, min_remove - matching with conditions)
+4. Tackle Medium cantrips (extend matching patterns)
+5. Challenge yourself with kata 5 (longest_valid_parentheses - indices tracking)
 """
 
 
@@ -85,27 +86,27 @@ PROGRESSION PATH:
 """
 LEVEL 1 (Learning) - Week 1-2:
 [ ] Can code katas 1-2 with reference template open
-[ ] Understand stack LIFO matching
+[ ] Understand stack LIFO matching pattern
 [ ] Time doesn't matter yet
 
 LEVEL 2 (Practicing) - Week 2-3:
 [ ] Can code katas 1-2 from memory
 [ ] < 5 bugs per week across all katas
 [ ] Average time under 2× target time
-→ READY FOR: Easy cantrips (LC #20, #1021)
+→ READY FOR: Easy cantrips (LC #20, #1047, #1544)
 
 LEVEL 3 (Proficient) - Week 3-4:
 [ ] Zero bugs on katas 1-2 for a week
 [ ] Consistently under target time
-[ ] Can explain while coding
-→ READY FOR: Medium cantrips (LC #921, #1249)
+[ ] Can explain matching pattern while coding
+→ READY FOR: Medium cantrips (LC #1249, #1209)
 
 LEVEL 4 (Mastered) - Week 4-6:
 [ ] 10+ perfect reps on each kata
 [ ] Under 80% of target time
 [ ] Can code katas 3-5 from memory
-[ ] Used successfully in 5+ cantrips
-→ READY FOR: Hard cantrips and teaching others
+[ ] See matching pattern in new problems instantly
+→ READY FOR: Hard cantrips (LC #32) and teaching others
 
 LEVEL 5 (Breathing Knowledge) - Week 6+:
 [ ] Pattern recognition is automatic (< 10 sec in new problems)
@@ -182,78 +183,76 @@ def is_valid(s: str) -> bool:
             
 
 
-def remove_outer_parentheses(s: str) -> str:
+def remove_duplicates(s: str) -> str:
     """
-    KATA 2: Remove Outermost Parentheses (LeetCode #1021)
+    KATA 2: Remove All Adjacent Duplicates In String (LeetCode #1047)
 
     ⏱️  Target time: < 4 minutes
     🎯 Goal: Zero bugs, O(n) time, O(n) space
 
-    A valid parentheses string is either empty, "(V)", or "VW"
-    where V and W are valid strings. A string is primitive if
-    it's non-empty and can't be split into "VW".
-
-    Remove the outermost parentheses of every primitive string
-    in the decomposition of s.
+    Remove all adjacent duplicate characters repeatedly.
+    When you remove adjacent duplicates, new duplicates may form.
+    Keep removing until no more duplicates remain.
 
     Edge cases:
-    - Single primitive: "(())" → "()"
-    - Multiple primitives: "()()" → ""
-    - Nested: "((()))" → "(())"
+    - No duplicates: "abc" → "abc"
+    - All cancel: "aa" → ""
+    - Chain reaction: "abbaca" → "ca" (bb removed, then aa removed)
+    - Single char: "a" → "a"
 
     Hint if stuck:
-    - Track depth/balance counter
-    - When depth becomes 0, you've completed a primitive
-    - Only add to result when depth > 1 (not outermost)
-    - Don't need a stack, just a counter!
+    - Use stack to track characters
+    - When new char matches stack top: they cancel! Pop the stack.
+    - Otherwise: push new char
+    - Same LIFO matching pattern as kata 1!
+    - Compare: if stack and stack[-1] == char
 
     Examples:
-        >>> remove_outer_parentheses("(()())(())")
-        "()()()"
-        >>> remove_outer_parentheses("(()())(())(()(()))")
-        "()()()()(())"
-        >>> remove_outer_parentheses("()()")
-        ""
+        >>> remove_duplicates("abbaca")
+        "ca"  # Remove "bb" → "aaca", remove "aa" → "ca"
+        >>> remove_duplicates("azxxzy")
+        "ay"  # Remove "xx" → "azzy", remove "zz" → "ay"
+        >>> remove_duplicates("abcd")
+        "abcd"  # No duplicates
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
     pass
 
 
-def min_add_to_make_valid(s: str) -> int:
+def make_good(s: str) -> str:
     """
-    KATA 3: Minimum Add to Make Parentheses Valid (LeetCode #921)
+    KATA 3: Make The String Great (LeetCode #1544)
 
     ⏱️  Target time: < 5 minutes
-    🎯 Goal: Zero bugs, O(n) time, O(1) space
+    🎯 Goal: Zero bugs, O(n) time, O(n) space
 
-    Return the minimum number of parentheses we must add to make
-    the resulting string valid.
+    Remove adjacent characters where one is uppercase and one is
+    lowercase of the SAME letter. Keep removing until no such
+    pairs remain.
 
-    A string is valid if:
-    - Every '(' has matching ')'
-    - Every ')' has matching '('
+    "Good" string = no adjacent chars that are same letter but different case
 
     Edge cases:
-    - Already valid: "()" → 0
-    - All opening: "(((" → 3
-    - All closing: ")))" → 3
-    - Mixed: "())" → 1, "(((" → 3
+    - No bad pairs: "abc" → "abc"
+    - All cancel: "aA" → ""
+    - Chain reaction: "leEeetcode" → "leetcode" (remove "Ee", keep "e")
+    - Mixed: "abBAcC" → "" (all cancel)
 
     Hint if stuck:
-    - Track TWO counters: unmatched '(' and unmatched ')'
-    - When '(': increment open counter
-    - When ')': if open > 0, decrement open; else increment close
-    - Return open + close
-    - No stack needed, just counting!
+    - Use stack to track characters
+    - When new char forms bad pair with stack top: they cancel! Pop.
+    - Bad pair = same letter, different case
+    - Check: stack[-1].lower() == char.lower() and stack[-1] != char
+    - Same matching pattern as katas 1-2!
 
     Examples:
-        >>> min_add_to_make_valid("())")
-        1
-        >>> min_add_to_make_valid("(((")
-        3
-        >>> min_add_to_make_valid("()))(")
-        2
+        >>> make_good("leEeetcode")
+        "leetcode"  # Remove "Ee"
+        >>> make_good("abBAcC")
+        ""  # All cancel out
+        >>> make_good("s")
+        "s"
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
