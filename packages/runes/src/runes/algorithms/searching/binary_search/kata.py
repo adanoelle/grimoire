@@ -129,7 +129,20 @@ def binary_search_classic(nums: list[int], target: int) -> int:
 
     START CODING BELOW:
     """
-    pass
+    left = 0
+    right = len(nums)-1
+
+    while left <= right:
+        mid = left + (right - left) // 2
+
+        if target == nums[mid]:
+            return mid
+        elif target < nums[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return -1
 
 
 def find_first_occurrence(nums: list[int], target: int) -> int:
@@ -156,7 +169,22 @@ def find_first_occurrence(nums: list[int], target: int) -> int:
 
     START CODING BELOW:
     """
-    pass
+    left = 0
+    right = len(nums) - 1
+    first = -1
+
+    while left <= right:
+        mid = left + (right - left) // 2
+
+        if target == nums[mid]:
+            first = mid
+            right = mid - 1
+        elif target < nums[mid]:
+            right = mid -1
+        else:
+            left = mid + 1
+
+    return first
 
 
 def find_last_occurrence(nums: list[int], target: int) -> int:
@@ -178,7 +206,22 @@ def find_last_occurrence(nums: list[int], target: int) -> int:
 
     START CODING BELOW:
     """
-    pass
+    left = 0
+    right = len(nums) -1
+    last = -1
+
+    while left <= right:
+        mid = left + (right - left) // 2
+
+        if target == nums[mid]:
+            last = mid
+            left = mid + 1
+        elif target < nums[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return last
 
 
 def search_insert_position(nums: list[int], target: int) -> int:
@@ -265,6 +308,9 @@ Track your practice sessions below. Be honest about bugs!
 
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+2025-12-02 | 3    | 1:28  | 0    | 
+2025-12-02 | 2    | 1:17  | 0    | 
+2025-12-02 | 1    | 1:05  | 0    | 
 2025-12-01 | 5    | 2:30  | 0    | 
 2025-12-01 | 4    | 1:12  | 0    | 
 2025-12-01 | 3    | 1:30  | 0    | 

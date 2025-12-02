@@ -8,7 +8,14 @@ Quick Reference:
 """
 
 import pytest
+import sys
+from pathlib import Path
 from hypothesis import given, strategies as st
+
+# Add current directory to path for imports
+current_dir = Path(__file__).parent
+sys.path.insert(0, str(current_dir))
+
 from kata import is_valid
 
 
