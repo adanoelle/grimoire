@@ -160,27 +160,7 @@ def is_valid(s: str) -> bool:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    stack = []
-    close_to_open = {
-        ")": "(",
-        "}": "{",
-        "]": "["
-    }
-
-    for char in s:
-        if char in close_to_open:
-            # We have a closing symbol
-            if stack and stack[-1] == close_to_open[char]:
-                # the stack is nonempty and the top of the stack has the matching opening symbol
-                stack.pop()
-            else:
-                # symbols do not match
-                return False
-        else:
-            stack.append(char)
-
-    return True if not stack else False
-            
+    pass
 
 
 def remove_duplicates(s: str) -> str:
@@ -345,6 +325,8 @@ Track your practice sessions below. Be honest about bugs!
 
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+2025-12-02 | 2    | 0:53  | 0    | 
+2025-12-02 | 1    | 2:36  | 0    | 
 2025-12-02 | 1    | 2:56  | 0    | 
 YYYY-MM-DD | 1    | MM:SS | N    | Description of any issues or insights
 YYYY-MM-DD | 2    | MM:SS | N    | ...
