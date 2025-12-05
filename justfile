@@ -322,3 +322,18 @@ clean:
 alias kata-list := kata::list
 alias kata-test-all := kata::test-all
 alias kata-reset-all := kata::reset-all
+
+# ============================================================================
+# Cantrips TUI (Algorithm Pattern Practice)
+# ============================================================================
+# Modern Textual-based TUI for algorithm pattern drills with:
+# - GitHub-style contribution calendar
+# - SQLite progress tracking
+# - SM-2 spaced repetition
+# - Inline test results
+#
+# Launch: just cantrip-tui
+
+# Launch the cantrips practice TUI
+cantrip-tui:
+    @uv run cantrip menu

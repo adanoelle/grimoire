@@ -1,7 +1,7 @@
 [project]
-name = "cantrips"
+name = "scrolls"
 version = "0.1.0"
-description = "Leetcode problem solutions"
+description = "LeetCode problem solutions - recorded spells from the grimoire"
 readme = "README.md"
 authors = [
     { name = "Ada", email = "adanoelleyoung@gmail.com" }
@@ -21,7 +21,6 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-# Configure pytest to find our cantrip test files
 python_files = "*.py"
 python_functions = "test_*"
-testpaths = ["src/cantrips"]
+testpaths = ["src/scrolls"]
