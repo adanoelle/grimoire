@@ -1,0 +1,79 @@
+[project]
+name = "cantrips"
+version = "0.1.0"
+description = "Algorithm pattern drills for interview preparation - practice until it's muscle memory"
+readme = "README.md"
+authors = [
+    { name = "Ada", email = "adanoelleyoung@gmail.com" }
+]
+requires-python = ">=3.12"
+keywords = ["algorithms", "interview-prep", "leetcode", "practice", "tui"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "textual>=0.89.0",
+    "typer>=0.15.0",
+    "rich>=13.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "hypothesis>=6.115.0",
+    "ruff>=0.8.0",
+    "pyright>=1.1.389",
+    "textual-dev>=1.7.0",
+]
+
+[project.scripts]
+cantrip = "cantrips.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ada/grimoire"
+Repository = "https://github.com/ada/grimoire"
+
+[build-system]
+requires = ["uv_build>=0.8.23,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "RUF",    # ruff-specific
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["cantrips"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+addopts = "-v --tb=short"

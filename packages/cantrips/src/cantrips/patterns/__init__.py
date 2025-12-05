@@ -1,0 +1,1 @@
+"""Algorithm patterns for practice."""
