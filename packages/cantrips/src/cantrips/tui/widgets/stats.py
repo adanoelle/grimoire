@@ -22,11 +22,14 @@ from cantrips.data import Database, DailyActivity, Streak
 class StatsPanel(Widget):
     """Panel showing today's stats and streak."""
 
+    BORDER_TITLE = "Stats"
+
     DEFAULT_CSS = """
     StatsPanel {
-        height: 5;
+        height: auto;
+        min-height: 5;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
     }
     """
 
@@ -54,22 +57,37 @@ class StatsPanel(Widget):
         """Render the stats panel."""
         text = Text()
 
-        # Streak
-        streak_icon = "🔥" if self._streak.current > 0 else "  "
-        text.append(f"{streak_icon} Streak: ", style="bold")
-        text.append(f"{self._streak.current} days", style="green" if self._streak.current > 0 else "dim")
+        # Today's stats section
+        text.append("Today\n", style="bold")
+        text.append(f"  Sessions: ")
+        text.append(f"{self._today.sessions_count}", style="cyan")
 
-        text.append("  │  ")
-
-        # Today's sessions
-        text.append("Today: ", style="bold")
-        text.append(f"{self._today.sessions_count} sessions", style="cyan")
-
-        text.append("  │  ")
-
-        # Today's time
         minutes = self._today.total_time_seconds // 60
-        text.append("Time: ", style="bold")
+        text.append(f"  │  Time: ")
         text.append(f"{minutes} min", style="cyan")
+        text.append("\n")
+
+        # Patterns practiced today
+        if self._today.patterns_practiced:
+            patterns = [p.split("/")[-1] for p in self._today.patterns_practiced[:3]]
+            text.append("  Patterns: ")
+            text.append(", ".join(patterns), style="dim")
+            if len(self._today.patterns_practiced) > 3:
+                text.append(f" +{len(self._today.patterns_practiced) - 3}", style="dim")
+            text.append("\n")
+
+        text.append("\n")
+
+        # Streak section
+        text.append("Streak\n", style="bold")
+        streak_icon = "🔥" if self._streak.current > 0 else "  "
+        text.append(f"  Current: {streak_icon}")
+        text.append(f"{self._streak.current}", style="green" if self._streak.current > 0 else "dim")
+        text.append(" days")
+
+        if self._streak.longest > 0:
+            text.append(f"  │  Best: ")
+            text.append(f"{self._streak.longest}", style="dim")
+            text.append(" days", style="dim")
 
         return text

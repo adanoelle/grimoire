@@ -106,11 +106,13 @@ class TimerDisplay(Static):
 class TestResultsPanel(Static):
     """Panel showing test results inline."""
 
+    BORDER_TITLE = "Test Results"
+
     DEFAULT_CSS = """
     TestResultsPanel {
         height: auto;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
         margin-top: 1;
     }
 
@@ -120,11 +122,6 @@ class TestResultsPanel(Static):
 
     TestResultsPanel .failed {
         color: $error;
-    }
-
-    TestResultsPanel .title {
-        text-style: bold;
-        margin-bottom: 1;
     }
     """
 
@@ -139,6 +136,12 @@ class TestResultsPanel(Static):
         self._results = output
         self._passed = passed
         self._failed = failed
+        # Update border title with status
+        total = passed + failed
+        if failed == 0:
+            self.border_title = f"Test Results [green]✓ {passed}/{total}[/green]"
+        else:
+            self.border_title = f"Test Results [red]✗ {passed}/{total}[/red]"
         self.refresh()
 
     def render(self) -> str:
@@ -146,24 +149,17 @@ class TestResultsPanel(Static):
         if not self._results:
             return "[dim]No test results yet[/dim]"
 
-        total = self._passed + self._failed
-        if self._failed == 0:
-            status = f"[green]✓ PASSED {self._passed}/{total}[/green]"
-        else:
-            status = f"[red]✗ FAILED {self._passed}/{total}[/red]"
-
-        lines = [f"[bold]TEST RESULTS[/bold]  {status}", ""]
-
+        lines = []
         # Parse and display results
         for line in self._results.split("\n"):
             if "PASSED" in line:
-                lines.append(f"  [green]✓[/green] {line.strip()}")
+                lines.append(f"[green]✓[/green] {line.strip()}")
             elif "FAILED" in line:
-                lines.append(f"  [red]✗[/red] {line.strip()}")
+                lines.append(f"[red]✗[/red] {line.strip()}")
             elif "ERROR" in line:
-                lines.append(f"  [red]![/red] {line.strip()}")
+                lines.append(f"[red]![/red] {line.strip()}")
             elif line.strip():
-                lines.append(f"    {line.strip()}")
+                lines.append(f"  {line.strip()}")
 
         return "\n".join(lines[:20])  # Limit output
 
@@ -175,7 +171,7 @@ class CantripsInfoPanel(Static):
     CantripsInfoPanel {
         height: auto;
         padding: 1;
-        border: solid $secondary;
+        border: round $secondary;
     }
     """
 
@@ -189,15 +185,27 @@ class CantripsInfoPanel(Static):
         self._pattern = pattern
         self._cantrip = cantrip
 
+    def on_mount(self) -> None:
+        """Set border title from pattern info."""
+        if self._pattern:
+            self.border_title = f"{self._pattern.category} / {self._pattern.name}"
+
+    def _get_accent_color(self) -> str:
+        """Get the theme's secondary color for accents."""
+        try:
+            theme = self.app.current_theme
+            return theme.secondary or "cyan"
+        except Exception:
+            return "cyan"
+
     def render(self) -> str:
         """Render cantrip info."""
         if not self._pattern or not self._cantrip:
             return "[dim]No cantrip selected[/dim]"
 
+        color = self._get_accent_color()
         lines = [
-            f"[bold]{self._pattern.category} / {self._pattern.name}[/bold]",
-            "",
-            f"[cyan]Cantrip {self._cantrip.number}:[/cyan] {self._cantrip.title}",
+            f"[{color}]Cantrip {self._cantrip.number}:[/{color}] {self._cantrip.title}",
             "",
             f"Target: < {self._cantrip.target_time // 60}:{self._cantrip.target_time % 60:02d}",
             f"Difficulty: {self._cantrip.difficulty}",
@@ -245,7 +253,7 @@ class PracticeScreen(Screen):
     #instructions {
         height: auto;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
         margin-bottom: 1;
     }
 
@@ -289,9 +297,7 @@ class PracticeScreen(Screen):
 
             # Instructions
             yield Static(
-                """[bold]Practice Flow[/bold]
-
-1. Press [green]E[/green] to open your editor and start the timer
+                """1. Press [green]E[/green] to open your editor and start the timer
 2. Write your solution from memory
 3. Press [green]T[/green] to run tests when done
 4. Press [green]S[/green] to save your session
@@ -305,23 +311,25 @@ class PracticeScreen(Screen):
 
             # Action buttons
             with Horizontal(id="actions"):
-                yield Button("Edit (E)", id="btn-edit", variant="primary")
-                yield Button("Test (T)", id="btn-test", variant="default")
-                yield Button("Save (S)", id="btn-save", variant="success")
-                yield Button("Cancel (Esc)", id="btn-cancel", variant="error")
+                yield Button("Edit (E)", id="btn-edit", variant="primary", flat=True)
+                yield Button("Test (T)", id="btn-test", variant="default", flat=True)
+                yield Button("Save (S)", id="btn-save", variant="success", flat=True)
+                yield Button("Cancel (Esc)", id="btn-cancel", variant="error", flat=True)
 
         yield Footer()
 
     def on_mount(self) -> None:
-        """Prevent button auto-focus on screen load.
+        """Set up screen on mount.
 
-        Focus the instructions panel (non-interactive) so Enter key
-        doesn't immediately trigger the primary button.
+        - Set border title on instructions panel
+        - Focus instructions to prevent accidental button clicks
         """
         try:
-            self.query_one("#instructions").focus()
+            instructions = self.query_one("#instructions")
+            instructions.border_title = "Practice Flow"
+            instructions.focus()
         except Exception:
-            pass  # Not critical if focus fails
+            pass  # Not critical if this fails
 
     def action_edit(self) -> None:
         """Open the cantrip file in editor."""

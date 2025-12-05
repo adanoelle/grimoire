@@ -19,11 +19,13 @@ from cantrips.utils.discovery import discover_patterns, get_pattern
 class ReviewQueueList(Static):
     """Widget showing the full review queue."""
 
+    BORDER_TITLE = "Review Queue"
+
     DEFAULT_CSS = """
     ReviewQueueList {
         height: auto;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
     }
     """
 
@@ -59,7 +61,7 @@ class ReviewQueueList(Static):
 
     def render(self) -> str:
         """Render the review queue."""
-        lines = ["[bold cyan]Review Queue[/bold cyan]", ""]
+        lines = []
 
         if not self._queue:
             lines.append("  [green]No patterns due for review![/green]")
@@ -98,11 +100,13 @@ class ReviewQueueList(Static):
 class ReviewStats(Static):
     """Widget showing review statistics."""
 
+    BORDER_TITLE = "Spaced Repetition Stats"
+
     DEFAULT_CSS = """
     ReviewStats {
         height: auto;
         padding: 1;
-        border: solid $secondary;
+        border: round $secondary;
         margin-top: 1;
     }
     """
@@ -111,6 +115,14 @@ class ReviewStats(Static):
         super().__init__(**kwargs)
         self.db = db
 
+    def _get_accent_color(self) -> str:
+        """Get the theme's secondary color for accents."""
+        try:
+            theme = self.app.current_theme
+            return theme.secondary or "cyan"
+        except Exception:
+            return "cyan"
+
     def render(self) -> str:
         """Render review stats."""
         if not self.db:
@@ -118,17 +130,16 @@ class ReviewStats(Static):
 
         queue = self.db.get_review_queue()
         patterns = discover_patterns()
+        color = self._get_accent_color()
 
         total_patterns = len(patterns)
         due_count = len(queue)
         overdue_count = sum(1 for item in queue if item.days_overdue > 0)
 
         lines = [
-            "[bold cyan]Spaced Repetition Stats[/bold cyan]",
-            "",
-            f"  Total Patterns:    [cyan]{total_patterns}[/cyan]",
-            f"  Due for Review:    [{'yellow' if due_count > 0 else 'green'}]{due_count}[/{'yellow' if due_count > 0 else 'green'}]",
-            f"  Overdue:           [{'red' if overdue_count > 0 else 'green'}]{overdue_count}[/{'red' if overdue_count > 0 else 'green'}]",
+            f"Total Patterns:    [{color}]{total_patterns}[/{color}]",
+            f"Due for Review:    [{'yellow' if due_count > 0 else 'green'}]{due_count}[/{'yellow' if due_count > 0 else 'green'}]",
+            f"Overdue:           [{'red' if overdue_count > 0 else 'green'}]{overdue_count}[/{'red' if overdue_count > 0 else 'green'}]",
             "",
             "[dim]SM-2 Algorithm:[/dim]",
             "  • Pass with 0 bugs → interval increases",

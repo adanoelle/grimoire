@@ -9,7 +9,7 @@ from textual.binding import Binding
 from textual.widgets import Footer, Header, Static, ListView, ListItem, Label
 from textual.containers import Container, Horizontal, Vertical
 
-from cantrips.data import Database, ReviewItem
+from cantrips.data import Database, PracticeSession, ReviewItem
 from cantrips.tui.widgets import ContributionCalendar, StatsPanel
 from cantrips.tui.screens import BrowserScreen, PracticeScreen, ProgressScreen, ReviewScreen
 from cantrips.tui.themes import CUSTOM_THEMES
@@ -19,17 +19,14 @@ from cantrips.utils.discovery import discover_patterns
 class ReviewQueue(Static):
     """Widget showing patterns due for review."""
 
+    BORDER_TITLE = "Review Queue"
+
     DEFAULT_CSS = """
     ReviewQueue {
         height: auto;
-        max-height: 10;
+        min-height: 3;
         padding: 1;
-        border: solid $secondary;
-    }
-
-    ReviewQueue .title {
-        text-style: bold;
-        color: $text;
+        border: round $secondary;
     }
 
     ReviewQueue .empty {
@@ -63,21 +60,69 @@ class ReviewQueue(Static):
 
     def render(self) -> str:
         """Render the review queue."""
-        lines = ["[bold]Review Queue[/bold]"]
-
         if not self._queue:
-            lines.append("[dim italic]No patterns due for review[/dim italic]")
-        else:
-            for item in self._queue[:5]:  # Show top 5
-                days = item.days_overdue
-                if days > 0:
-                    status = f"[red]{days}d overdue[/red]"
-                else:
-                    status = "[yellow]Due today[/yellow]"
-                lines.append(f"  {item.pattern_name} - {status}")
+            return "[dim italic]All caught up! Press [green]b[/green] to browse patterns.[/dim italic]"
 
-            if len(self._queue) > 5:
-                lines.append(f"  [dim]...and {len(self._queue) - 5} more[/dim]")
+        lines = []
+        for item in self._queue[:5]:  # Show top 5
+            days = item.days_overdue
+            if days > 0:
+                status = f"[red]{days}d overdue[/red]"
+            else:
+                status = "[yellow]Due today[/yellow]"
+            lines.append(f"{item.pattern_name} - {status}")
+
+        if len(self._queue) > 5:
+            lines.append(f"[dim]...and {len(self._queue) - 5} more[/dim]")
+
+        return "\n".join(lines)
+
+
+class RecentActivity(Static):
+    """Widget showing recent practice sessions."""
+
+    BORDER_TITLE = "Recent Activity"
+
+    DEFAULT_CSS = """
+    RecentActivity {
+        height: auto;
+        max-height: 8;
+        padding: 1;
+        border: round $primary;
+        margin-top: 1;
+    }
+    """
+
+    def __init__(self, db: Database | None = None, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.db = db
+        self._sessions: list[PracticeSession] = []
+
+    def on_mount(self) -> None:
+        """Load recent sessions when mounted."""
+        self.load_data()
+
+    def load_data(self) -> None:
+        """Load recent sessions from database."""
+        if self.db:
+            self._sessions = self.db.get_recent_sessions(limit=5)
+            self.refresh()
+
+    def render(self) -> str:
+        """Render recent activity."""
+        if not self._sessions:
+            return "[dim italic]No sessions yet. Press [green]p[/green] to start practicing![/dim italic]"
+
+        lines = []
+        for session in self._sessions:
+            pattern_short = session.pattern_name.split("/")[-1]
+            time_min = session.time_seconds // 60
+            time_sec = session.time_seconds % 60
+            if session.bugs == 0:
+                status = "[green]perfect[/green]"
+            else:
+                status = f"[yellow]{session.bugs} bugs[/yellow]"
+            lines.append(f"{pattern_short} - {status} ({time_min}:{time_sec:02d})")
 
         return "\n".join(lines)
 
@@ -85,20 +130,20 @@ class ReviewQueue(Static):
 class QuickActions(Static):
     """Widget showing available keyboard shortcuts."""
 
+    BORDER_TITLE = "Quick Actions"
+
     DEFAULT_CSS = """
     QuickActions {
         height: auto;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
     }
     """
 
     def render(self) -> str:
-        return """[bold]Quick Actions[/bold]
-
-  [green]p[/green] Practice    [green]b[/green] Browse
-  [green]r[/green] Review      [green]s[/green] Stats
-  [green]q[/green] Quit"""
+        return """[green]p[/green] Practice    [green]b[/green] Browse
+[green]r[/green] Review      [green]s[/green] Stats
+[green]q[/green] Quit"""
 
 
 class CantripsApp(App[None]):
@@ -148,11 +193,11 @@ class CantripsApp(App[None]):
     }
 
     ContributionCalendar {
-        border: solid $primary;
+        border: round $primary;
     }
 
     StatsPanel {
-        border: solid $secondary;
+        border: round $secondary;
     }
     """
 
@@ -173,7 +218,7 @@ class CantripsApp(App[None]):
         with Vertical(id="dashboard"):
             # Title
             yield Static(
-                "[bold magenta]Cantrips[/bold magenta] - Practice until it's muscle memory\n",
+                "[bold #c41e3a]Cantrips[/bold #c41e3a] [#ffd700]✦[/#ffd700] [italic]Practice until it's muscle memory[/italic]\n",
                 id="title",
             )
 
@@ -189,6 +234,9 @@ class CantripsApp(App[None]):
             # Review Queue
             with Container(id="review-container"):
                 yield ReviewQueue(db=self.db)
+
+            # Recent Activity
+            yield RecentActivity(db=self.db)
 
         yield Footer()
 

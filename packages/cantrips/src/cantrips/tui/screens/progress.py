@@ -23,11 +23,13 @@ from cantrips.utils.discovery import discover_patterns
 class OverallStats(Static):
     """Widget showing overall statistics."""
 
+    BORDER_TITLE = "Overall Progress"
+
     DEFAULT_CSS = """
     OverallStats {
         height: auto;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
         margin-bottom: 1;
     }
     """
@@ -36,6 +38,14 @@ class OverallStats(Static):
         super().__init__(**kwargs)
         self.db = db
 
+    def _get_accent_color(self) -> str:
+        """Get the theme's secondary color for accents."""
+        try:
+            theme = self.app.current_theme
+            return theme.secondary or "cyan"
+        except Exception:
+            return "cyan"
+
     def render(self) -> str:
         """Render overall stats."""
         if not self.db:
@@ -43,20 +53,19 @@ class OverallStats(Static):
 
         stats = self.db.get_total_stats()
         streak = self.db.get_streak()
+        color = self._get_accent_color()
 
         total_minutes = stats["total_time_seconds"] // 60
         hours = total_minutes // 60
         minutes = total_minutes % 60
 
         lines = [
-            "[bold cyan]Overall Progress[/bold cyan]",
+            f"Total Sessions:     [green]{stats['total_sessions']}[/green]",
+            f"Patterns Practiced: [green]{stats['patterns_practiced']}[/green]",
+            f"Total Time:         [green]{hours}h {minutes}m[/green]",
             "",
-            f"  Total Sessions:     [green]{stats['total_sessions']}[/green]",
-            f"  Patterns Practiced: [green]{stats['patterns_practiced']}[/green]",
-            f"  Total Time:         [green]{hours}h {minutes}m[/green]",
-            "",
-            f"  Current Streak:     [{'green' if streak.current > 0 else 'dim'}]{streak.current} days[/{'green' if streak.current > 0 else 'dim'}]",
-            f"  Longest Streak:     [cyan]{streak.longest} days[/cyan]",
+            f"Current Streak:     [{'green' if streak.current > 0 else 'dim'}]{streak.current} days[/{'green' if streak.current > 0 else 'dim'}]",
+            f"Longest Streak:     [{color}]{streak.longest} days[/{color}]",
         ]
 
         return "\n".join(lines)
@@ -65,11 +74,13 @@ class OverallStats(Static):
 class PatternProgressList(Static):
     """Widget showing progress for each pattern."""
 
+    BORDER_TITLE = "Pattern Mastery"
+
     DEFAULT_CSS = """
     PatternProgressList {
         height: auto;
         padding: 1;
-        border: solid $secondary;
+        border: round $secondary;
         margin-bottom: 1;
     }
     """
@@ -84,7 +95,7 @@ class PatternProgressList(Static):
             return "[dim]No database connection[/dim]"
 
         patterns = discover_patterns()
-        lines = ["[bold cyan]Pattern Mastery[/bold cyan]", ""]
+        lines = []
 
         for pattern in patterns:
             pattern_name = f"{pattern.category}/{pattern.name}"
@@ -113,12 +124,14 @@ class PatternProgressList(Static):
 class RecentSessions(Static):
     """Widget showing recent practice sessions."""
 
+    BORDER_TITLE = "Recent Sessions"
+
     DEFAULT_CSS = """
     RecentSessions {
         height: auto;
         max-height: 15;
         padding: 1;
-        border: solid $primary;
+        border: round $primary;
     }
     """
 
@@ -132,10 +145,10 @@ class RecentSessions(Static):
             return "[dim]No database connection[/dim]"
 
         sessions = self.db.get_recent_sessions(limit=10)
-        lines = ["[bold cyan]Recent Sessions[/bold cyan]", ""]
+        lines = []
 
         if not sessions:
-            lines.append("  [dim]No sessions yet[/dim]")
+            lines.append("[dim]No sessions yet[/dim]")
         else:
             for session in sessions:
                 time_str = f"{session.time_seconds // 60}:{session.time_seconds % 60:02d}"

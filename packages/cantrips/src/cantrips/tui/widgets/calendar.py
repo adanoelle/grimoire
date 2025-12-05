@@ -20,6 +20,8 @@ class ContributionCalendar(Widget):
     matching GitHub's contribution graph design.
     """
 
+    BORDER_TITLE = "Activity"
+
     DEFAULT_CSS = """
     ContributionCalendar {
         height: auto;
@@ -31,13 +33,13 @@ class ContributionCalendar(Widget):
     # Activity data: date string -> session count
     data: reactive[dict[str, int]] = reactive({}, always_update=True)
 
-    # GitHub-style green color levels for intensity (0-4)
+    # Christmas-style color levels for intensity (0-4)
     COLORS = [
         "#161b22",  # 0: no activity (dark background)
-        "#0e4429",  # 1: light green
-        "#006d32",  # 2: medium green
-        "#26a641",  # 3: high green
-        "#39d353",  # 4: very high green
+        "#5c1a1a",  # 1: dark red
+        "#8b2323",  # 2: medium red
+        "#c41e3a",  # 3: christmas red (primary)
+        "#ffd700",  # 4: gold (accent) for high activity
     ]
 
     def __init__(

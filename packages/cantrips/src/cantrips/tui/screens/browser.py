@@ -31,10 +31,12 @@ class OpenPracticeScreen(Message):
 class PatternTree(Tree):
     """Tree widget for browsing patterns."""
 
+    BORDER_TITLE = "Patterns"
+
     DEFAULT_CSS = """
     PatternTree {
         height: 1fr;
-        border: solid $primary;
+        border: round $primary;
         padding: 1;
     }
     """
@@ -79,11 +81,23 @@ class PatternTree(Tree):
         """Load patterns when mounted."""
         self.load_patterns()
 
+    def _get_category_color(self) -> str:
+        """Get the theme's secondary color for category labels."""
+        try:
+            theme = self.app.current_theme
+            # Use secondary color, fallback to cyan if not set
+            return theme.secondary or "cyan"
+        except Exception:
+            return "cyan"
+
     def load_patterns(self, filter_text: str = "") -> None:
         """Load patterns into tree."""
         self.clear()
         self._patterns = discover_patterns()
         self._cantrip_nodes = {}
+
+        # Get theme color for categories
+        category_color = self._get_category_color()
 
         # Group by category
         categories: dict[str, list[PatternInfo]] = {}
@@ -111,10 +125,10 @@ class PatternTree(Tree):
                 if not category_patterns:
                     continue
 
-            # Add category node
+            # Add category node with theme color
             display_name = category_name.replace("_", " ").title()
             category_node = self.root.add(
-                f"[bold cyan]{display_name}[/bold cyan]",
+                f"[bold {category_color}]{display_name}[/bold {category_color}]",
                 expand=True,
             )
 
@@ -186,13 +200,14 @@ class PatternTree(Tree):
 class CantripsPreview(Static):
     """Preview panel for selected cantrip."""
 
+    BORDER_TITLE = "Preview"
+
     DEFAULT_CSS = """
     CantripsPreview {
         height: auto;
         min-height: 10;
         padding: 1;
-        border: solid $secondary;
-        margin-top: 1;
+        border: round $secondary;
     }
     """
 
@@ -207,6 +222,11 @@ class CantripsPreview(Static):
         """Set the cantrip to preview."""
         self._pattern = pattern
         self._cantrip = cantrip
+        # Update border title dynamically
+        if pattern and cantrip:
+            self.border_title = f"{pattern.category}/{pattern.name}"
+        else:
+            self.border_title = "Preview"
         self.refresh()
 
     def render(self) -> str:
@@ -215,8 +235,6 @@ class CantripsPreview(Static):
             return "[dim]Select a cantrip to preview[/dim]"
 
         lines = [
-            f"[bold cyan]{self._pattern.category}/{self._pattern.name}[/bold cyan]",
-            "",
             f"[bold]Cantrip {self._cantrip.number}:[/bold] {self._cantrip.title}",
             "",
             f"Target: < {self._cantrip.target_time // 60}:{self._cantrip.target_time % 60:02d}",
@@ -260,6 +278,7 @@ class BrowserScreen(Screen):
 
     #search-input {
         width: 100%;
+        border: round $primary;
     }
 
     #main-content {
