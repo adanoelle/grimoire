@@ -138,7 +138,18 @@ def length_of_longest_substring(s: str) -> int:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    seen = set()
+    longest = 0
+    left = 0
+    for right in range(len(s)):
+        while s[right] in seen:
+            seen.remove(s[left])
+            left += 1
+
+        seen.add(s[right])
+        longest = max(longest, right - left + 1)
+
+    return longest
 
     
 def min_subarray_len(target: int, nums: list[int]) -> int:
@@ -170,7 +181,21 @@ def min_subarray_len(target: int, nums: list[int]) -> int:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    window_sum = 0
+    shortest = float('inf')
+    left = 0
+    for right in range(len(nums)):
+        window_sum += nums[right]
+
+        while window_sum >= target:
+            shortest = min(shortest, right - left + 1)
+            window_sum -= nums[left]
+            left += 1
+
+    return shortest if shortest != float('inf') else 0
+
+        
+        
 
             
 def total_fruit(fruits: list[int]) -> int:
@@ -203,7 +228,22 @@ def total_fruit(fruits: list[int]) -> int:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    basket = Counter()
+    max_fruit = 0
+    left = 0
+    for right in range(len(fruits)):
+        basket[fruits[right]] += 1
+
+        while len(basket) > 2:
+            basket[fruits[left]] -= 1
+            if basket[fruits[left]] == 0:
+                del basket[fruits[left]]
+
+            left += 1
+
+        max_fruit = max(max_fruit, right - left + 1)
+
+    return max_fruit
 
 
 def length_of_longest_substring_k_distinct(s: str, k: int) -> int:
@@ -337,6 +377,8 @@ Track your practice sessions below. Be honest about bugs!
 
 Date       | Kata | Time  | Bugs | Notes
 -----------|------|-------|------|---------------------------------------
+2025-12-04 | 2    | 6:51  | 0    | 
+2025-12-04 | 1    | 4:40  | 0    | 
 2025-12-02 | 1    | 1:44  | 0    | 
 2025-12-01 | 4    | 5:52  | 0    | 
 2025-11-30 | 3    | 6:28  | 0    | 
