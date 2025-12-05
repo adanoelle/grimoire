@@ -272,7 +272,27 @@ def min_remove_to_make_valid(s: str) -> str:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    # track if there invalid parens
+    # two types:
+    # unmatched "(" and unmatched ")"
+    # Iterate over the string, tracking unmatched "(", pop them when a matching ")" comes in
+    open = []
+    invalid = set()
+    for idx, char in enumerate(s):
+        if char == "(":
+            open.append(idx)
+        elif char == ")":
+            # Either has a corresponding matching open or is invalid
+            if open:
+                # We found a matching opening paren! They are now paired
+                open.pop()
+            else:
+                invalid.add(idx)
+
+    # if there are remaining open parens at the end, they have no match and are invalid
+    invalid.update(open)
+
+    return "".join(s[idx] for idx in range(len(s)) if idx not in invalid)
 
 
 def longest_valid_parentheses(s: str) -> int:
