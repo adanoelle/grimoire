@@ -115,53 +115,77 @@ class TestResultsPanel(Static):
         border: round $primary;
         margin-top: 1;
     }
-
-    TestResultsPanel .passed {
-        color: $success;
-    }
-
-    TestResultsPanel .failed {
-        color: $error;
-    }
     """
 
     def __init__(self, **kwargs) -> None:
-        super().__init__(**kwargs)
-        self._results: str = ""
-        self._passed: int = 0
-        self._failed: int = 0
+        super().__init__("[dim]No test results yet[/dim]", **kwargs)
+
+    def _extract_description(self, test_line: str) -> str:
+        """Extract just the description from a pytest test line."""
+        import re
+        match = re.search(r'\[([^\]]+)\]', test_line)
+        if match:
+            return match.group(1)
+        if "::" in test_line:
+            name = test_line.split("::")[-1]
+            name = re.sub(r'\s+(PASSED|FAILED).*$', '', name)
+            return name
+        return test_line.split()[0] if test_line else "unknown"
 
     def set_results(self, output: str, passed: int, failed: int) -> None:
-        """Set test results."""
-        self._results = output
-        self._passed = passed
-        self._failed = failed
-        # Update border title with status
+        """Set test results using update() instead of render()."""
+        # Update border title
         total = passed + failed
         if failed == 0:
             self.border_title = f"Test Results [green]✓ {passed}/{total}[/green]"
         else:
             self.border_title = f"Test Results [red]✗ {passed}/{total}[/red]"
-        self.refresh()
 
-    def render(self) -> str:
-        """Render test results."""
-        if not self._results:
-            return "[dim]No test results yet[/dim]"
-
+        # Parse and format results
         lines = []
-        # Parse and display results
-        for line in self._results.split("\n"):
-            if "PASSED" in line:
-                lines.append(f"[green]✓[/green] {line.strip()}")
-            elif "FAILED" in line:
-                lines.append(f"[red]✗[/red] {line.strip()}")
-            elif "ERROR" in line:
-                lines.append(f"[red]![/red] {line.strip()}")
-            elif line.strip():
-                lines.append(f"  {line.strip()}")
+        in_failure_block = False
 
-        return "\n".join(lines[:20])  # Limit output
+        for line in output.split("\n"):
+            stripped = line.strip()
+
+            if "FAILURES" in stripped and stripped.startswith("="):
+                in_failure_block = True
+                continue
+            if stripped.startswith("=") and in_failure_block:
+                in_failure_block = False
+                continue
+
+            if not stripped or stripped.startswith("=") or stripped.startswith("-"):
+                continue
+            if any(skip in stripped for skip in [
+                "platform ", "rootdir:", "cachedir:", "configfile:",
+                "hypothesis profile", "plugins:", "collecting", "collected",
+                "-- Docs:", "warnings summary", "PytestUnknownMarkWarning",
+                "PytestConfigWarning", "short test summary"
+            ]):
+                continue
+            if stripped.endswith("s") and (" passed" in stripped or " failed" in stripped):
+                if "in " in stripped and "selected" not in stripped:
+                    continue
+
+            if " PASSED" in stripped:
+                desc = self._extract_description(stripped)
+                lines.append(f"[green]✓[/green] {desc}")
+            elif " FAILED" in stripped:
+                desc = self._extract_description(stripped)
+                lines.append(f"[red]✗[/red] {desc}")
+            elif in_failure_block:
+                if stripped.startswith("E "):
+                    lines.append(f"    [red]{stripped}[/red]")
+                elif stripped.startswith(">"):
+                    lines.append(f"    [yellow]{stripped}[/yellow]")
+                elif "assert" in stripped.lower() or "=" in stripped:
+                    lines.append(f"    [dim]{stripped}[/dim]")
+
+        # Use update() to set content - this is the key!
+        content = "\n".join(lines[:50]) if lines else "[dim]No test results[/dim]"
+        self.update(content)
+
 
 
 class CantripsInfoPanel(Static):
@@ -383,23 +407,26 @@ class PracticeScreen(Screen):
 
         self.notify("Running tests...")
 
-        # Find test file
+        # Find test file and determine marker style
+        # cantrips package: test_cantrips.py with cantrip{n} markers
+        # runes package: test_kata.py with kata{n} markers
         test_file = self.cantrip.file_path.parent / "test_cantrips.py"
+        marker = f"cantrip{self.cantrip.number}"
+        if not test_file.exists():
+            test_file = self.cantrip.file_path.parent / "test_kata.py"
+            marker = f"kata{self.cantrip.number}"
         if not test_file.exists():
             self.notify("No test file found", severity="error")
             return
-
-        # Run pytest for this specific cantrip
-        cantrip_marker = f"cantrip{self.cantrip.number}"
         try:
             result = subprocess.run(
                 [
                     "uv", "run", "pytest",
                     str(test_file),
-                    "-m", cantrip_marker,
-                    "-v",
+                    "-m", marker,
+                    "-vv",
                     "--tb=short",
-                    "-x",
+                    "-W", "ignore",  # Suppress warnings
                 ],
                 capture_output=True,
                 text=True,
