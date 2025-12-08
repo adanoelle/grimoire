@@ -2,6 +2,8 @@
 
 from .database import Database, DEFAULT_DB_PATH
 from .models import (
+    CantripsHints,
+    CantripsNote,
     DailyActivity,
     MasteryStatus,
     PatternProgress,
@@ -11,6 +13,8 @@ from .models import (
 )
 
 __all__ = [
+    "CantripsHints",
+    "CantripsNote",
     "Database",
     "DEFAULT_DB_PATH",
     "DailyActivity",

@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Iterator
 
 from .models import (
+    CantripsNote,
     DailyActivity,
     MasteryStatus,
     PatternProgress,
@@ -23,7 +24,7 @@ from .models import (
 # Default database location
 DEFAULT_DB_PATH = Path.home() / ".grimoire" / "cantrips.db"
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 SCHEMA = """
 -- Practice sessions (primary tracking)
@@ -73,10 +74,22 @@ CREATE TABLE IF NOT EXISTS schema_version (
     version INTEGER PRIMARY KEY
 );
 
+-- Persistent cantrip notes (accumulate across sessions)
+CREATE TABLE IF NOT EXISTS cantrip_notes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pattern_name TEXT NOT NULL,
+    cantrip_number INTEGER NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(pattern_name, cantrip_number)
+);
+
 -- Indexes for common queries
 CREATE INDEX IF NOT EXISTS idx_sessions_pattern ON sessions(pattern_name);
 CREATE INDEX IF NOT EXISTS idx_sessions_date ON sessions(date);
 CREATE INDEX IF NOT EXISTS idx_review_next ON review_queue(next_review);
+CREATE INDEX IF NOT EXISTS idx_cantrip_notes_pattern ON cantrip_notes(pattern_name);
 """
 
 
@@ -611,3 +624,75 @@ class Database:
                 )
                 for row in cursor.fetchall()
             ]
+
+    # ─────────────────────────────────────────────────────────────────
+    # Cantrip Notes
+    # ─────────────────────────────────────────────────────────────────
+
+    def get_cantrip_note(self, pattern_name: str, cantrip_number: int) -> CantripsNote | None:
+        """Get persistent note for a specific cantrip.
+
+        Args:
+            pattern_name: Pattern identifier (e.g., "sliding_window/fixed_window").
+            cantrip_number: Which cantrip in the pattern (1-5).
+
+        Returns:
+            CantripsNote if one exists, None otherwise.
+        """
+        with self._connection() as conn:
+            cursor = conn.execute(
+                """
+                SELECT * FROM cantrip_notes
+                WHERE pattern_name = ? AND cantrip_number = ?
+                """,
+                (pattern_name, cantrip_number),
+            )
+            row = cursor.fetchone()
+            if row:
+                return CantripsNote(
+                    id=row["id"],
+                    pattern_name=row["pattern_name"],
+                    cantrip_number=row["cantrip_number"],
+                    content=row["content"],
+                    created_at=datetime.fromisoformat(row["created_at"])
+                    if row["created_at"]
+                    else None,
+                    updated_at=datetime.fromisoformat(row["updated_at"])
+                    if row["updated_at"]
+                    else None,
+                )
+            return None
+
+    def save_cantrip_note(self, note: CantripsNote) -> int:
+        """Save or update a cantrip note (upsert).
+
+        If a note already exists for this pattern/cantrip, it will be updated.
+        Otherwise, a new note will be created.
+
+        Args:
+            note: The CantripsNote to save.
+
+        Returns:
+            The note ID (either existing or newly created).
+        """
+        with self._connection() as conn:
+            cursor = conn.execute(
+                """
+                INSERT INTO cantrip_notes (pattern_name, cantrip_number, content, updated_at)
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(pattern_name, cantrip_number) DO UPDATE SET
+                    content = excluded.content,
+                    updated_at = CURRENT_TIMESTAMP
+                """,
+                (note.pattern_name, note.cantrip_number, note.content),
+            )
+            # Get the ID (either new or existing)
+            cursor = conn.execute(
+                """
+                SELECT id FROM cantrip_notes
+                WHERE pattern_name = ? AND cantrip_number = ?
+                """,
+                (note.pattern_name, note.cantrip_number),
+            )
+            row = cursor.fetchone()
+            return row["id"] if row else 0

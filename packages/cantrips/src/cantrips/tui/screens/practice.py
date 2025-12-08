@@ -17,11 +17,12 @@ from rich.text import Text
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Vertical, Horizontal
-from textual.screen import Screen
-from textual.widgets import Button, Footer, Header, Label, Static
+from textual.screen import Screen, ModalScreen
+from textual.widgets import Button, Footer, Header, Label, Static, TextArea
 from textual.reactive import reactive
 
 from cantrips.data import Database, PracticeSession
+from cantrips.data.models import CantripsHints
 from cantrips.utils.discovery import PatternInfo, CantripsInfo
 
 
@@ -187,6 +188,69 @@ class TestResultsPanel(Static):
         self.update(content)
 
 
+class HintPanel(Static):
+    """Collapsible panel for progressive hints.
+
+    Provides three levels of hints that can be revealed progressively:
+        - Level 1: Pattern name only
+        - Level 2: Pattern name + approach steps
+        - Level 3: Full hints including edge cases
+
+    Press H to cycle through levels (hidden -> 1 -> 2 -> 3 -> hidden).
+    """
+
+    DEFAULT_CSS = """
+    HintPanel {
+        height: auto;
+        max-height: 15;
+        padding: 1;
+        border: round $warning;
+        margin-top: 1;
+        display: none;
+    }
+
+    HintPanel.visible {
+        display: block;
+    }
+    """
+
+    hint_level: reactive[int] = reactive(0)  # 0=hidden, 1-3=levels
+
+    def __init__(self, hints: CantripsHints | None = None, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self._hints = hints or CantripsHints()
+
+    def on_mount(self) -> None:
+        """Set initial border title."""
+        self.border_title = "Hints [H to show]"
+
+    def advance_level(self) -> None:
+        """Advance to next hint level (cycles 0 -> 1 -> 2 -> 3 -> 0)."""
+        self.hint_level = (self.hint_level + 1) % 4
+        if self.hint_level == 0:
+            self.remove_class("visible")
+            self.border_title = "Hints [H to show]"
+        else:
+            self.add_class("visible")
+            self.border_title = f"Hints [Level {self.hint_level}/3]"
+        self._update_content()
+
+    def _update_content(self) -> None:
+        """Update the displayed hint content based on level."""
+        if self.hint_level == 0:
+            content = ""
+        elif self.hint_level == 1:
+            content = self._hints.level_1 or "[dim]No pattern hint available[/dim]"
+        elif self.hint_level == 2:
+            content = self._hints.level_2 or "[dim]No approach hints available[/dim]"
+        else:  # level 3
+            content = self._hints.level_3 or "[dim]No edge case hints available[/dim]"
+        self.update(content)
+
+    def has_hints(self) -> bool:
+        """Check if hints are available."""
+        return self._hints.has_hints()
+
 
 class CantripsInfoPanel(Static):
     """Panel showing cantrip information."""
@@ -241,6 +305,128 @@ class CantripsInfoPanel(Static):
         return "\n".join(lines)
 
 
+class NotesInputModal(ModalScreen[PracticeSession | None]):
+    """Modal screen for entering session notes before saving.
+
+    Shows session stats (time, bugs) and allows entering notes.
+    Returns the PracticeSession with notes filled in, or None if cancelled.
+    """
+
+    CSS = """
+    NotesInputModal {
+        align: center middle;
+    }
+
+    #notes-dialog {
+        width: 70;
+        height: auto;
+        max-height: 30;
+        padding: 1 2;
+        border: round $primary;
+        background: $surface;
+    }
+
+    #notes-header {
+        text-align: center;
+        margin-bottom: 1;
+    }
+
+    #session-stats {
+        margin-bottom: 1;
+        padding: 1;
+        border: round $secondary;
+    }
+
+    #notes-input {
+        height: 6;
+        margin-top: 1;
+        margin-bottom: 1;
+    }
+
+    #previous-note-preview {
+        margin-bottom: 1;
+        max-height: 4;
+    }
+
+    #notes-buttons {
+        height: auto;
+        align: center middle;
+    }
+
+    #notes-buttons Button {
+        margin: 0 1;
+    }
+    """
+
+    BINDINGS = [
+        Binding("escape", "cancel", "Cancel"),
+        Binding("ctrl+s", "save", "Save", priority=True),
+    ]
+
+    def __init__(
+        self,
+        session: PracticeSession,
+        **kwargs,
+    ) -> None:
+        super().__init__(**kwargs)
+        self.session = session
+
+    def compose(self) -> ComposeResult:
+        with Container(id="notes-dialog"):
+            yield Static(
+                "[bold]Save Practice Session[/bold]",
+                id="notes-header",
+            )
+
+            # Session stats
+            time_display = f"{self.session.time_seconds // 60}:{self.session.time_seconds % 60:02d}"
+            bugs_color = "green" if self.session.bugs == 0 else "red"
+            yield Static(
+                f"⏱️  Time: [cyan]{time_display}[/cyan]   |   "
+                f"🐛 Bugs: [{bugs_color}]{self.session.bugs}[/{bugs_color}]",
+                id="session-stats",
+            )
+
+            # Notes input
+            yield TextArea(
+                placeholder="What did you learn? Any bugs to remember? (optional)",
+                id="notes-input",
+            )
+
+            # Buttons
+            with Horizontal(id="notes-buttons"):
+                yield Button("Save (Ctrl+S)", id="btn-save", variant="primary")
+                yield Button("Skip Notes", id="btn-skip", variant="default")
+
+    def on_mount(self) -> None:
+        """Focus the notes input on mount."""
+        try:
+            self.query_one("#notes-input", TextArea).focus()
+        except Exception:
+            pass
+
+    def action_save(self) -> None:
+        """Save with notes and dismiss."""
+        try:
+            notes_input = self.query_one("#notes-input", TextArea)
+            self.session.notes = notes_input.text
+        except Exception:
+            pass
+        self.dismiss(self.session)
+
+    def action_cancel(self) -> None:
+        """Cancel and dismiss without saving."""
+        self.dismiss(None)
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """Handle button presses."""
+        if event.button.id == "btn-save":
+            self.action_save()
+        elif event.button.id == "btn-skip":
+            # Save without notes
+            self.dismiss(self.session)
+
+
 class PracticeScreen(Screen):
     """Screen for practicing a cantrip."""
 
@@ -249,6 +435,8 @@ class PracticeScreen(Screen):
         Binding("e", "edit", "Edit"),
         Binding("t", "test", "Run Tests"),
         Binding("s", "save", "Save Session"),
+        Binding("h", "toggle_hints", "Hints"),
+        Binding("n", "show_notes", "Notes"),
     ]
 
     CSS = """
@@ -305,6 +493,7 @@ class PracticeScreen(Screen):
         self._timer_started = False
         self._test_passed = 0
         self._test_failed = 0
+        self._strategy_notes: str = ""  # Loaded from .notes.md file on mount
 
     def compose(self) -> ComposeResult:
         """Compose the practice screen."""
@@ -319,16 +508,23 @@ class PracticeScreen(Screen):
                     target_time=self.cantrip.target_time, id="timer-panel"
                 )
 
+            # Previous notes reminder (if any - updated on mount)
+            yield Static("", id="previous-notes")
+
             # Instructions
             yield Static(
                 """1. Press [green]E[/green] to open your editor and start the timer
 2. Write your solution from memory
 3. Press [green]T[/green] to run tests when done
 4. Press [green]S[/green] to save your session
+5. Press [yellow]H[/yellow] if you need hints (progressive reveal)
 
-[dim]Remember: Code from memory, no peeking![/dim]""",
+[dim]Remember: Code from memory, no peeking! Hints affect learning.[/dim]""",
                 id="instructions",
             )
+
+            # Hints panel (hidden by default)
+            yield HintPanel(hints=self.cantrip.hints, id="hint-panel")
 
             # Test results (hidden initially)
             yield TestResultsPanel(id="test-results")
@@ -346,6 +542,7 @@ class PracticeScreen(Screen):
         """Set up screen on mount.
 
         - Set border title on instructions panel
+        - Load strategy notes from filesystem
         - Focus instructions to prevent accidental button clicks
         """
         try:
@@ -354,6 +551,87 @@ class PracticeScreen(Screen):
             instructions.focus()
         except Exception:
             pass  # Not critical if this fails
+
+        # Load strategy notes from .notes.md file
+        self._load_strategy_notes()
+
+    def _load_strategy_notes(self) -> None:
+        """Load strategy notes from the .notes.md file."""
+        if not self.cantrip.file_path:
+            return
+
+        notes_path = self.cantrip.file_path.with_suffix(".notes.md")
+        if notes_path.exists():
+            try:
+                self._strategy_notes = notes_path.read_text()
+                notes_widget = self.query_one("#previous-notes", Static)
+                # Show first non-header line as preview
+                lines = [l for l in self._strategy_notes.split("\n")
+                        if l.strip() and not l.startswith("#")]
+                if lines:
+                    preview = lines[0][:80]
+                    if len(lines[0]) > 80:
+                        preview += "..."
+                    notes_widget.update(f"[dim]📝 Notes: {preview} [N to edit][/dim]")
+                else:
+                    notes_widget.update("[dim]📝 Notes file exists [N to edit][/dim]")
+            except Exception:
+                pass
+        else:
+            try:
+                notes_widget = self.query_one("#previous-notes", Static)
+                notes_widget.update("[dim]Press [yellow]N[/yellow] to create strategy notes[/dim]")
+            except Exception:
+                pass
+
+    def action_toggle_hints(self) -> None:
+        """Toggle hint visibility and advance level."""
+        try:
+            hint_panel = self.query_one("#hint-panel", HintPanel)
+            hint_panel.advance_level()
+
+            if hint_panel.hint_level > 0:
+                self.notify(f"Hint level {hint_panel.hint_level}/3", severity="information")
+        except Exception as e:
+            self.notify(f"Hint error: {e}", severity="error")
+
+    def action_show_notes(self) -> None:
+        """Open strategy notes file in editor."""
+        if not self.cantrip.file_path:
+            self.notify("No file path for this cantrip", severity="error")
+            return
+
+        # Strategy notes live next to the cantrip file
+        notes_path = self.cantrip.file_path.with_suffix(".notes.md")
+
+        # Create with template if doesn't exist
+        if not notes_path.exists():
+            template = f"""# {self.cantrip.title}
+
+## Strategy
+
+
+## Key Insights
+
+
+## Common Mistakes
+
+"""
+            notes_path.write_text(template)
+            self.notify("Created new notes file", severity="information")
+
+        # Open in editor
+        editor = os.environ.get("EDITOR", "vim")
+        try:
+            with self.app.suspend():
+                subprocess.run([editor, str(notes_path)], check=False)
+        except Exception as e:
+            self.notify(f"Error opening editor: {e}", severity="error")
+            return
+
+        # Reload notes after editing
+        self._load_strategy_notes()
+        self.notify("Notes saved", severity="information")
 
     def action_edit(self) -> None:
         """Open the cantrip file in editor."""
@@ -460,7 +738,7 @@ class PracticeScreen(Screen):
             )
 
     def action_save(self) -> None:
-        """Save the practice session."""
+        """Save the practice session with optional notes."""
         timer = self.query_one("#timer-panel", TimerDisplay)
         elapsed = timer.stop()
 
@@ -468,21 +746,40 @@ class PracticeScreen(Screen):
             self.notify("Start a session first (press E)", severity="warning")
             return
 
-        if self.db:
-            session = PracticeSession(
-                pattern_name=f"{self.pattern.category}/{self.pattern.name}",
-                cantrip_number=self.cantrip.number,
-                date=date.today(),
-                time_seconds=int(elapsed),
-                bugs=self._test_failed,
-            )
-            self.db.log_session(session)
-            self.notify(
-                f"Session saved: {int(elapsed)}s, {self._test_failed} bugs",
-                severity="information",
-            )
+        # Create session object
+        pattern_name = f"{self.pattern.category}/{self.pattern.name}"
+        session = PracticeSession(
+            pattern_name=pattern_name,
+            cantrip_number=self.cantrip.number,
+            date=date.today(),
+            time_seconds=int(elapsed),
+            bugs=self._test_failed,
+        )
 
-        self.app.pop_screen()
+        def handle_notes_result(result: PracticeSession | None) -> None:
+            """Handle the result from the notes modal."""
+            if result is None:
+                # User cancelled - restart timer and stay on screen
+                timer.start()
+                self.notify("Save cancelled", severity="information")
+                return
+
+            if self.db:
+                # Save the session (notes stored in sessions table)
+                self.db.log_session(result)
+
+                self.notify(
+                    f"Session saved: {int(elapsed)}s, {self._test_failed} bugs",
+                    severity="information",
+                )
+
+            self.app.pop_screen()
+
+        # Push the notes modal
+        self.app.push_screen(
+            NotesInputModal(session),
+            callback=handle_notes_result,
+        )
 
     def action_cancel(self) -> None:
         """Cancel and return to previous screen."""

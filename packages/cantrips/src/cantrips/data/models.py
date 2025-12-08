@@ -318,3 +318,104 @@ class Streak:
         if self.last_practice_date is None:
             return False
         return self.last_practice_date == date.today()
+
+
+@dataclass
+class CantripsHints:
+    """Progressive hints extracted from cantrip docstring.
+
+    Provides three levels of hints for gradual reveal during practice:
+        - Level 1: Pattern name only (minimal hint)
+        - Level 2: Pattern name + approach steps
+        - Level 3: Full hints including edge cases
+
+    Attributes:
+        pattern_name: Brief pattern identifier (e.g., "Fixed-size sliding window").
+        approach_steps: List of approach bullet points from docstring.
+        edge_cases: List of edge cases to consider.
+
+    Example:
+        >>> hints = CantripsHints(
+        ...     pattern_name="Fixed-size sliding window",
+        ...     approach_steps=["Initialize window with first K elements", "Slide: remove left, add right"],
+        ...     edge_cases=["Empty array", "K larger than array"],
+        ... )
+        >>> hints.level_1
+        'Pattern: Fixed-size sliding window'
+    """
+
+    pattern_name: str = ""
+    approach_steps: list[str] = field(default_factory=list)
+    edge_cases: list[str] = field(default_factory=list)
+
+    @property
+    def level_1(self) -> str:
+        """Get level 1 hint: pattern name only.
+
+        Returns:
+            Pattern name string, or empty if no pattern.
+        """
+        return f"Pattern: {self.pattern_name}" if self.pattern_name else ""
+
+    @property
+    def level_2(self) -> str:
+        """Get level 2 hint: pattern name + approach steps.
+
+        Returns:
+            Multi-line string with pattern and approach bullets.
+        """
+        if not self.approach_steps:
+            return self.level_1
+        steps = "\n".join(f"  • {s}" for s in self.approach_steps)
+        return f"{self.level_1}\n\nApproach:\n{steps}"
+
+    @property
+    def level_3(self) -> str:
+        """Get level 3 hint: full hints including edge cases.
+
+        Returns:
+            Complete hint string with pattern, approach, and edge cases.
+        """
+        if not self.edge_cases:
+            return self.level_2
+        cases = "\n".join(f"  • {c}" for c in self.edge_cases)
+        return f"{self.level_2}\n\nEdge cases:\n{cases}"
+
+    def has_hints(self) -> bool:
+        """Check if any hints are available.
+
+        Returns:
+            True if at least a pattern name is set.
+        """
+        return bool(self.pattern_name)
+
+
+@dataclass
+class CantripsNote:
+    """Persistent note for a cantrip that accumulates across sessions.
+
+    Unlike session notes (which are per-attempt), cantrip notes persist
+    and represent accumulated learnings about a specific cantrip.
+
+    Attributes:
+        pattern_name: Pattern identifier (e.g., "sliding_window/fixed_window").
+        cantrip_number: Which cantrip in the pattern (1-5).
+        content: The note content (Markdown supported).
+        id: Database ID (None if not persisted).
+        created_at: Timestamp when the note was first created.
+        updated_at: Timestamp when the note was last updated.
+
+    Example:
+        >>> note = CantripsNote(
+        ...     pattern_name="sliding_window/fixed_window",
+        ...     cantrip_number=1,
+        ...     content="Watch for off-by-one errors at window boundaries",
+        ... )
+    """
+
+    pattern_name: str
+    cantrip_number: int
+    content: str
+    id: int | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None

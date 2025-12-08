@@ -15,6 +15,9 @@ from pathlib import Path
 from typing import Iterator
 import importlib.util
 import ast
+import re
+
+from cantrips.data.models import CantripsHints
 
 
 # Default patterns directory (relative to package)
@@ -33,6 +36,7 @@ class CantripsInfo:
         difficulty: Problem difficulty (Easy, Medium, Hard).
         leetcode_id: LeetCode problem number if applicable.
         file_path: Path to the cantrip file.
+        hints: Progressive hints extracted from docstring.
     """
 
     number: int
@@ -42,6 +46,7 @@ class CantripsInfo:
     difficulty: str = "Medium"
     leetcode_id: int | None = None
     file_path: Path | None = None
+    hints: CantripsHints = field(default_factory=CantripsHints)
 
 
 @dataclass
@@ -202,6 +207,7 @@ def _load_cantrip(file_path: Path) -> CantripsInfo | None:
         target_time = 120
         difficulty = "Medium"
         leetcode_id = None
+        hints = CantripsHints()
 
         # Try to extract from module docstring
         if tree.body and isinstance(tree.body[0], ast.Expr):
@@ -210,6 +216,7 @@ def _load_cantrip(file_path: Path) -> CantripsInfo | None:
                 title, target_time, difficulty, leetcode_id = _parse_docstring(
                     docstring, title, target_time, difficulty, leetcode_id
                 )
+                hints = _parse_hints(docstring)
 
         return CantripsInfo(
             number=number,
@@ -219,6 +226,7 @@ def _load_cantrip(file_path: Path) -> CantripsInfo | None:
             difficulty=difficulty,
             leetcode_id=leetcode_id,
             file_path=file_path,
+            hints=hints,
         )
     except Exception:
         return None
@@ -287,6 +295,70 @@ def _parse_docstring(
             difficulty = "Medium"
 
     return title, target_time, difficulty, leetcode_id
+
+
+def _parse_hints(docstring: str) -> CantripsHints:
+    """Parse progressive hints from cantrip docstring.
+
+    Extracts three levels of hints:
+        - Level 1: Pattern name (from "Pattern: <name>" line)
+        - Level 2: Approach steps (bullet points after pattern)
+        - Level 3: Edge cases (from "Edge cases:" section)
+
+    Args:
+        docstring: The module docstring to parse.
+
+    Returns:
+        CantripsHints object with extracted hint information.
+
+    Example:
+        >>> docstring = '''
+        ... Pattern: Fixed-size sliding window
+        ... - Initialize window
+        ... - Slide through array
+        ... Edge cases:
+        ...     - Empty array
+        ... '''
+        >>> hints = _parse_hints(docstring)
+        >>> hints.pattern_name
+        'Fixed-size sliding window'
+    """
+    hints = CantripsHints()
+    lines = docstring.strip().split("\n")
+
+    in_edge_cases = False
+    pattern_found = False
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Level 1: Pattern name
+        if stripped.startswith("Pattern:"):
+            hints.pattern_name = stripped.replace("Pattern:", "").strip()
+            pattern_found = True
+            in_edge_cases = False
+            continue
+
+        # Level 3: Edge cases section
+        if stripped.lower().startswith("edge case"):
+            in_edge_cases = True
+            continue
+
+        # Stop collecting approach steps when we hit other sections
+        if stripped.lower().startswith(("examples:", "example:", "target:", "time:", "space:")):
+            if not in_edge_cases:
+                pattern_found = False
+            continue
+
+        # Bullet points (handle both "- " and "    - " indentation)
+        if stripped.startswith("- "):
+            bullet = stripped[2:].strip()
+            if in_edge_cases:
+                hints.edge_cases.append(bullet)
+            elif pattern_found:
+                hints.approach_steps.append(bullet)
+
+    return hints
 
 
 def get_pattern(pattern_name: str, patterns_dir: Path | None = None) -> PatternInfo | None:
