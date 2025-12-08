@@ -37,4 +37,18 @@ def num_of_subarrays(nums: list[int], k: int, threshold: int) -> int:
     Time: O(n) - single pass
     Space: O(1) - only tracking sum and count
     """
-    pass  # Your solution here
+    window_sum = sum(nums[:k])
+    counts = 0
+    if window_sum / k >= threshold:
+        counts += 1
+
+    left = 0
+    for right in range(k, len(nums)):
+        window_sum += nums[right]
+        window_sum -= nums[left]
+        left += 1
+
+        if window_sum / k >= threshold:
+            counts += 1
+
+    return counts

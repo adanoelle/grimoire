@@ -38,4 +38,16 @@ def length_of_longest_substring(s: str) -> int:
     Time: O(n) - each character visited at most twice
     Space: O(min(n, alphabet)) - set size bounded by alphabet
     """
-    pass  # Your solution here
+    longest = 0
+    seen = set()
+    left = 0
+    for right in range(len(s)):
+        while s[right] in seen:
+            seen.remove(s[left])
+            left += 1
+
+        seen.add(s[right])
+        longest = max(longest, right - left + 1)
+
+    return longest
+    

@@ -39,4 +39,18 @@ def min_subarray_len(target: int, nums: list[int]) -> int:
     Time: O(n) - each element processed at most twice
     Space: O(1) - only tracking sum and pointers
     """
-    pass  # Your solution here
+    shortest = float('inf')
+    left = 0
+    window_sum = 0
+    for right in range(len(nums)):
+        window_sum += nums[right]
+
+        while window_sum >= target:
+            # shrink the window, checking to see if
+            # it is shorter than the shortest we have found
+            shortest = min(shortest, right - left + 1)
+            window_sum -= nums[left]
+            left += 1
+
+    return shortest if shortest != float('inf') else 0
+        

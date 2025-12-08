@@ -37,4 +37,17 @@ def length_of_longest_substring_k_distinct(s: str, k: int) -> int:
     Time: O(n) - single pass
     Space: O(k) - frequency map size
     """
-    pass  # Your solution here
+    chars = Counter()
+    longest = 0
+    left = 0
+    for right in range(len(s)):
+        chars[s[right]] += 1
+
+        while len(chars) > k:
+            chars[s[left]] -= 1
+            if chars[s[left]] == 0:
+                del chars[s[left]]
+
+        longest = max(longest, right - left + 1)
+
+    return longest

@@ -39,4 +39,11 @@ def two_sum_sorted(nums: list[int], target: int) -> list[int]:
     Time: O(n) - each pointer moves at most n times
     Space: O(1) - only two pointers
     """
-    pass  # Your solution here
+    nums_to_idx = {}
+    for idx, val in enumerate(nums):
+        # target - val = complement
+        complement =  target - val
+        nums_to_idx[val] = idx
+        if complement in nums_to_idx:
+            return [idx, nums_to_idx[complement]]
+

@@ -20,6 +20,7 @@ Edge cases:
     - All characters the same: return 0
     - All distinct: return len(s) - 2
 """
+from collections import Counter
 
 
 def count_good_substrings(s: str) -> int:
@@ -34,4 +35,22 @@ def count_good_substrings(s: str) -> int:
     Time: O(n) - single pass
     Space: O(1) - set of max 3 elements is constant
     """
-    pass  # Your solution here
+    counts = 0
+    window = Counter(s[:3])
+    if len(window) == 3:
+        counts += 1
+
+    left = 0
+    for right in range(3, len(s)):
+        window[s[right]] += 1
+        window[s[left]] -= 1
+
+        if window[s[left]] == 0:
+            del window[s[left]]
+
+        left += 1
+
+        if len(window) == 3:
+            counts += 1
+
+    return counts

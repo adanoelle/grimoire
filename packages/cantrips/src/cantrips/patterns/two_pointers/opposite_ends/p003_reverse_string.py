@@ -34,4 +34,14 @@ def reverse_string(s: list[str]) -> None:
     Time: O(n) - n/2 swaps
     Space: O(1) - in-place
     """
-    pass  # Your solution here
+    left = 0
+    right = len(s) - 1
+
+    while left < right:
+        tmp = s[left]
+        s[left] = s[right]
+        s[right] = tmp
+        left += 1
+        right -= 1
+
+        

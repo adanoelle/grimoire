@@ -37,4 +37,24 @@ def find_anagrams(s: str, p: str) -> list[int]:
     Time: O(n) - single pass through s
     Space: O(1) - 26-letter alphabet is constant
     """
-    pass  # Your solution here
+    anagram = Counter(p)
+    window = Counter(s[:len(p)])
+    indices = []
+    left = 0
+
+    if window == anagram:
+        indices.append(left)
+
+    for right in range(len(p), len(s)):
+        window[s[right]] += 1
+        window[s[left]] -= 1
+
+        if window[s[left]] == 0:
+            del window[s[left]]
+
+        left += 1
+
+        if window == anagram:
+            indices.append(left)
+
+    return indices
