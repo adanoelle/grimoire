@@ -183,9 +183,27 @@ def daily_temperatures(temperatures: list[int]) -> list[int]:
 
     START CODING BELOW (delete 'pass' and write your solution):
     """
-    pass
+    from typing import List
+    from dataclasses import dataclass
 
+    @dataclass
+    class PrevTemp:
+        temp: int
+        idx: int
 
+    stack: List[PrevTemp] = []
+    result = [0] * len(temperatures)
+
+    for idx, temp in enumerate(temperatures):
+        while stack and stack[-1].temp < temp:
+            prev = stack.pop()
+            result[prev.idx] = idx - prev.idx
+
+        stack.append(PrevTemp(temp=temp, idx=idx))
+
+    return result
+
+    
 def next_greater_element(nums1: list[int], nums2: list[int]) -> list[int]:
     """
     KATA 2: Next Greater Element I (LeetCode #496)
